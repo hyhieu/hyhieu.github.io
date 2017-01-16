@@ -1,0 +1,7 @@
+@inproceedings{Luong-etal:naacl15:bivec,
+  Address = {Denver, United States}
+  Author = {Pham, Hieu and Luong, Minh-Thang and Manning, Christopher D.},
+  Booktitle = {NAACL Workshop on Vector Space Modeling for NLP},
+  Title = {Learning Distributed Representations for Multilingual Text Sequences},
+  Year = {2015}
+}
