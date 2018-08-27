@@ -1,7 +1,0 @@
-@inproceedings{Luong-etal:naacl15:bivec,
-  Address = {Denver, United States}
-  Author = {Luong, Minh-Thang  and  Pham, Hieu and Manning, Christopher D.},
-  Booktitle = {NAACL Workshop on Vector Space Modeling for NLP},
-  Title = {Bilingual Word Representations with Monolingual Quality in Mind},
-  Year = {2015}
-}
