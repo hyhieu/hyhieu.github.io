@@ -1,3 +1,10 @@
+# This file should go into VsCode's settings.json.
+#
+# To open that file:
+#   Shift + Cmd + P
+#   >Preferences: Open User Setting (JSON)
+#
+
 {
     "workbench.startupEditor": "none",
     "workbench.preferredDarkColorTheme": "Default Dark+ Experimental",
@@ -15,10 +22,6 @@
     ],
     "notebook.output.textLineLimit": 1000,
     "notebook.output.scrolling": true,
-    "vim.camelCaseMotion.enable": true,
-    "vim.foldfix": true,
-    "vim.hlsearch": true,
-    "vim.useCtrlKeys": true,
     "notebook.lineNumbers": "on",
     "files.trimTrailingWhitespace": true,
     "workbench.editor.revealIfOpen": true,
@@ -30,9 +33,24 @@
         "jupyter-notebook": "left"
     },
     "jupyter.askForKernelRestart": false,
+
+    "vim.camelCaseMotion.enable": true,
+    "vim.foldfix": true,
+    "vim.hlsearch": true,
+    "vim.useCtrlKeys": true,
     "vim.whichwrap": "b,w",
     "vim.autoSwitchInputMethod.enable": true,
     "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<C-u>"],
+            "after": ["2", "0", "k"]
+        },
+        {
+            "before": ["<C-d>"],
+            "after": ["2", "0", "j"]
+        }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
         {
             "before": ["<C-u>"],
             "after": ["2", "0", "k"]
