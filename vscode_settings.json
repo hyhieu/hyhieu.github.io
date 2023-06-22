@@ -1,0 +1,45 @@
+{
+    "workbench.startupEditor": "none",
+    "workbench.preferredDarkColorTheme": "Default Dark+ Experimental",
+    "workbench.preferredLightColorTheme": "Default Dark+ Experimental",
+    "editor.minimap.showSlider": "always",
+    "workbench.tree.renderIndentGuides": "always",
+    "editor.minimap.enabled": false,
+    "[python]": {
+        "editor.formatOnType": true,
+        "diffEditor.codeLens": false
+    },
+    "files.autoSave": "afterDelay",
+    "editor.rulers": [
+        88,
+    ],
+    "notebook.output.textLineLimit": 1000,
+    "notebook.output.scrolling": true,
+    "vim.camelCaseMotion.enable": true,
+    "vim.foldfix": true,
+    "vim.hlsearch": true,
+    "vim.useCtrlKeys": true,
+    "notebook.lineNumbers": "on",
+    "files.trimTrailingWhitespace": true,
+    "workbench.editor.revealIfOpen": true,
+    "python.analysis.extraPaths": [],
+    "workbench.colorTheme": "Monokai",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "jupyter.askForKernelRestart": false,
+    "vim.whichwrap": "b,w",
+    "vim.autoSwitchInputMethod.enable": true,
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<C-u>"],
+            "after": ["2", "0", "k"]
+        },
+        {
+            "before": ["<C-d>"],
+            "after": ["2", "0", "j"]
+        }
+    ],
+}
