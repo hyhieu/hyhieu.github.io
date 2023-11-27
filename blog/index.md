@@ -1,3 +1,8 @@
+---
+layout: page
+title: "Hieu's blog"
+---
+
 # Hieu's personal blog
 
 [Today, I start writing](today_i_start_writing.md).

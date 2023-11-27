@@ -1,5 +1,9 @@
-# Today, I start writing (again)
+---
+layout: page
+title: "Today, I start writing."
+---
 
+# Today, I start writing (again)
 
 ## Overcoming my fear of writing
 I fear writing. Despite having written quite a lot in the past and having found
