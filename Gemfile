@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
 gem 'jekyll', '>= 4.0'
 gem 'jekyll-relative-links'
-gem "jekyll-remote-theme"
+gem 'jekyll-remote-theme'
+gem 'jekyll-theme-primer'

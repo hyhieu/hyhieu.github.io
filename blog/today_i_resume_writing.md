@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Today, I start writing (again)"
 date: 2023-11-27
 ---
 
+# Today, I resume writing
 
-# Today, I start writing (again)
+[[Hieu's personal blog index](./index)]
 
 ## Overcoming my fear of writing
 I fear writing. Despite having written quite a lot in the past and having found
@@ -19,7 +19,7 @@ Quora answers, give them a TL;DR, or just talk about the topic and content of an
 answer without mentioning it is a Quora answer, and before I realized it, we
 have been down into a good conversation.
 
-It feels sad losing this ability. As mush as writing helped me think and speak
+It feels sad losing this ability. As much as writing helped me think and speak
 more coherently, not writing has made my thoughts cluttered and my speech
 awkward. These days, whenever I must write something, I pause very often. I
 would immediately check if my choice of words is awkward (they often are), if my
@@ -34,7 +34,7 @@ me if I really had to speak so much; could I have expressed my ideas in much
 fewer words and hence, have I been annoying my listeners, etc.
 
 These noisy voices break my mental state of writing or speaking. The breakage in
-turn worsens my words and speeche, and eventually makes me lose all confident in
+turn worsens my words and speeches, and eventually makes me lose all confident in
 expressing myself.
 
 Today, I start curing these fears by starting this personal blog.

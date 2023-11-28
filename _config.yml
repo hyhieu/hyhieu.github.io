@@ -1,8 +1,5 @@
-remote_theme: daattali/beautiful-jekyll@6.0.1
-
 plugins:
   - jekyll-relative-links
-  - jekyll-remote-theme
 
 relative_links:
   enabled: true
@@ -10,3 +7,15 @@ relative_links:
 
 markdown: kramdown
 
+theme: jekyll-theme-primer
+
+github:
+  private: true
+  license:
+    name: MIT
+  source:
+    branch: "master"
+    path: "/"
+  repository_url: "https://github.com/hyhieu/hyhieu.github.io"
+
+title: ''
