@@ -1,0 +1,43 @@
+# Hieu's PS-1 config
+#
+# Requirements: git, docker, tmux
+
+function check_docker() {
+    local ps1=${@}
+    if grep -q docker /proc/1/cgroup; then
+        echo "\\[\e[36;1m\\]┌─[🐳 docker] \\[\e[0m\\]${ps1}\n\\[\e[36;1m\\]└─$\\[\e[0m\\] "
+    else
+        echo "\\[\e[31m\\]┌─[❌ docker] \\[\e[0m\\]${ps1}\n\\[\e[31m\\]└─$\\[\e[0m\\] "
+    fi
+}
+
+# get current branch in git repo
+function parse_git_branch() {
+	local branch=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+	if [ ! "${branch}" == "" ]
+  then
+		echo " [🐙 ${branch}]"
+	else
+		echo ""
+	fi
+}
+
+function tmux_sessions() {
+  local tmux_out=$(tmux ls 2>/dev/null | awk -F: '{print $1}' | paste -sd, -)
+	if [ ! "${tmux_out}" == "" ]
+  then
+		echo "[💻 tmux: ${tmux_out}] "
+	else
+		echo ""
+	fi
+}
+
+ps1_docker="\`check_docker\`"
+ps1_usr="\e[1m\u\e[0m"
+ps1_host="\e[35;1m\h\e[0m"
+ps1_dir="\e[34;1m\w\e[m"
+ps1_git="\e[31;1m\`parse_git_branch\`\e[m"
+ps1_tmux="\e[30;1m\`tmux_sessions\`\e[m"
+ps1="${ps1_usr} ${ps1_host} ${ps1_tmux}${ps1_dir}${ps1_git}"
+export PS1=$(check_docker ${ps1})
+
