@@ -1,6 +1,12 @@
+remote_theme: daattali/beautiful-jekyll@6.0.1
+
 plugins:
   - jekyll-relative-links
+  - jekyll-remote-theme
+
 relative_links:
   enabled: true
   collections: true
+
 markdown: kramdown
+

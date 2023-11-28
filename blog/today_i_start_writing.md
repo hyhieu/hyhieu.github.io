@@ -1,5 +1,5 @@
 ---
-layout: pos
+layout: post
 title: "Today, I start writing (again)"
 date: 2023-11-27
 ---
