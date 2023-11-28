@@ -1,3 +1,10 @@
+---
+layout: pos
+title: "Today, I start writing (again)"
+date: 2023-11-27
+---
+
+
 # Today, I start writing (again)
 
 ## Overcoming my fear of writing
