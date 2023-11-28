@@ -1,8 +1,3 @@
----
-layout: page
-title: "Today, I start writing."
----
-
 # Today, I start writing (again)
 
 ## Overcoming my fear of writing
@@ -51,8 +46,8 @@ topics I have not intended today, perhaps maths, machine learning, chess,
 whiskey, or Japanese literature.
 
 When searching for a platform to write, being minimalistic is a nice constraint,
-as it leaves me with very few options. This blog post is written in `markdown`, which
-in my opinion is as simple as it can get.
+as it leaves me with very few options. This blog post is written in `markdown`,
+which in my opinion is as simple as it can get.
 
 Using VsCode, I can write locally on my half of my laptop screen and immediately
 seeing the result rendered on the other half, and then I can commit it to my
