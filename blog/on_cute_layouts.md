@@ -46,7 +46,7 @@ $$
 The layout $L$ represents a multivariable function
 $$
 \begin{align*}
-g_L :~~ &[0, s_0) \times [0, s_1) \times \cdots \times [0, s_{\alpha - 1}] \to \mathbb{N} \\
+g_L :~~ &[0, s_0) \times [0, s_1) \times \cdots \times [0, s_{\alpha - 1}) \to \mathbb{N} \\
         & (x_0, x_1, \dots, x_{\alpha-1}) \mapsto d_0 x_0 + d_1 x_1 + \cdots + d_{\alpha-1} x_{\alpha-1}
 \end{align*}
 $$
