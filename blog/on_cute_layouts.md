@@ -5,6 +5,8 @@ date: 2023-11-27
 
 # On CuTe layouts
 
+[work in progress]
+
 [[Hieu's personal blog index](./index)]
 
 [CuTe](https://github.com/NVIDIA/cutlass/tree/main/include/cute) is a
