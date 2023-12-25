@@ -19,3 +19,10 @@ Nov 28th 2023
 <br>
 *I lost my grandfather.*
 <hr>
+
+Dec 25th 2023
+<br>
+[**On CuTe layouts**](./cute_layout).
+<br>
+*From conceptual to formal construction of CuTe's layout algebra.*
+<hr>
