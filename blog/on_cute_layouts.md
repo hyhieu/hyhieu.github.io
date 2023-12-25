@@ -5,7 +5,7 @@ date: 2023-11-27
 
 # On CuTe layouts
 
-[work in progress]
+**[work in progress. many citations missing, and many writings here could be wrong.]**
 
 [[Hieu's personal blog index](./index)]
 
