@@ -22,7 +22,7 @@ Nov 28th 2023
 
 Dec 25th 2023
 <br>
-[**On CuTe layouts**](./on_cute_layout).
+[**On CuTe layouts**](./on_cute_layouts).
 <br>
 *From conceptual to formal construction of CuTe's layout algebra.*
 <hr>
