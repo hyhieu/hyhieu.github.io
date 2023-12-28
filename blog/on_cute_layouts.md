@@ -28,28 +28,96 @@ ingenious design of its central concept:
 offset. As simple as that, layouts are accompanied by *operations* that allow
 users to flexibly and efficiently write performant tensor programs.
 
-In this blog post, I attempt to formalize the definition of CuTe layouts and
-their accompanying operations.
+In this blog post, I attempt to formalize the definition of CuTe layout and its
+accompanying operations.
 
 ## Layout
+
 <details markdown='1'>
+
 <summary>Definition of layout and its invariants.</summary>
 
-**Definition 1. (Layout)** Let $\alpha$ be a positive integer. A layout $L = S :
-D$ is a pair of two tuples, each with $\alpha$ positive integers:
-$$
+<div id="layout-def"></div>
+
+>**Definition 1. (Layout)** Let $D$ be a positive integer. A layout $L = N :
+S$ is a pair tuples, each with $D$ positive integers:
+>$$
 \begin{align*}
-S &= (s_0, s_1, ..., s_{\alpha-1}) \\
-D &= (d_0, d_1, ..., d_{\alpha-1})
+N &= (n_0, n_1, ..., n_{\alpha-1}) \\
+S &= (s_0, s_1, ..., s_{\alpha-1})
 \end{align*}
+>$$
+
+The layout $L$ represents a multivariable function $g_L : [0, s_0) \times [0,
+s_1) \times \cdots \times [0, s_{D - 1}) \subseteq \mathbb{N}^{D} \to
+\mathbb{N}$, defined by:
 $$
-The layout $L$ represents a multivariable function
+g_L(x_0, x_1, \dots, x_{\alpha-1}) := s_0 x_0 + s_1 x_1 + \cdots + s_{D-1} x_{D-1}
 $$
-\begin{align*}
-g_L :~~ &[0, s_0) \times [0, s_1) \times \cdots \times [0, s_{\alpha - 1}) \to \mathbb{N} \\
-        & (x_0, x_1, \dots, x_{\alpha-1}) \mapsto d_0 x_0 + d_1 x_1 + \cdots + d_{\alpha-1} x_{\alpha-1}
-\end{align*}
-$$
+We call $g_L$ the *canonical multivariate function* of $L$.
+
+</details>
 
 
+## Complement
+
+<div id="complement-def"></div>
+
+> **Definition 2. (Complement)**
+Let $A = (N_a) : (D_a)$ be a layout.  For an integer $M$ that is divisible by
+$\text{size}(A) = n_0 n_1 \cdots n_{\alpha-1}$, the *complement of $A$ with
+respect to $M$*, denoted by $C(A, M)$, is the layout $B$ that satisfies two
+conditions:
+> 1. The associated layout function $f_B$ is strictly increasing.
+> 2. The concatenation layout $(A, B)$ is a bijection $[0, M) \to [0, M)$.
+
+There are some ground-laying work to ensure that [Definition 2](#complement-def) works.
+
+<div id="complement-exist"></div>
+
+> **Lemma 1.** Let $A$ be an $D$-dimensional layout, then the followings are equivalent:
+>
+> 1. Let $\sigma$ sorts $\{(n_0, s_0), (n_1, s_1), \dots, (n_{D-1}, s_{D-1})\}$
+first by $d$ and then by $n$.
+That is, $\sigma$ is the permutation of $\{0, 1, \dots, d-1\}$ such that for $0
+\leq i < j \leq d-1$, we have $s_{\sigma(i)} \leq s_{\sigma(j)}$ and if
+$s_{\sigma(i)} = s_{\sigma(j)}$ then $n_{\sigma(i)} \leq n_{\sigma(j)}$.
+Then $n_{\sigma(i)} s_{\sigma(i)}~|~s_{\sigma(j)}$ for all $0 \leq i < j \leq D-1$.
+>
+> 2. $C(A, M)$ exists for *all* positive integers $M$ divisible by $\text{size}(A)$.
+
+<div id="complement-unique"></div>
+
+>**Lemma 2.** For any positive integer $M$ satisfying the conditions of
+[Lemma 1](#complement-exist), the complement $C(A, M)$ is unique.
+
+
+
+
+
+
+<details markdown='1'>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+
+Consider the layout $A = (4) : (3)$ which maps $(0, 1, 2, 3) \mapsto (0, 3, 6, 9)$.
+We will try to determine the complement $B := \text{Complement}(A, 24)$.
+
+To that end, we want to find a layout $B = (m, n) : (e, f)$ such that the
+concatenation $(A, B)$ maps $[0, 24) \mapsto [0, 24)$ bijectively.
+
+Equivalently:
+$$
+\begin{aligned}
+&~~~~~~~~~(4, m, n) : (3, e, f)~\text{maps}~[0, 24) \mapsto [0, 24) \\
+&\Longrightarrow (4, 3, 2) : (3, 1, 12)~\text{maps}~[0, 24) \mapsto [0, 24) \\
+\end{aligned}
+$$
+
+Therefore $B = (3, 2) : (1, 12)$.
+
+In fact, more generally, we have $\text{complement}(A, 12k) = (3, 2k) : (1, 12)$ for
+each positive integer $k$.
+
+Maybe another more general rule is that
+$\boxed{ \text{complement}\big( (n) : (d), knd \big) = (d, k) : (1, nd) }$.
 </details>
