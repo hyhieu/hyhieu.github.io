@@ -33,28 +33,80 @@ accompanying operations.
 
 ## Layout
 
-<details markdown='1'>
-
-<summary>Definition of layout and its invariants.</summary>
-
+### Layout
 <div id="layout-def"></div>
 
 >**Definition 1. (Layout)** Let $D$ be a positive integer. A layout $L = N :
-S$ is a pair tuples, each with $D$ positive integers:
+S$ is a pair of tuples, each with $D$ positive integers:
 >$$
 \begin{align*}
-N &= (n_0, n_1, ..., n_{\alpha-1}) \\
-S &= (s_0, s_1, ..., s_{\alpha-1})
+N &= (n_0, n_1, ..., n_{D-1}) \\
+S &= (s_0, s_1, ..., s_{D-1})
 \end{align*}
 >$$
+> The tuple $N$ is called the layout's *size,* while the tuple $S$ is called the
+layout's *stride.* Additionally, each tuple $(n_i, s_i)$ for $i \in \{0, 1,
+\dots, D-1\}$ is called a *mode* of $L$'s.
 
-The layout $L$ represents a multivariable function $g_L : [0, s_0) \times [0,
+### Canonical function
+
+#### Canonical multivariate function
+A layout $L$ represents a multivariable function $g_L : [0, s_0) \times [0,
 s_1) \times \cdots \times [0, s_{D - 1}) \subseteq \mathbb{N}^{D} \to
 \mathbb{N}$, defined by:
 $$
-g_L(x_0, x_1, \dots, x_{\alpha-1}) := s_0 x_0 + s_1 x_1 + \cdots + s_{D-1} x_{D-1}
+g_L(x_0, x_1, \dots, x_{\alpha-1}) := s_0 \cdot x_0 + s_1 \cdot x_1 + \cdots + s_{D-1} \cdot x_{D-1}
 $$
 We call $g_L$ the *canonical multivariate function* of $L$.
+
+Throughout this note, for brevity, we will drop the word "canonical" when its
+meaning is clear from the context.
+
+#### Canonical singlevariate function
+Other than the canonical multivariate function, we are also interested in the
+*canonical singlevariate function* of a layout. This singlevariate function is
+constructed from the layout's multivariate function via the natural isomorphism
+between $[0, n_0 n_1 \cdots n_{D-1})$ and $[0, n_0) \times [0, n_1) \times
+\cdots \times [0, n_{D - 1})$, which we can define via the canonical
+multivariate function of the layout:
+$$
+\text{Multi}\to\text{Single}
+    = (n_0, n_1, n_2, \dots, n_{D-1}) :
+      (1, n_0, n_0 n_1, n_0 n_1 n_2, \dots, n_0 n_1 \cdots n_{D-2})
+$$
+Of course, $\text{Single}\to\text{Multi}$ is just the inverse of the above.
+
+A self-contained formula for $\text{Multi}\to\text{Single}$ is:
+$$
+\begin{aligned}
+\text{Multi}\to\text{Single}(x_0, x_1, \dots, x_{D-1})
+  &:= x_0 + n_0 \cdot x_1 + n_0 n_1 \cdot x_2 + n_0 n_1 n_2 \cdot x_3 + \cdots + n_0 n_1 \cdots n_{D-2} \cdot x_{D-1} \\
+
+\text{Single}\to\text{Multi}(x)
+  &:= \left(
+    x~\text{mod}~n_0,
+    \left\lfloor \frac{x}{n_0} \right\rfloor~\text{mod}~n_1,
+    \left\lfloor \frac{x}{n_0 n_1} \right\rfloor~\text{mod}~n_2,
+    \dots,
+    \left\lfloor \frac{x}{n_0 n_1 \cdots n_{D-2}} \right\rfloor~\text{mod}~n_{D-1},
+  \right)
+\end{aligned}
+$$
+
+#### The correspondence between layouts and canonical singlevariate functions
+In general, multiple layouts might be associated to the same canonical function.
+If two layouts have the same associated function, we say that they are
+*equivalent*. This equivalence partitions the set of all layouts into equivalent
+classes. In the next sections, when we discuss certain types of uniqueness for
+layouts, we mean uniqueness upto the equivalence via a layout's canonical
+singlevariate function.
+
+<details markdown='1'>
+
+<summary><b>Example:</b> multiple layouts associated to the same function.</summary>
+
+The two layouts $A = (10) : (3)$ and $B = (2, 5) : (3, 6)$ share the same
+function: $f_A(x) = f_B(x) = 3x$  for all $x \in \{0, 1, \dots 9 \}$
 
 </details>
 
@@ -75,7 +127,7 @@ There are some ground-laying work to ensure that [Definition 2](#complement-def)
 
 <div id="complement-exist"></div>
 
-> **Lemma 1.** Let $A$ be an $D$-dimensional layout, then the followings are equivalent:
+> **Lemma 2.1.** Let $A$ be an $D$-dimensional layout, then the followings are equivalent:
 >
 > 1. Let $\sigma$ sorts $\{(n_0, s_0), (n_1, s_1), \dots, (n_{D-1}, s_{D-1})\}$
 first by $d$ and then by $n$.
@@ -85,12 +137,6 @@ $s_{\sigma(i)} = s_{\sigma(j)}$ then $n_{\sigma(i)} \leq n_{\sigma(j)}$.
 Then $n_{\sigma(i)} s_{\sigma(i)}~|~s_{\sigma(j)}$ for all $0 \leq i < j \leq D-1$.
 >
 > 2. $C(A, M)$ exists for *all* positive integers $M$ divisible by $\text{size}(A)$.
-
-<div id="complement-unique"></div>
-
->**Lemma 2.** For any positive integer $M$ satisfying the conditions of
-[Lemma 1](#complement-exist), the complement $C(A, M)$ is unique.
-
 
 
 
