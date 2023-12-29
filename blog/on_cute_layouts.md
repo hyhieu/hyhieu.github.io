@@ -92,7 +92,7 @@ $$
     \left\lfloor \frac{x}{n_0} \right\rfloor~\text{mod}~n_1,
     \left\lfloor \frac{x}{n_0 n_1} \right\rfloor~\text{mod}~n_2,
     \dots,
-    \left\lfloor \frac{x}{n_0 n_1 \cdots n_{D-2}} \right\rfloor~\text{mod}~n_{D-1},
+    \left\lfloor \frac{x}{n_0 n_1 \cdots n_{D-2}} \right\rfloor~\text{mod}~n_{D-1}
   \right)
 \end{aligned}
 $$
