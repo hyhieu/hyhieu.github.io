@@ -80,8 +80,12 @@ A self-contained formula for $\text{Multi}\to\text{Single}$ is:
 $$
 \begin{aligned}
 \text{Multi}\to\text{Single}(x_0, x_1, \dots, x_{D-1})
-  &:= x_0 + n_0 \cdot x_1 + n_0 n_1 \cdot x_2 + n_0 n_1 n_2 \cdot x_3 + \cdots + n_0 n_1 \cdots n_{D-2} \cdot x_{D-1} \\
-
+  &:= x_0
+    + n_0 \cdot x_1
+    + n_0 n_1 \cdot x_2
+    + n_0 n_1 n_2 \cdot x_3
+    + \cdots
+    + n_0 n_1 \cdots n_{D-2} \cdot x_{D-1} \\
 \text{Single}\to\text{Multi}(x)
   &:= \left(
     x~\text{mod}~n_0,
@@ -92,6 +96,18 @@ $$
   \right)
 \end{aligned}
 $$
+<details markdown='1'>
+<summary><b>Digression:</b> column-major vs. row-major.</summary>
+
+The way we define the singlevariate function of a layout corresponds to how we
+traverse the layout's $D$-dimensional coordinate space from left to right. This
+traversal is sometimes called the *column-major* traversal. Column-major
+traversal is used in MATLAB and Fortran. In contrast, most modern deep learning
+framework like `numpy`, `torch`, and `jax` ise the row-major traversal. It is
+possible to redefine the entire theory on layouts using row-major traversal, but
+we choose to follow CuTe's original choice of being column-major.
+
+</details>
 
 #### The correspondence between layouts and canonical singlevariate functions
 In general, multiple layouts might be associated to the same canonical function.
