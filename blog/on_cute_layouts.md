@@ -60,9 +60,11 @@ layout's *stride.* Additionally, each tuple $(n_i, s_i)$ for $i \in \{0, 1,
 A layout $L$ represents a multivariable function $g_L : [0, n_0) \times [0,
 n_1) \times \cdots \times [0, n_{D - 1}) \subseteq \mathbb{N}^{D} \to
 \mathbb{N}$, defined by:
+
 $$
 g_L(x_0, x_1, \dots, x_{\alpha-1}) := n_0 \cdot x_0 + n_1 \cdot x_1 + \cdots + n_{D-1} \cdot x_{D-1}
 $$
+
 We call $g_L$ the *canonical multivariate function* of $L$.
 
 Throughout this note, for brevity, we will drop the word "canonical" when its
@@ -75,11 +77,13 @@ constructed from the layout's multivariate function via the natural isomorphism
 between $[0, n_0 n_1 \cdots n_{D-1})$ and $[0, n_0) \times [0, n_1) \times
 \cdots \times [0, n_{D - 1})$, which we can define via the canonical
 multivariate function of the layout:
+
 $$
 \text{Multi}\to\text{Single}
     = (n_0, n_1, n_2, \dots, n_{D-1}) :
       (1, n_0, n_0 n_1, n_0 n_1 n_2, \dots, n_0 n_1 \cdots n_{D-2})
 $$
+
 It is not hard to check that the function $\text{Multi}\to\text{Single}$ as
 defined above is bijective. Then, $\text{Single}\to\text{Multi}$ is just the
 invert from the other direction.
@@ -131,10 +135,12 @@ s_{D-1})$ such that $L(x) = f(x)$ for all $x \in \{0, 1, \dots, M\}$.
 
 We first notice that if $n_i = 1$ for an index $i \in \{0, 1, \dots, D-1\}$,
 then for all $x \in \mathbb{N}$, the $i$-th coordinate of $x$ in $L$'s
-coordinate space is
+coordinate space is:
+
 $$
 \left\lfloor \dfrac{x}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~1 = 0
 $$
+
 This means that $s_i$ never contributes to the value of $L(x)$. To avoid such
 trivial dimensions, we can assume that $\boxed{n_i > 1}$ for all $i \in \{0, 1,
 \cdots, D-1\}$.
@@ -163,6 +169,7 @@ exists no layout admitting $f$ as its singlevariate function.
 
 Next, we compute $L(1)$. Thanks to the assumption that $n_i > 1$ for all $i$'s,
 we have:
+
 $$
 \left\lfloor \dfrac{1}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~n_i
   = \begin{cases}
@@ -170,6 +177,7 @@ $$
   0 & \text{if $i > 0$}
   \end{cases}
 $$
+
 Identifying this with [$L$-Formula](#l-formula), we have $\boxed{s_0 = L(1) = f(1)}$.
 
 
