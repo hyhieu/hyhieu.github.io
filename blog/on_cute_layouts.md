@@ -113,7 +113,40 @@ we choose to follow CuTe's original choice of being column-major.
 
 #### The correspondence between layouts and canonical singlevariate functions
 
+<hr>
+
 ##### What function $f: \mathbb{N} \to \mathbb{N}$ can be represented by a layout?
+
+Let $f: \{0, 1, ..., M\} \to \mathbb{N}$ be a function. We determine whether
+there exist a layout $L = (n_0, n_1, \dots , n_{D-1}) : (s_0, s_1, \dots,
+s_{D-1})$ such that $L(x) = f(x)$ for all $x \in \{0, 1, \dots, M\}$.
+
+We try to identify $L(x)$ with each $f(x)$. First, let's write the formula for $L(x)$:
+$$
+\begin{aligned}
+L(x)
+  &= \left(
+    x~\text{mod}~n_0,
+    \left\lfloor \frac{x}{n_0} \right\rfloor~\text{mod}~n_1,
+    \left\lfloor \frac{x}{n_0 n_1} \right\rfloor~\text{mod}~n_2,
+    \dots,
+    \left\lfloor \frac{x}{n_0 n_1 \cdots n_{D-2}} \right\rfloor~\text{mod}~n_{D-1}
+  \right)^\top \cdot (s_0, s_1, \dots, s_{D-1}) \\
+  &= \sum_{i=0}^{D-1} s_i \cdot \left(\left\lfloor \frac{x}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~n_i\right)
+\end{aligned}
+$$
+From this, we necessarily have $L(0) = 0$, so if $f(x) \neq 0$, the answer is no.
+
+Next, we compute $L(1)$. If $n_i > 1$ for any $i$, then $\left\lfloor
+\dfrac{1}{n_0 n_1 \cdots n_j} \right\rfloor = 0$ for all $j \geq i$. As such,
+the sum $L(1)$ only incluces the terms $s_0, s_1, \dots, s_i$ for which $n_1 =
+n_2 = \cdots = n_i = 1$. In other words:
+$$
+L(1) = s_0 + s_1 + \cdots + s_i,
+$$
+where $i$ is the index such that $n_0 = n_1 = \dots = n_i = 1 < n_{i+1}$.
+
+<hr>
 
 ##### Are layout representations unique?
 
