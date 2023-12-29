@@ -1,6 +1,7 @@
 ---
 layout: post
 date: 2023-11-27
+use_math: true
 ---
 
 # On CuTe layouts
@@ -31,7 +32,9 @@ users to flexibly and efficiently write performant tensor programs.
 In this blog post, I attempt to formalize the definition of CuTe layout and its
 accompanying operations.
 
-## Layout
+$\alpha$ $\beta$ $\gamma$
+
+## Basic definitions and properties
 
 ### Layout
 <div id="layout-def"></div>
@@ -39,10 +42,10 @@ accompanying operations.
 >**Definition 1. (Layout)** Let $D$ be a positive integer. A layout $L = N :
 S$ is a pair of tuples, each with $D$ positive integers:
 >$$
-\begin{align*}
+\begin{aligned}
 N &= (n_0, n_1, ..., n_{D-1}) \\
 S &= (s_0, s_1, ..., s_{D-1})
-\end{align*}
+\end{aligned}
 >$$
 > The tuple $N$ is called the layout's *size,* while the tuple $S$ is called the
 layout's *stride.* Additionally, each tuple $(n_i, s_i)$ for $i \in \{0, 1,
@@ -118,10 +121,24 @@ we choose to follow CuTe's original choice of being column-major.
 ##### What function $f: \mathbb{N} \to \mathbb{N}$ can be represented by a layout?
 
 Let $f: \{0, 1, ..., M\} \to \mathbb{N}$ be a function. We determine whether
-there exist a layout $L = (n_0, n_1, \dots , n_{D-1}) : (s_0, s_1, \dots,
+there exists a layout $L = (n_0, n_1, \dots , n_{D-1}) : (s_0, s_1, \dots,
 s_{D-1})$ such that $L(x) = f(x)$ for all $x \in \{0, 1, \dots, M\}$.
 
-We try to identify $L(x)$ with each $f(x)$. First, let's write the formula for $L(x)$:
+We first notice that if $n_i = 1$ for an index $i \in \{0, 1, \dots, D-1\}$,
+then for all $x \in \mathbb{N}$, the $i$-th coordinate of $x$ in $L$'s
+coordinate space is
+$$
+\left\lfloor \dfrac{x}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~1 = 0
+$$
+This means that $s_i$ never contributes to the value of $L(x)$. To avoid such
+trivial dimensions, we can assume that $\boxed{n_i > 1}$ for all $i \in \{0, 1,
+\cdots, D-1\}$.
+
+We try to identify $L(x)$ with each $f(x)$. To this end, we write down the
+formula for $L(x)$:
+
+<div id="l-formula"></div>
+
 $$
 \begin{aligned}
 L(x)
@@ -134,17 +151,25 @@ L(x)
   \right)^\top \cdot (s_0, s_1, \dots, s_{D-1}) \\
   &= \sum_{i=0}^{D-1} s_i \cdot \left(\left\lfloor \frac{x}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~n_i\right)
 \end{aligned}
+\tag{L-formula}
 $$
-From this, we necessarily have $L(0) = 0$, so if $f(x) \neq 0$, the answer is no.
+From this formula, we necessarily have $L(0) = 0$, so if $f(x) \neq 0$, there
+exists no layout admitting $f$ as its singlevariate function.
 
-Next, we compute $L(1)$. If $n_i > 1$ for any $i$, then $\left\lfloor
-\dfrac{1}{n_0 n_1 \cdots n_j} \right\rfloor = 0$ for all $j \geq i$. As such,
-the sum $L(1)$ only incluces the terms $s_0, s_1, \dots, s_i$ for which $n_1 =
-n_2 = \cdots = n_i = 1$. In other words:
+Next, we compute $L(1)$. Thanks to the assumption that $n_i > 1$ for all $i$'s,
+we have:
 $$
-L(1) = s_0 + s_1 + \cdots + s_i,
+\left\lfloor \dfrac{1}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~n_i
+  = \begin{cases}
+  1 & \text{if $i = 0$} \\
+  0 & \text{if $i > 0$}
+  \end{cases}
 $$
-where $i$ is the index such that $n_0 = n_1 = \dots = n_i = 1 < n_{i+1}$.
+Identifying this with [$L$-Formula](#l-formula), we have $\boxed{s_0 = L(1) = f(1)}$.
+
+
+
+
 
 <hr>
 
