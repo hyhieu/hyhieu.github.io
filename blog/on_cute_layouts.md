@@ -74,7 +74,9 @@ $$
     = (n_0, n_1, n_2, \dots, n_{D-1}) :
       (1, n_0, n_0 n_1, n_0 n_1 n_2, \dots, n_0 n_1 \cdots n_{D-2})
 $$
-Of course, $\text{Single}\to\text{Multi}$ is just the inverse of the above.
+It is not hard to check that the function $\text{Multi}\to\text{Single}$ as
+defined above is bijective. Then, $\text{Single}\to\text{Multi}$ is just the
+invert from the other direction.
 
 A self-contained formula for $\text{Multi}\to\text{Single}$ is:
 $$
