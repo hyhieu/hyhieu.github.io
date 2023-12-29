@@ -112,6 +112,10 @@ we choose to follow CuTe's original choice of being column-major.
 </details>
 
 #### The correspondence between layouts and canonical singlevariate functions
+
+##### What function $f: \mathbb{N} \to \mathbb{N}$ can be represened by a tensor?
+
+##### Uniqueness
 In general, multiple layouts might be associated to the same canonical function.
 If two layouts have the same associated function, we say that they are
 *equivalent*. This equivalence partitions the set of all layouts into equivalent
