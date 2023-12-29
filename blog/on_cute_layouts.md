@@ -51,11 +51,11 @@ layout's *stride.* Additionally, each tuple $(n_i, s_i)$ for $i \in \{0, 1,
 ### Canonical function
 
 #### Canonical multivariate function
-A layout $L$ represents a multivariable function $g_L : [0, s_0) \times [0,
-s_1) \times \cdots \times [0, s_{D - 1}) \subseteq \mathbb{N}^{D} \to
+A layout $L$ represents a multivariable function $g_L : [0, n_0) \times [0,
+n_1) \times \cdots \times [0, n_{D - 1}) \subseteq \mathbb{N}^{D} \to
 \mathbb{N}$, defined by:
 $$
-g_L(x_0, x_1, \dots, x_{\alpha-1}) := s_0 \cdot x_0 + s_1 \cdot x_1 + \cdots + s_{D-1} \cdot x_{D-1}
+g_L(x_0, x_1, \dots, x_{\alpha-1}) := n_0 \cdot x_0 + n_1 \cdot x_1 + \cdots + n_{D-1} \cdot x_{D-1}
 $$
 We call $g_L$ the *canonical multivariate function* of $L$.
 
@@ -113,24 +113,25 @@ we choose to follow CuTe's original choice of being column-major.
 
 #### The correspondence between layouts and canonical singlevariate functions
 
-##### What function $f: \mathbb{N} \to \mathbb{N}$ can be represened by a tensor?
+##### What function $f: \mathbb{N} \to \mathbb{N}$ can be represented by a layout?
 
-##### Uniqueness
-In general, multiple layouts might be associated to the same canonical function.
+##### Are layout representations unique?
+
+In general, multiple layouts might represent the same singlevariate function.
+
+<details markdown='1'>
+<summary><b>Example:</b> multiple layouts associated to the same function.</summary>
+
+The two layouts $A = (10) : (3)$ and $B = (2, 5) : (3, 6)$ share the same
+function: $f_A(x) = f_B(x) = 3x$  for all $x \in \{0, 1, \dots 9 \}$.
+
+</details>
+
 If two layouts have the same associated function, we say that they are
 *equivalent*. This equivalence partitions the set of all layouts into equivalent
 classes. In the next sections, when we discuss certain types of uniqueness for
 layouts, we mean uniqueness upto the equivalence via a layout's canonical
 singlevariate function.
-
-<details markdown='1'>
-
-<summary><b>Example:</b> multiple layouts associated to the same function.</summary>
-
-The two layouts $A = (10) : (3)$ and $B = (2, 5) : (3, 6)$ share the same
-function: $f_A(x) = f_B(x) = 3x$  for all $x \in \{0, 1, \dots 9 \}$
-
-</details>
 
 
 ## Complement
