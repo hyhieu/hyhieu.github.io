@@ -1,6 +1,6 @@
 ---
 layout: post
-date: 2023-11-27
+date: 2023-12-25
 use_math: true
 ---
 
@@ -32,24 +32,27 @@ users to flexibly and efficiently write performant tensor programs.
 In this blog post, I attempt to formalize the definition of CuTe layout and its
 accompanying operations.
 
-$\alpha$ $\beta$ $\gamma$
-
 ## Basic definitions and properties
 
 ### Layout
-<div id="layout-def"></div>
 
->**Definition 1. (Layout)** Let $D$ be a positive integer. A layout $L = N :
+<blockquote markdown="1" id="layout-def" >
+
+**Definition 1. (Layout)** Let $D$ be a positive integer. A layout $L = N :
 S$ is a pair of tuples, each with $D$ positive integers:
->$$
+
+$$
 \begin{aligned}
 N &= (n_0, n_1, ..., n_{D-1}) \\
 S &= (s_0, s_1, ..., s_{D-1})
 \end{aligned}
->$$
-> The tuple $N$ is called the layout's *size,* while the tuple $S$ is called the
+$$
+
+The tuple $N$ is called the layout's *size,* while the tuple $S$ is called the
 layout's *stride.* Additionally, each tuple $(n_i, s_i)$ for $i \in \{0, 1,
 \dots, D-1\}$ is called a *mode* of $L$'s.
+
+</blockquote>
 
 ### Canonical function
 
@@ -82,6 +85,7 @@ defined above is bijective. Then, $\text{Single}\to\text{Multi}$ is just the
 invert from the other direction.
 
 A self-contained formula for $\text{Multi}\to\text{Single}$ is:
+
 $$
 \begin{aligned}
 \text{Multi}\to\text{Single}(x_0, x_1, \dots, x_{D-1})
@@ -101,7 +105,8 @@ $$
   \right)
 \end{aligned}
 $$
-<details markdown='1'>
+
+<details markdown="1">
 <summary><b>Digression:</b> column-major vs. row-major.</summary>
 
 The way we define the singlevariate function of a layout corresponds to how we
@@ -151,8 +156,8 @@ L(x)
   \right)^\top \cdot (s_0, s_1, \dots, s_{D-1}) \\
   &= \sum_{i=0}^{D-1} s_i \cdot \left(\left\lfloor \frac{x}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~n_i\right)
 \end{aligned}
-\tag{L-formula}
 $$
+
 From this formula, we necessarily have $L(0) = 0$, so if $f(x) \neq 0$, there
 exists no layout admitting $f$ as its singlevariate function.
 
@@ -177,7 +182,7 @@ Identifying this with [$L$-Formula](#l-formula), we have $\boxed{s_0 = L(1) = f(
 
 In general, multiple layouts might represent the same singlevariate function.
 
-<details markdown='1'>
+<details markdown="1">
 <summary><b>Example:</b> multiple layouts associated to the same function.</summary>
 
 The two layouts $A = (10) : (3)$ and $B = (2, 5) : (3, 6)$ share the same
@@ -194,36 +199,40 @@ singlevariate function.
 
 ## Complement
 
-<div id="complement-def"></div>
+<blockquote id="complement-def" markdown="1">
 
-> **Definition 2. (Complement)**
+**Definition 2. (Complement)**
 Let $A = (N_a) : (D_a)$ be a layout.  For an integer $M$ that is divisible by
 $\text{size}(A) = n_0 n_1 \cdots n_{\alpha-1}$, the *complement of $A$ with
 respect to $M$*, denoted by $C(A, M)$, is the layout $B$ that satisfies two
 conditions:
-> 1. The associated layout function $f_B$ is strictly increasing.
-> 2. The concatenation layout $(A, B)$ is a bijection $[0, M) \to [0, M)$.
+1. The associated layout function $f_B$ is strictly increasing.
+2. The concatenation layout $(A, B)$ is a bijection $[0, M) \to [0, M)$.
+
+</blockquote>
 
 There are some ground-laying work to ensure that [Definition 2](#complement-def) works.
 
-<div id="complement-exist"></div>
+<blockquote id="complement-exist" markdown="1">
 
-> **Lemma 2.1.** Let $A$ be an $D$-dimensional layout, then the followings are equivalent:
->
-> 1. Let $\sigma$ sorts $\{(n_0, s_0), (n_1, s_1), \dots, (n_{D-1}, s_{D-1})\}$
+**Lemma 2.1.** Let $A$ be an $D$-dimensional layout, then the followings are equivalent:
+
+1. Let $\sigma$ sorts $\{(n_0, s_0), (n_1, s_1), \dots, (n_{D-1}, s_{D-1})\}$
 first by $d$ and then by $n$.
 That is, $\sigma$ is the permutation of $\{0, 1, \dots, d-1\}$ such that for $0
 \leq i < j \leq d-1$, we have $s_{\sigma(i)} \leq s_{\sigma(j)}$ and if
 $s_{\sigma(i)} = s_{\sigma(j)}$ then $n_{\sigma(i)} \leq n_{\sigma(j)}$.
 Then $n_{\sigma(i)} s_{\sigma(i)}~|~s_{\sigma(j)}$ for all $0 \leq i < j \leq D-1$.
->
-> 2. $C(A, M)$ exists for *all* positive integers $M$ divisible by $\text{size}(A)$.
+
+2. $C(A, M)$ exists for *all* positive integers $M$ divisible by $\text{size}(A)$.
+
+</blockquote>
 
 
 
 
 
-<details markdown='1'>
+<details markdown="1">
 <br><br><br><br><br><br><br><br><br><br><br><br>
 
 Consider the layout $A = (4) : (3)$ which maps $(0, 1, 2, 3) \mapsto (0, 3, 6, 9)$.

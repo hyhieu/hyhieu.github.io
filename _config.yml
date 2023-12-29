@@ -1,15 +1,21 @@
 plugins:
-  - jekyll-katex
   - jekyll-relative-links
 
 relative_links:
   enabled: true
   collections: true
 
-markdown: kramdown
+# markdown: kramdown
 
-kramdown:
-  math_engine: katex
+# kramdown:
+#   math_engine: null
+
+exclude:
+  - node_modules
+  - script
+
+sass:
+  style: :compressed
 
 theme: jekyll-theme-primer
 
