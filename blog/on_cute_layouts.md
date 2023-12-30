@@ -117,7 +117,7 @@ The way we define the singlevariate function of a layout corresponds to how we
 traverse the layout's $D$-dimensional coordinate space from left to right. This
 traversal is sometimes called the *column-major* traversal. Column-major
 traversal is used in MATLAB and Fortran. In contrast, most modern deep learning
-framework like `numpy`, `torch`, and `jax` ise the row-major traversal. It is
+frameworks like `numpy`, `torch`, and `jax` use row-major traversal. It is
 possible to redefine the entire theory on layouts using row-major traversal, but
 we choose to follow CuTe's original choice of being column-major.
 
@@ -141,9 +141,10 @@ $$
 \left\lfloor \dfrac{x}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~1 = 0
 $$
 
-This means that $s_i$ never contributes to the value of $L(x)$. To avoid such
-trivial dimensions, we can assume that $\boxed{n_i > 1}$ for all $i \in \{0, 1,
-\cdots, D-1\}$.
+This means that $s_i$ never contributes to the value of $L(x)$, and hence can
+take any value. For this reason, we call the dimensions where $n_i = 1$ trivial.
+To avoid such trivial dimensions, we can assume that $\boxed{n_i > 1}$ for all
+$i \in \{0, 1, \cdots, D-1\}$.
 
 We try to identify $L(x)$ with each $f(x)$. To this end, we write down the
 formula for $L(x)$:
@@ -178,7 +179,56 @@ $$
   \end{cases}
 $$
 
-Identifying this with [$L$-Formula](#l-formula), we have $\boxed{s_0 = L(1) = f(1)}$.
+Identifying this with [the formula for $L$](#l-formula), we have $\boxed{s_0 =
+L(1) = f(1)}$. At this point, we can check if the layout $L_0 = (M) :
+(s_0)$ satisfies $L_0(x) = f(x)$ for all $x \in [0, M)$.
+
+If not, then there exists a unique index $t$ such that $f(k) = k \cdot f(1) = k
+s_0$ for $k \in \{0, 1, \dots, t-1\}$ but $f(t) \neq t \cdot f(1)$. We now know
+that $n_0 \leq t$.
+
+Now we can try each value $k$ from $t$ downto $1$ to see if $n_0 = k, s_0 =
+f(1)$ is consistent with the other values $f(x)$ for $x \in \{k, k+1, k+2,
+\dots, M\}$.  Here, consistency means that $f(x + i k) = f(x) + i s_0$, for all
+$x \in [0, M]$ and $i \in \mathbb{N}$ such that $x + i k \in [0, M]$. If no such
+$k$ is found, we say that the function $f$ is *inconsistent*, i.e., there is no
+layout admitting $f$ as its singlevariate function. Otherwise, we repeat the
+process on the function to find $(n_1, s_1)$:
+
+$$
+g : \left[ 0, \left\lfloor M / n_0 \right\rfloor \right] \to \mathbb{N}~~~~~~~~~g(x) := f(n_0 x)
+$$
+
+Essentially, this means to restrict $f$ into the sub-domain where the $0$-th
+coordinate is $0$.
+
+Let us analyze the complexity of the process above:
+
+1. $O(1)$ Find $s_0 = f(1)$:
+
+2. $O(M)$ Checking whether $(M): (s_0)$ is okay.
+
+<p id="step-3"></P>
+
+3. $O(M)$ For each $k \in \{t, t-1, \dots, 1\}$:  $O(M)$
+
+    3a. $O(M)$ Check if $f(x + ik) - f(x) = i s_0$ for all $x \in [0, M], i \in \mathbb{N}$ such that $x + ik \in [0, M]$
+
+Thus, each value $(n_i, s_i)$ can be determined in $O(M^2), or an inconsistency
+is found. Since there are $O(M)$ modes, the process above offers a deterministic
+algorithm with complexity $\boxed{O(M^3)}$ to check whether there exists a layout
+admitting *any* function $f: \mathbb{N} \to \mathbb{N}$ as its layout function.
+If such a layout exists, the algorithm also determines the layout.
+
+<mark markdown="1">**QUESTION:** In <a href="#step-3">Step 3</a> above,
+how can we be sure that if any value
+for $k$ is consistent, then the resulting layout must admit that $k$ as $n_0$? I can see
+the argument for any other $l'$ such that $l~|~k$, but how about just any other $l$?
+For instance, if we find an inconsistency later on by picking a value $k$, can we
+tell $f$ is inconsistent?
+</mark>
+
+
 
 
 
