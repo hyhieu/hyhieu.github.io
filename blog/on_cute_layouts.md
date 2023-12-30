@@ -50,7 +50,7 @@ $$
 
 The tuple $N$ is called the layout's *size,* while the tuple $S$ is called the
 layout's *stride.* Additionally, each tuple $(n_i, s_i)$ for $i \in \{0, 1,
-\dots, D-1\}$ is called a *mode* of $L$'s.
+..., D-1\}$ is called a *mode* of $L$'s.
 
 </blockquote>
 
@@ -62,7 +62,7 @@ n_1) \times \cdots \times [0, n_{D - 1}) \subseteq \mathbb{N}^{D} \to
 \mathbb{N}$, defined by:
 
 $$
-g_L(x_0, x_1, \dots, x_{\alpha-1}) := n_0 \cdot x_0 + n_1 \cdot x_1 + \cdots + n_{D-1} \cdot x_{D-1}
+g_L(x_0, x_1, ..., x_{\alpha-1}) := n_0 \cdot x_0 + n_1 \cdot x_1 + \cdots + n_{D-1} \cdot x_{D-1}
 $$
 
 We call $g_L$ the *canonical multivariate function* of $L$.
@@ -80,8 +80,8 @@ multivariate function of the layout:
 
 $$
 \text{Multi}\to\text{Single}
-    = (n_0, n_1, n_2, \dots, n_{D-1}) :
-      (1, n_0, n_0 n_1, n_0 n_1 n_2, \dots, n_0 n_1 \cdots n_{D-2})
+    = (n_0, n_1, n_2, ..., n_{D-1}) :
+      (1, n_0, n_0 n_1, n_0 n_1 n_2, ..., n_0 n_1 \cdots n_{D-2})
 $$
 
 It is not hard to check that the function $\text{Multi}\to\text{Single}$ as
@@ -92,7 +92,7 @@ A self-contained formula for $\text{Multi}\to\text{Single}$ is:
 
 $$
 \begin{aligned}
-\text{Multi}\to\text{Single}(x_0, x_1, \dots, x_{D-1})
+\text{Multi}\to\text{Single}(x_0, x_1, ..., x_{D-1})
   &:= x_0
     + n_0 \cdot x_1
     + n_0 n_1 \cdot x_2
@@ -104,7 +104,7 @@ $$
     x~\text{mod}~n_0,
     \left\lfloor \frac{x}{n_0} \right\rfloor~\text{mod}~n_1,
     \left\lfloor \frac{x}{n_0 n_1} \right\rfloor~\text{mod}~n_2,
-    \dots,
+    ...,
     \left\lfloor \frac{x}{n_0 n_1 \cdots n_{D-2}} \right\rfloor~\text{mod}~n_{D-1}
   \right)
 \end{aligned}
@@ -130,10 +130,10 @@ we choose to follow CuTe's original choice of being column-major.
 ##### What function $f: \mathbb{N} \to \mathbb{N}$ can be represented by a layout?
 
 Let $f: \{0, 1, ..., M\} \to \mathbb{N}$ be a function. We determine whether
-there exists a layout $L = (n_0, n_1, \dots , n_{D-1}) : (s_0, s_1, \dots,
-s_{D-1})$ such that $L(x) = f(x)$ for all $x \in \{0, 1, \dots, M\}$.
+there exists a layout $L = (n_0, n_1, ... , n_{D-1}) : (s_0, s_1, ...,
+s_{D-1})$ such that $L(x) = f(x)$ for all $x \in \{0, 1, ..., M\}$.
 
-We first notice that if $n_i = 1$ for an index $i \in \{0, 1, \dots, D-1\}$,
+We first notice that if $n_i = 1$ for an index $i \in \{0, 1, ..., D-1\}$,
 then for all $x \in \mathbb{N}$, the $i$-th coordinate of $x$ in $L$'s
 coordinate space is:
 
@@ -158,9 +158,9 @@ L(x)
     x~\text{mod}~n_0,
     \left\lfloor \frac{x}{n_0} \right\rfloor~\text{mod}~n_1,
     \left\lfloor \frac{x}{n_0 n_1} \right\rfloor~\text{mod}~n_2,
-    \dots,
+    ...,
     \left\lfloor \frac{x}{n_0 n_1 \cdots n_{D-2}} \right\rfloor~\text{mod}~n_{D-1}
-  \right)^\top \cdot (s_0, s_1, \dots, s_{D-1}) \\
+  \right)^\top \cdot (s_0, s_1, ..., s_{D-1}) \\
   &= \sum_{i=0}^{D-1} s_i \cdot \left(\left\lfloor \frac{x}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~n_i\right)
 \end{aligned}
 $$
@@ -179,17 +179,17 @@ $$
   \end{cases}
 $$
 
-Identifying this with [the formula for $L$](#l-formula), we have $\boxed{s_0 =
+Comparing this with [the formula for $L$](#l-formula), we have $\boxed{s_0 =
 L(1) = f(1)}$. At this point, we can check if the layout $L_0 = (M) :
 (s_0)$ satisfies $L_0(x) = f(x)$ for all $x \in [0, M)$.
 
 If not, then there exists a unique index $t$ such that $f(k) = k \cdot f(1) = k
-s_0$ for $k \in \{0, 1, \dots, t-1\}$ but $f(t) \neq t \cdot f(1)$. We now know
+s_0$ for $k \in \{0, 1, ..., t-1\}$ but $f(t) \neq t \cdot f(1)$. We now know
 that $n_0 \leq t$.
 
-Now we can try each value $k$ from $t$ downto $1$ to see if $n_0 = k, s_0 =
+Now we can try each value $k \in \{1, 2, ..., t\}$ to see if $n_0 = k, s_0 =
 f(1)$ is consistent with the other values $f(x)$ for $x \in \{k, k+1, k+2,
-\dots, M\}$.  Here, consistency means that $f(x + i k) = f(x) + i s_0$, for all
+..., M\}$.  Here, consistency means that $f(x + i k) = f(x) + i s_0$, for all
 $x \in [0, M]$ and $i \in \mathbb{N}$ such that $x + i k \in [0, M]$. If no such
 $k$ is found, we say that the function $f$ is *inconsistent*, i.e., there is no
 layout admitting $f$ as its singlevariate function. Otherwise, we repeat the
@@ -208,27 +208,40 @@ Let us analyze the complexity of the process above:
 
 2. $O(M)$ Checking whether $(M): (s_0)$ is okay.
 
-<p id="step-3"></P>
+3. $O(M)$ For each $k \in \{2, 3, ..., t\}$:
 
-3. $O(M)$ For each $k \in \{t, t-1, \dots, 1\}$:  $O(M)$
+    a. $O(M)$ Check if $f(x + ik) - f(x) = i s_0$ for all $x \in [0, M], i \in
+    \mathbb{N}$ such that $x + ik \in [0, M]$. If such a value is found, take $n_0$
+    to be the *smallest* value, and repeat the algorithm.
 
-    3a. $O(M)$ Check if $f(x + ik) - f(x) = i s_0$ for all $x \in [0, M], i \in \mathbb{N}$ such that $x + ik \in [0, M]$
+    b. If no such value is found, then there is an inconsistency.
 
-Thus, each value $(n_i, s_i)$ can be determined in $O(M^2), or an inconsistency
-is found. Since there are $O(M)$ modes, the process above offers a deterministic
-algorithm with complexity $\boxed{O(M^3)}$ to check whether there exists a layout
-admitting *any* function $f: \mathbb{N} \to \mathbb{N}$ as its layout function.
-If such a layout exists, the algorithm also determines the layout.
+Thus, each value $(n_i, s_i)$ can be determined in $O(M^2)$, or an inconsistency
+is found.
 
-<mark markdown="1">**QUESTION:** In <a href="#step-3">Step 3</a> above,
-how can we be sure that if any value
-for $k$ is consistent, then the resulting layout must admit that $k$ as $n_0$? I can see
-the argument for any other $l'$ such that $l~|~k$, but how about just any other $l$?
-For instance, if we find an inconsistency later on by picking a value $k$, can we
-tell $f$ is inconsistent?
-</mark>
+Since we assume $n_i \geq 2$ for all $i \in [0, D)$ and $M \leq n_0 n_1 \cdots
+n_{D-1}$, there are $O(\log{M})$ modes. Thus, the procedure above offers a
+deterministic algorithm with complexity $\boxed{O(M^2 \log{M})}$ to check
+whether there exists a layout admitting *any* function $f: \mathbb{N} \to
+\mathbb{N}$ as its layout function.  If such a layout exists, the algorithm also
+determines the layout.
 
+To prove the correctness of this algorithm it remains to check that if there's a layout
+admitting $f$, then there is a layout admitting $f$ whose first mode is $(n_0) : (s_0)$
+where $n_0$ is the *smallest value* found in (3a).
 
+It is easy to check that if there is a layout admitting $f$ whose first model is
+$(n_0'): (s_0)$ where $n_0' > n_0$, then we must have $n_0~|~n_0'$ (otherwise,
+using periodic argument, we can find $n_0'' < n_0$ such that $f(x + i n_0'') =
+f(x) + i s_0$).
+
+Now, suppose that a layout $L = (kn_0, n_1, ..., n_{D-1}) : (s_0, s_1, ...,
+s_{D-1})$ admits $f$. We can see that the layout $L' = (n_0, k, n_1, ...,
+n_{D-1}) : (s_0, s_0, s_1, ..., s_{D-1})$ has the same single variate function
+as $L$, hence it also admits $f$.
+
+This completes the proof that the smallest consistent value for $n_0$ suffices
+for recursion.
 
 
 
@@ -244,7 +257,7 @@ In general, multiple layouts might represent the same singlevariate function.
 <summary><b>Example:</b> multiple layouts associated to the same function.</summary>
 
 The two layouts $A = (10) : (3)$ and $B = (2, 5) : (3, 6)$ share the same
-function: $f_A(x) = f_B(x) = 3x$  for all $x \in \{0, 1, \dots 9 \}$.
+function: $f_A(x) = f_B(x) = 3x$  for all $x \in \{0, 1, ... 9 \}$.
 
 </details>
 
@@ -275,9 +288,9 @@ There are some ground-laying work to ensure that [Definition 2](#complement-def)
 
 **Lemma 2.1.** Let $A$ be an $D$-dimensional layout, then the followings are equivalent:
 
-1. Let $\sigma$ sorts $\{(n_0, s_0), (n_1, s_1), \dots, (n_{D-1}, s_{D-1})\}$
+1. Let $\sigma$ sorts $\{(n_0, s_0), (n_1, s_1), ..., (n_{D-1}, s_{D-1})\}$
 first by $d$ and then by $n$.
-That is, $\sigma$ is the permutation of $\{0, 1, \dots, d-1\}$ such that for $0
+That is, $\sigma$ is the permutation of $\{0, 1, ..., d-1\}$ such that for $0
 \leq i < j \leq d-1$, we have $s_{\sigma(i)} \leq s_{\sigma(j)}$ and if
 $s_{\sigma(i)} = s_{\sigma(j)}$ then $n_{\sigma(i)} \leq n_{\sigma(j)}$.
 Then $n_{\sigma(i)} s_{\sigma(i)}~|~s_{\sigma(j)}$ for all $0 \leq i < j \leq D-1$.
