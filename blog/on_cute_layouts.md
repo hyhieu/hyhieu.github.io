@@ -25,7 +25,7 @@ For some backgrounds, GPU programming is notoriously inflexible and completely
 specific to target architectures. As such, the flexibility and generalization
 provided by CuTe is no less than a miracle. Such miracle stems from the
 ingenious design of its central concept:
-*layout.* A layout maps an $\alpha$-dimensional coordinate into an integral
+*layout.* A layout maps an $D$-dimensional coordinate into an integral
 offset. As simple as that, layouts are accompanied by *operations* that allow
 users to flexibly and efficiently write performant tensor programs.
 
@@ -36,9 +36,9 @@ accompanying operations.
 
 ### Layout
 
-<blockquote markdown="1" id="layout-def" >
+<div class="statement" markdown="1" id="layout-def">
 
-**Definition 1. (Layout)** Let $D$ be a positive integer. A layout $L = N :
+**Definition. (Layout)** Let $D$ be a positive integer. A layout $L = N :
 S$ is a pair of tuples, each with $D$ positive integers:
 
 $$
@@ -48,29 +48,37 @@ S &= (s_0, s_1, ..., s_{D-1})
 \end{aligned}
 $$
 
+</div>
+
 The tuple $N$ is called the layout's *size,* while the tuple $S$ is called the
 layout's *stride.* Additionally, each tuple $(n_i, s_i)$ for $i \in \{0, 1,
 ..., D-1\}$ is called a *mode* of $L$'s.
 
-</blockquote>
 
 ### Canonical function
 
-#### Canonical multivariate function
+<div class="statement" markdown="1">
+
+**Definition. (Canonical multivariate function)**
 A layout $L$ represents a multivariable function $g_L : [0, n_0) \times [0,
 n_1) \times \cdots \times [0, n_{D - 1}) \subseteq \mathbb{N}^{D} \to
 \mathbb{N}$, defined by:
 
 $$
-g_L(x_0, x_1, ..., x_{\alpha-1}) := n_0 \cdot x_0 + n_1 \cdot x_1 + \cdots + n_{D-1} \cdot x_{D-1}
+g_L(x_0, x_1, ..., x_{D-1}) := n_0 \cdot x_0 + n_1 \cdot x_1 + \cdots + n_{D-1} \cdot x_{D-1}
 $$
 
 We call $g_L$ the *canonical multivariate function* of $L$.
 
-Throughout this note, for brevity, we will drop the word "canonical" when its
-meaning is clear from the context.
+</div>
 
-#### Canonical singlevariate function
+Throughout this note, when clear from context, we will drop the word
+"canonical" for brevity, and we might use the overloaded notation:
+
+$$
+L(x_0, x_1, ..., x_{D-1}) := n_0 \cdot x_0 + n_1 \cdot x_1 + \cdots + n_{D-1} \cdot x_{D-1}
+$$
+
 Other than the canonical multivariate function, we are also interested in the
 *canonical singlevariate function* of a layout. This singlevariate function is
 constructed from the layout's multivariate function via the natural isomorphism
@@ -110,6 +118,33 @@ $$
 \end{aligned}
 $$
 
+Thus, we have the following definition:
+
+<div class="statement" markdown="1">
+
+**Definition. (Canonical singlevariate function)**
+Let $L = (n_0, n_1, ..., n_{D-1}) : (s_0, s_1, ..., s_{D-1})$ be a layout.  Let
+$M = n_0 n_1 \cdots n_{D-1}$ be $L$'s size.  The canonical singlevariate
+function of L$$ is $f_L: [0, M) \to \mathbb{N}$ defined by:
+
+$$
+f_L(x)
+  := \left( \text{Single}\to\text{Multi}(x) \right)^\top \cdot (s_0, s_1, ..., s_{D-1})
+  = \sum_{i=0}^{D-1} s_i \cdot \left(\left\lfloor \frac{x}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~n_i\right)
+$$
+
+</div>
+
+Similar to the case of canonical multivariate function, we also drop the terms
+"canonical" when clear from context. We might also write $L(x)$ instead of
+$f_L(x)$, again, when clear from context.
+
+Additionally, since the original
+[CuTe document](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute/02_layout_operations.md)
+simply uses the term "function" to refer to "canonical singlevariate function",
+we will also call it the layout function, or maybe the layout's associated
+function.
+
 <details markdown="1">
 <summary><b>Digression:</b> column-major vs. row-major.</summary>
 
@@ -122,17 +157,28 @@ possible to redefine the entire theory on layouts using row-major traversal, but
 we choose to follow CuTe's original choice of being column-major.
 
 </details>
+<br>
 
-#### The correspondence between layouts and canonical singlevariate functions
+Clearly, given any layout $L$, we can easily construct its singlevariate
+function. The reverse question is much less trivial: for which functions $f:
+\mathbb{N} \to \mathbb{N}$ there is a layout whose singlevariate function is
+$f$?
 
-<hr>
+In the next section, we will discuss a more general question. For a function $f:
+[0, M) \to \mathbb{N}$, we say that $L$ *admits* $f$ if $L(x) = f(x)$ for all $x
+\in [0, M)$. Then, which functions $f: \mathbb{N} \to \mathbb{N}$ is admitted by
+a layout?
 
 ### What function $f: \mathbb{N} \to \mathbb{N}$ can be admitted by a layout?
 
-Let $f: [0, M) \to \mathbb{N}$ be an arbitrary function. We present an
-algoriithm with runtime $O(M^2 \log{M})$ that finds a layout $L = (n_0, n_1, ...
+<div class="statement">
+
+Let $f: [0, M) \to \mathbb{N}$ be an arbitrary function. Then there is an
+algorithm with runtime $O(M^2 \log{M})$ that finds a layout $L = (n_0, n_1, ...
 , n_{D-1}) : (s_0, s_1, ..., s_{D-1})$ such that $L(x) = f(x)$ for all $x \in
 [0, M)$, or reports that there is no such layout.
+
+</div>
 
 #### Algorithm
 
@@ -213,20 +259,9 @@ There are some ground-laying work to ensure that the algorithm works.
 
 <details markdown="1">
 <summary>What does <i>consistent</i> mean?</summary>
-We need to elaborate on the meaning of consistency here. A value $n_0$ is consistent
-with $f$ if $\{f(0), f(1), ..., f(M-1)\}$ can be divided into $n_0$ consistent rows.
 
-```text
-          s_0 = f(0)     | f(n_0)     | f(2*n_0)   | ...
-      2 * s_0 = f(1)     | f(n_0+1)   | f(2*n_0+1) | ...
-          ...            | ...        | ...        | ...
-(n_0-1) * s_0 = f(n_0-1) | f(2*n_0-1) | f(3*n_0-1) | ...
-```
-
-Here, all rows must have $\lceil M/n_0 \rceil$ entries, except for the last row
-which might have fewer entries.
-
-Writing the table above into formula, we want:
+Formally, we say that a number $n_0$ is consistent with respect to a function
+$f: [0, M) \to \mathbb{N}$ and a stride $s_0$ if and only if:
 
 $$
 \boxed{
@@ -234,7 +269,23 @@ f(x) = f\mathopen{}\left( n_0 \cdot \lfloor x / n_0 \rfloor \right)
      + s_0 \cdot (x~\text{mod}~n_0),~~~\text{for all $x \in [0, M)$}
 }
 $$
-<br>
+
+Intuitively, consistency here refers to the event that the values of $f$, i.e.,
+$\{f(0), f(1), ..., f(M-1)\}$, can be arranged into $n_0$ rows as follows:
+
+```text
+            0 = f(0)     | f(n_0)     | f(2*n_0)   | ...
+          s_0 = f(1)     | f(n_0+1)   | f(2*n_0+1) | ...
+          ...            | ...        | ...        | ...
+(n_0-1) * s_0 = f(n_0-1) | f(2*n_0-1) | f(3*n_0-1) | ...
+```
+Here, all columns must have $n_0$ entries, except for the last column which
+might have $M~\text{mod}~n_0$ entries.
+
+Thus, $n_0$ being consistent with $f$ and $s_0$ means that there is
+*potentially* a layout admitting $f$ whose first mode is $(n_0) : (s_0)$.
+
+
 </details> <!-- What does consistent mean? -->
 
 <details markdown="1">
@@ -426,21 +477,19 @@ singlevariate function.
 
 ## Complement
 
-<blockquote id="complement-def" markdown="1">
+<div class="statement" id="complement-def" markdown="1">
 
 **Definition 2. (Complement)**
 Let $A = (N_a) : (D_a)$ be a layout.  For an integer $M$ that is divisible by
-$\text{size}(A) = n_0 n_1 \cdots n_{\alpha-1}$, the *complement of $A$ with
+$\text{size}(A) = n_0 n_1 \cdots n_{D-1}$, the *complement of $A$ with
 respect to $M$*, denoted by $C(A, M)$, is the layout $B$ that satisfies two
 conditions:
 1. The associated layout function $f_B$ is strictly increasing.
 2. The concatenation layout $(A, B)$ is a bijection $[0, M) \to [0, M)$.
 
-</blockquote>
+</div>
 
 There are some ground-laying work to ensure that [Definition 2](#complement-def) works.
-
-<blockquote id="complement-exist" markdown="1">
 
 **Lemma 2.1.** Let $A$ be an $D$-dimensional layout, then the followings are equivalent:
 
@@ -453,14 +502,11 @@ Then $n_{\sigma(i)} s_{\sigma(i)}~|~s_{\sigma(j)}$ for all $0 \leq i < j \leq D-
 
 2. $C(A, M)$ exists for *all* positive integers $M$ divisible by $\text{size}(A)$.
 
-</blockquote>
-
 
 
 
 
 <details markdown="1">
-<br><br><br><br><br><br><br><br><br><br><br><br>
 
 Consider the layout $A = (4) : (3)$ which maps $(0, 1, 2, 3) \mapsto (0, 3, 6, 9)$.
 We will try to determine the complement $B := \text{Complement}(A, 24)$.
