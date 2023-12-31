@@ -127,11 +127,19 @@ we choose to follow CuTe's original choice of being column-major.
 
 <hr>
 
-##### What function $f: \mathbb{N} \to \mathbb{N}$ can be represented by a layout?
+### What function $f: \mathbb{N} \to \mathbb{N}$ can be admitted by a layout?
 
-Let $f: \{0, 1, ..., M\} \to \mathbb{N}$ be a function. We determine whether
-there exists a layout $L = (n_0, n_1, ... , n_{D-1}) : (s_0, s_1, ...,
-s_{D-1})$ such that $L(x) = f(x)$ for all $x \in \{0, 1, ..., M\}$.
+Let $f: [0, M) \to \mathbb{N}$ be an arbitrary function. We present an
+algoriithm with runtime $O(M^2 \log{M})$ that finds a layout $L = (n_0, n_1, ...
+, n_{D-1}) : (s_0, s_1, ..., s_{D-1})$ such that $L(x) = f(x)$ for all $x \in
+[0, M)$, or reports that there is no such layout.
+
+#### Algorithm
+
+Without loss of generality, assume that $n_i > 1$ for all $i \in [0, D)$.
+<details markdown="1">
+<summary>Why can we assume so?</summary>
+<blockquote>
 
 We first notice that if $n_i = 1$ for an index $i \in \{0, 1, ..., D-1\}$,
 then for all $x \in \mathbb{N}$, the $i$-th coordinate of $x$ in $L$'s
@@ -146,8 +154,12 @@ take any value. For this reason, we call the dimensions where $n_i = 1$ trivial.
 To avoid such trivial dimensions, we can assume that $\boxed{n_i > 1}$ for all
 $i \in \{0, 1, \cdots, D-1\}$.
 
-We try to identify $L(x)$ with each $f(x)$. To this end, we write down the
-formula for $L(x)$:
+</blockquote>
+</details>
+<br>
+
+The gist of the algorithm is to guess the first mode $(n_0) : (s_0)$, and then
+recurse. To this end, we write down the formula for $L(x)$:
 
 <div id="l-formula"></div>
 
@@ -165,11 +177,13 @@ L(x)
 \end{aligned}
 $$
 
-From this formula, we necessarily have $L(0) = 0$, so if $f(x) \neq 0$, there
-exists no layout admitting $f$ as its singlevariate function.
+From this formula, we necessarily have $L(0) = 0$. In other words, if $f(x) \neq
+0$, there is no layout admitting $f$.
 
-Next, we compute $L(1)$. Thanks to the assumption that $n_i > 1$ for all $i$'s,
-we have:
+#### Guessing $s_0$
+
+Also from the formula, we can guess $s_0$ by letting $x = 1$. Thanks to the
+assumption that $n_i > 1$ for all $i$'s, we have:
 
 $$
 \left\lfloor \dfrac{1}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~n_i
@@ -179,18 +193,26 @@ $$
   \end{cases}
 $$
 
-Comparing this with [the formula for $L$](#l-formula), we have $\boxed{s_0 =
-L(1) = f(1)}$. At this point, we can check if the layout $L_0 = (M) :
-(s_0)$ satisfies $L_0(x) = f(x)$ for all $x \in [0, M)$.
+Comparing this with [$L$'s formula](#l-formula), we have $\boxed{s_0 = L(1) =
+f(1)}$.
 
-If not, then there exists a unique index $t$ such that $f(k) = k \cdot f(1) = k
-s_0$ for $k \in \{0, 1, ..., t-1\}$ but $f(t) \neq t \cdot f(1)$. We now know
-that $n_0 \leq t$.
+#### Guessing $n_0$
 
-Now we can try each value $k \in \{1, 2, ..., t\}$ to see if $n_0 = k, s_0 =
-f(1)$ is consistent with the other values $f(x)$ for $x \in \{k, k+1, k+2, ...,
-M\}$.
+It is possible that the layout $L = (M) : (s_0)$ admits $f$. We can check
+whether $f(k) = k s_0$ for all $kx \in [0, M)$, and if yes, we return here.
 
+If no, then there exists a unique index $t$ such that $f(k) = k s_0$ for $k \in
+\{0, 1, ..., t-1\}$ but $f(t) \neq t s_0$. We now know that $\boxed{n_0
+\in [0, t)}$.
+
+We will try for each value of $n_0$ *in the decreasing order* from $t-1, t-2,
+..., 2$, and recurse on the first -- i.e., the largest -- value of $n_0$ that is
+*consistent* with $f$.
+
+There are some ground-laying work to ensure that the algorithm works.
+
+<details markdown="1">
+<summary>What does <i>consistent</i> mean?</summary>
 We need to elaborate on the meaning of consistency here. A value $n_0$ is consistent
 with $f$ if $\{f(0), f(1), ..., f(M-1)\}$ can be divided into $n_0$ consistent rows.
 
@@ -212,10 +234,26 @@ f(x) = f\mathopen{}\left( n_0 \cdot \lfloor x / n_0 \rfloor \right)
      + s_0 \cdot (x~\text{mod}~n_0),~~~\text{for all $x \in [0, M)$}
 }
 $$
+<br>
+</details> <!-- What does consistent mean? -->
+
+<details markdown="1">
+<summary>Do we only need to recurse on the largest value of $n_0$? Short answer: <b>yes</b>.</summary>
 
 Let $\hat{n}_0$ be the smallest positive value satisfying the condition above.
 We prove that if there is $n_0 > \hat{n}_0$ which also satisfies the condition
-above, then $\hat{n}_0~|~n_0$. Indeed, apply the condition for $x = n_0$, we
+above, then $\hat{n}_0~|~n_0$.
+
+Let $n_0 = k \hat{n}_0 + r$ where $0 \leq r < \hat{n}_0$. Then for $x \in [0, M)$, we have:
+
+$$
+\begin{aligned}
+x &= n_0 \cdot \left\lfloor \frac{x}{n_0} \right\rfloor + x~\text{mod}~n_0 \\
+  &= n_0 \cdot \left\lfloor \frac{x / \hat{n}_0}{k + r / \hat{n}_0} \right\rfloor + x~\text{mod}~n_0 \\
+\end{aligned}
+$$
+
+Indeed, apply the condition for $x = n_0$, we
 have:
 
 $$
@@ -230,12 +268,37 @@ $k$ is found, we say that the function $f$ is *inconsistent*, i.e., there is no
 layout admitting $f$ as its singlevariate function. Otherwise, we repeat the
 process on the function to find $(n_1, s_1)$:
 
+
 $$
 g : \left[ 0, \left\lfloor M / n_0 \right\rfloor \right] \to \mathbb{N}~~~~~~~~~g(x) := f(n_0 x)
 $$
 
 Essentially, this means to restrict $f$ into the sub-domain where the $0$-th
 coordinate is $0$.
+
+To prove the correctness of this algorithm, it remains to check that if there's
+a layout admitting $f$, then there is a layout admitting $f$ whose first mode is
+$(n_0) : (s_0)$ where $n_0$ is the *smallest value* found in (3a).
+
+It is easy to check that if there is a layout admitting $f$ whose first model is
+$(n^{'}_0): (s_0)$ where $n^{'}_0 > n_0$, then we must have $n_0~|~n^{'}_0$ (otherwise,
+using periodic argument, we can find $n^{'}_0 < n_0$ such that $f(x + i n^{'}_0) =
+f(x) + i s_0$).
+
+Let $\hat{n}_0$
+
+Now, suppose that a layout $L = (kn_0, n_1, ..., n_{D-1}) : (s_0, s_1, ...,
+s_{D-1})$ admits $f$. We can see that the layout $L' = (n_0, k, n_1, ...,
+n_{D-1}) : (s_0, s_0, s_1, ..., s_{D-1})$ has the same single variate function
+as $L$, hence it also admits $f$.
+
+This completes the proof that the smallest consistent value for $n_0$ suffices
+for recursion.
+
+<br>
+</details> <!-- Why does largest n_0 work? -->
+
+#### Runtime analysis
 
 Let us analyze the complexity of the process above:
 
@@ -261,24 +324,80 @@ whether there exists a layout admitting *any* function $f: \mathbb{N} \to
 \mathbb{N}$ as its layout function.  If such a layout exists, the algorithm also
 determines the layout.
 
-To prove the correctness of this algorithm, it remains to check that if there's
-a layout admitting $f$, then there is a layout admitting $f$ whose first mode is
-$(n_0) : (s_0)$ where $n_0$ is the *smallest value* found in (3a).
+#### Python implementation
 
-It is easy to check that if there is a layout admitting $f$ whose first model is
-$(n^{'}_0): (s_0)$ where $n^{'}_0 > n_0$, then we must have $n_0~|~n^{'}_0$ (otherwise,
-using periodic argument, we can find $n^{'}_0 < n_0$ such that $f(x + i n^{'}_0) =
-f(x) + i s_0$).
+<details markdown="1">
+<summary markdown="1">Here's the algorithm implemented in Python.</summary>
 
-Let $\hat{n}_0$
+```python
+r"""Simple experiments with CuTe layout."""
 
-Now, suppose that a layout $L = (kn_0, n_1, ..., n_{D-1}) : (s_0, s_1, ...,
-s_{D-1})$ admits $f$. We can see that the layout $L' = (n_0, k, n_1, ...,
-n_{D-1}) : (s_0, s_0, s_1, ..., s_{D-1})$ has the same single variate function
-as $L$, hence it also admits $f$.
+from __future__ import annotations
+from dataclasses import dataclass
+import numpy as np
+import numpy.typing as npt
 
-This completes the proof that the smallest consistent value for $n_0$ suffices
-for recursion.
+
+@dataclass
+class Layout:
+    r"""A CuTe layout."""
+
+    N: npt.ArrayLike
+    S: npt.ArrayLike
+
+    def __repr__(self) -> str:
+        n_str = ",".join([str(n) for n in self.N])
+        s_str = ",".join([str(s) for s in self.S])
+        return f"[layout] ({n_str}) : ({s_str})"
+
+
+def find_layout(f: npt.ArrayLike) -> Layout | None:
+    r"""Returns a layout admitting `f` or `None` if no such layout exists."""
+
+    if f[0] != 0:
+        return None
+
+    m = np.size(f)
+    s_0 = f[1]
+
+    # this is the layout (m) : (s_0)
+    m_s_0 = np.arange(0, m * s_0, s_0)
+
+    # check if (n_0) : (s_0) is a solution. if yes, return
+    if np.all(m_s_0 == f):
+        return Layout(N=np.array([m]), S=np.array([s_0]))
+
+    # unique index t s.t.: f[i] = i * s_0 for i = 0, ..., t-1 but f[t] != i * t
+    t = np.where(m_s_0 != f)[0][0]
+
+    for n_0 in range(t, 0, -1):
+        # check if f is consistent with (n_0) : (s_0) as the first mode
+        tgt_sz = (m + n_0 - 1) // n_0 * n_0
+        pad_sz = tgt_sz - m
+        pad_f = np.pad(f, [(0, pad_sz)]).reshape(-1, n_0).transpose()
+
+        # row diff for all columns, except for the last one
+        row_d = pad_f[1:, :-1] - pad_f[:-1, :-1]
+
+        # row diff in the last column. need to remove the padded zeros
+        last_f = pad_f[: m%n_0, -1]
+        last_d = last_f[1:] - last_f[:-1]
+
+        n_0_consistent = np.all(row_d[:, :-1] == s_0) and np.all(last_d == s_0)
+        if n_0_consistent:
+            r = find_layout(pad_f[0, :])
+            if r is None:
+                return None
+            return Layout(N=np.concatenate([[n_0], r.N]),
+                          S=np.concatenate([[s_0], r.S]))
+
+    return None
+
+
+print(find_layout(np.array([0, 2, 4, 7, 9, 11])))  # (3,2) : (2,7)
+```
+</details>  <!-- Python implementation -->
+
 
 
 
