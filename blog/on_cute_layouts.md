@@ -188,8 +188,23 @@ s_0$ for $k \in \{0, 1, ..., t-1\}$ but $f(t) \neq t \cdot f(1)$. We now know
 that $n_0 \leq t$.
 
 Now we can try each value $k \in \{1, 2, ..., t\}$ to see if $n_0 = k, s_0 =
-f(1)$ is consistent with the other values $f(x)$ for $x \in \{k, k+1, k+2,
-..., M\}$.  Here, consistency means that $f(x + i k) = f(x) + i s_0$, for all
+f(1)$ is consistent with the other values $f(x)$ for $x \in \{k, k+1, k+2, ...,
+M\}$.
+
+We need to elaborate on the meaning of consistency here. A value $n_0$ is consistent
+with $f$ if $\{f(0), f(1), ..., f(M-1)\}$ can be divided into $n_0$ consistent rows.
+
+```text
+            s_0 = f(0)     | f(n_0)     | f(2*n_0)   | ...
+        2 * s_0 = f(1)     | f(n_0+1)   | f(2*n_0+1) | ...
+            ...            | ...        | ...        | ...
+(n_0 - 1) * s_0 = f(n_0-1) | f(2*n_0-1) | f(3*n_0-1) | ...
+```
+
+Here, all rows must have $\lceil M/n_0 \rceil$ entries, except for the last row
+which might have fewer entries.
+
+Here, consistency means that $f(x + i k) = f(x) + i s_0$, for all
 $x \in [0, M]$ and $i \in \mathbb{N}$ such that $x + i k \in [0, M]$. If no such
 $k$ is found, we say that the function $f$ is *inconsistent*, i.e., there is no
 layout admitting $f$ as its singlevariate function. Otherwise, we repeat the
@@ -226,14 +241,16 @@ whether there exists a layout admitting *any* function $f: \mathbb{N} \to
 \mathbb{N}$ as its layout function.  If such a layout exists, the algorithm also
 determines the layout.
 
-To prove the correctness of this algorithm it remains to check that if there's a layout
-admitting $f$, then there is a layout admitting $f$ whose first mode is $(n_0) : (s_0)$
-where $n_0$ is the *smallest value* found in (3a).
+To prove the correctness of this algorithm, it remains to check that if there's
+a layout admitting $f$, then there is a layout admitting $f$ whose first mode is
+$(n_0) : (s_0)$ where $n_0$ is the *smallest value* found in (3a).
 
 It is easy to check that if there is a layout admitting $f$ whose first model is
-$(n_0'): (s_0)$ where $n_0' > n_0$, then we must have $n_0~|~n_0'$ (otherwise,
-using periodic argument, we can find $n_0'' < n_0$ such that $f(x + i n_0'') =
+$(n^{'}_0): (s_0)$ where $n^{'}_0 > n_0$, then we must have $n_0~|~n^{'}_0$ (otherwise,
+using periodic argument, we can find $n^{'}_0 < n_0$ such that $f(x + i n^{'}_0) =
 f(x) + i s_0$).
+
+Let $\hat{n}_0$
 
 Now, suppose that a layout $L = (kn_0, n_1, ..., n_{D-1}) : (s_0, s_1, ...,
 s_{D-1})$ admits $f$. We can see that the layout $L' = (n_0, k, n_1, ...,
