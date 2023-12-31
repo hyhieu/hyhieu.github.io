@@ -327,7 +327,7 @@ determines the layout.
 #### Python implementation
 
 <details markdown="1">
-<summary markdown="1">Here's the algorithm implemented in Python.</summary>
+<summary>Here's the algorithm implemented in Python.</summary>
 
 ```python
 r"""Simple experiments with CuTe layout."""
