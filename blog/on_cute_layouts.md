@@ -195,14 +195,34 @@ We need to elaborate on the meaning of consistency here. A value $n_0$ is consis
 with $f$ if $\{f(0), f(1), ..., f(M-1)\}$ can be divided into $n_0$ consistent rows.
 
 ```text
-            s_0 = f(0)     | f(n_0)     | f(2*n_0)   | ...
-        2 * s_0 = f(1)     | f(n_0+1)   | f(2*n_0+1) | ...
-            ...            | ...        | ...        | ...
-(n_0 - 1) * s_0 = f(n_0-1) | f(2*n_0-1) | f(3*n_0-1) | ...
+          s_0 = f(0)     | f(n_0)     | f(2*n_0)   | ...
+      2 * s_0 = f(1)     | f(n_0+1)   | f(2*n_0+1) | ...
+          ...            | ...        | ...        | ...
+(n_0-1) * s_0 = f(n_0-1) | f(2*n_0-1) | f(3*n_0-1) | ...
 ```
 
 Here, all rows must have $\lceil M/n_0 \rceil$ entries, except for the last row
 which might have fewer entries.
+
+Writing the table above into formula, we want:
+
+$$
+\boxed{
+f(x) = f\mathopen{}\left( n_0 \cdot \lfloor x / n_0 \rfloor \right)
+     + s_0 \cdot (x~\text{mod}~n_0),~~~\text{for all $x \in [0, M)$}
+}
+$$
+
+Let $\hat{n}_0$ be the smallest positive value satisfying the condition above.
+We prove that if there is $n_0 > \hat{n}_0$ which also satisfies the condition
+above, then $\hat{n}_0~|~n_0$. Indeed, apply the condition for $x = n_0$, we
+have:
+
+$$
+f(n_0) = f(\hat{n}_0 \cdot \lfloor n_0 / \hat{n}_0 \rfloor)
+       + s_0 \cdot (n_0~\text{mod}~\hat{n}_0)
+$$
+
 
 Here, consistency means that $f(x + i k) = f(x) + i s_0$, for all
 $x \in [0, M]$ and $i \in \mathbb{N}$ such that $x + i k \in [0, M]$. If no such
