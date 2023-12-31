@@ -13,8 +13,8 @@ use_math: true
 [CuTe](https://github.com/NVIDIA/cutlass/tree/main/include/cute) is a
 sub-library in NVIDIA's [CUTLASS](https://github.com/nvidia/cutlass).
 
-CuTe provides tool that make GPU programming flexible and generalizable across
-different generations of GPU architectures, at least
+CuTe makes GPU programming flexible and generalizable across different
+generations of GPU architectures, at least
 [Ampere](https://www.nvidia.com/en-us/data-center/ampere-architecture/) and
 [Hopper](https://www.nvidia.com/en-us/data-center/technologies/hopper-architecture/).
 Thanks to CuTe, the open-source deep learning community have developed effiicent
