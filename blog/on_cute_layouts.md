@@ -185,7 +185,6 @@ algorithm with runtime $O(M^2 \log{M})$ that finds a layout $L = (n_0, n_1, ...
 Without loss of generality, assume that $n_i > 1$ for all $i \in [0, D)$.
 <details markdown="1">
 <summary>Why can we assume so?</summary>
-<blockquote>
 
 We first notice that if $n_i = 1$ for an index $i \in \{0, 1, ..., D-1\}$,
 then for all $x \in \mathbb{N}$, the $i$-th coordinate of $x$ in $L$'s
@@ -200,9 +199,7 @@ take any value. For this reason, we call the dimensions where $n_i = 1$ trivial.
 To avoid such trivial dimensions, we can assume that $\boxed{n_i > 1}$ for all
 $i \in \{0, 1, \cdots, D-1\}$.
 
-</blockquote>
 </details>
-<br>
 
 The gist of the algorithm is to guess the first mode $(n_0) : (s_0)$, and then
 recurse. To this end, we write down the formula for $L(x)$:
@@ -332,9 +329,9 @@ a layout admitting $f$, then there is a layout admitting $f$ whose first mode is
 $(n_0) : (s_0)$ where $n_0$ is the *smallest value* found in (3a).
 
 It is easy to check that if there is a layout admitting $f$ whose first model is
-$(n^{'}_0): (s_0)$ where $n^{'}_0 > n_0$, then we must have $n_0~|~n^{'}_0$ (otherwise,
-using periodic argument, we can find $n^{'}_0 < n_0$ such that $f(x + i n^{'}_0) =
-f(x) + i s_0$).
+$(n^{'}_0): (s_0)$ where $n^{'}_0 > n_0$, then we must have $n_0~|~n^{'}_0$
+(otherwise, using periodic argument, we can find $n^{'}_0 < n_0$ such that $f(x
++ i n^{'}_0) = f(x) + i s_0$).
 
 Let $\hat{n}_0$
 
@@ -351,29 +348,32 @@ for recursion.
 
 #### Runtime analysis
 
+Our unoptimized implementation of the algorithm runs in $\boxed{O(M^2
+\log{M})}$. The gist of the analysis is based on the assumption that $n_i \geq
+2$ for all $i \in [0, D)$. As such, the resulting layout $L$ has at most
+$O(\log{M})$ modes.  Furthermore, the unoptimized implementations of
+[mode](#guessing-s_0) [guessing](#guessing-n_0) is $O(M^2)$.
+
+<details markdown="1">
+<summary>Let's not bore ourselves with the analysis, unless you raelly want to...</summary>
+
 Let us analyze the complexity of the process above:
 
 1. $O(1)$ Find $s_0 = f(1)$:
 
 2. $O(M)$ Checking whether $(M): (s_0)$ is okay.
 
-3. $O(M)$ For each $k \in \{2, 3, ..., t\}$:
+3. $O(M)$ For each $k \in \{t, t-1, ..., 2\}$:
 
-    a. $O(M)$ Check if $f(x + ik) - f(x) = i s_0$ for all $x \in [0, M], i \in
-    \mathbb{N}$ such that $x + ik \in [0, M]$. If such a value is found, take $n_0$
-    to be the *smallest* value, and repeat the algorithm.
+    a. $O(M)$ Check if $n_0$ is consistent. If yes, take $n_0$ to be the
+    *smallest* value, and repeat the algorithm.
 
     b. If no such value is found, then there is an inconsistency.
 
 Thus, each value $(n_i, s_i)$ can be determined in $O(M^2)$, or an inconsistency
 is found.
 
-Since we assume $n_i \geq 2$ for all $i \in [0, D)$ and $M \leq n_0 n_1 \cdots
-n_{D-1}$, there are $O(\log{M})$ modes. Thus, the procedure above offers a
-deterministic algorithm with complexity $\boxed{O(M^2 \log{M})}$ to check
-whether there exists a layout admitting *any* function $f: \mathbb{N} \to
-\mathbb{N}$ as its layout function.  If such a layout exists, the algorithm also
-determines the layout.
+</details>
 
 #### Python implementation
 
