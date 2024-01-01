@@ -1,7 +1,6 @@
 ---
 layout: post
-date: 2023-12-25
-use_math: true
+date: 2023-12-31
 ---
 
 # On CuTe layouts
@@ -169,7 +168,7 @@ In the next section, we will discuss a more general question. For a function $f:
 \in [0, M)$. Then, which functions $f: \mathbb{N} \to \mathbb{N}$ is admitted by
 a layout?
 
-### What function $f: \mathbb{N} \to \mathbb{N}$ can be admitted by a layout?
+## What function $f: \mathbb{N} \to \mathbb{N}$ can be admitted by a layout?
 
 <div class="statement">
 
@@ -180,7 +179,7 @@ algorithm with runtime $O(M^2 \log{M})$ that finds a layout $L = (n_0, n_1, ...
 
 </div>
 
-#### Algorithm
+### Algorithm
 
 Without loss of generality, assume that $n_i > 1$ for all $i \in [0, D)$.
 <details markdown="1">
@@ -223,7 +222,7 @@ $$
 From this formula, we necessarily have $L(0) = 0$. In other words, if $f(x) \neq
 0$, there is no layout admitting $f$.
 
-#### Guessing $s_0$
+### Guessing $s_0$
 
 Also from the formula, we can guess $s_0$ by letting $x = 1$. Thanks to the
 assumption that $n_i > 1$ for all $i$'s, we have:
@@ -239,7 +238,7 @@ $$
 Comparing this with [$L$'s formula](#l-formula), we have $\boxed{s_0 = L(1) =
 f(1)}$.
 
-#### Guessing $n_0$
+### Guessing $n_0$
 
 It is possible that the layout $L = (M) : (s_0)$ admits $f$. We can check
 whether $f(k) = k s_0$ for all $kx \in [0, M)$, and if yes, we return here.
@@ -287,6 +286,39 @@ Thus, $n_0$ being consistent with $f$ and $s_0$ means that there is
 
 <details markdown="1">
 <summary>Do we only need to recurse on the largest value of $n_0$? Short answer: <b>yes</b>.</summary>
+
+We will prove two statements that give the positive answer to this question.
+
+<div markdown="1" class="statement">
+
+Let $n_0$ be the largest consistent value for $f$ and $s_0$.  Then, if
+$\hat{n}_0 < n_0$ is another consistent value, when we necessarily have
+$\hat{n}_0~|~n_0$.
+
+</div>
+
+**Proof.**
+Assume that $\hat{n}_0~\nmid~n_0$, we will derive that $\text{lcm}(n_0,
+\hat{n}_0)$ is also consistent to $f$ and $s_0$. This is a contradiction to the
+maximality of $n_0$, since $\text{lcm}(n_0, \hat{n}_0) > n_0$ because
+$\hat{n}_0~\nmid~n_0$.
+
+Recall that $n_0$ and $\hat{n}_0$ being consistent with $f$ and $s_0$
+means that for all $x \in [0, M)$, we have:
+
+$$
+\begin{aligned}
+f(x)
+  &= f\mathopen{}\left( n_0 \cdot \lfloor x / n_0 \rfloor \right)
+   + s_0 \cdot (x~\text{mod}~n_0) \\
+  &= f\mathopen{}\left( \hat{n}_0 \cdot \lfloor x / \hat{n}_0 \rfloor \right)
+   + s_0 \cdot (x~\text{mod}~\hat{n}_0)
+\end{aligned}
+$$
+
+<div markdown="1" class="statement">
+</div>
+
 
 Let $\hat{n}_0$ be the smallest positive value satisfying the condition above.
 We prove that if there is $n_0 > \hat{n}_0$ which also satisfies the condition
@@ -346,7 +378,7 @@ for recursion.
 <br>
 </details> <!-- Why does largest n_0 work? -->
 
-#### Runtime analysis
+### Runtime analysis
 
 Our unoptimized implementation of the algorithm runs in $\boxed{O(M^2
 \log{M})}$. The gist of the analysis is based on the assumption that $n_i \geq
@@ -375,7 +407,7 @@ is found.
 
 </details>
 
-#### Python implementation
+### Python implementation
 
 <details markdown="1">
 <summary>Here's the algorithm implemented in Python.</summary>

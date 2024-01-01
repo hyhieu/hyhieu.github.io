@@ -20,7 +20,7 @@ Nov 28th 2023
 *I lost my grandfather.*
 <hr>
 
-Dec 25th 2023
+Dec 31st 2023
 <br>
 [**On CuTe layouts**](./on_cute_layouts)
 <br>
