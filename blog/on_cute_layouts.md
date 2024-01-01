@@ -177,6 +177,14 @@ In the next section, we will discuss a more general question. For a function $f:
 \in [0, M)$. Then, which functions $f: \mathbb{N} \to \mathbb{N}$ is admitted by
 a layout?
 
+### Basic operations
+
+\# TODO: write about concatenation. what does it mean for the singlevariate
+functions?
+
+\# TODO: maybe write about flattening and merging two consecutive modes. looks
+like those don't change the singlevariate function?
+
 ## What function $f: \mathbb{N} \to \mathbb{N}$ can be admitted by a layout?
 
 <div class="statement" id="function-to-layout">
@@ -545,6 +553,8 @@ singlevariate function.
 
 ## Complemention
 
+\# TODO(hieu): this definition has to change.
+
 <div class="statement" id="complement-def" markdown="1">
 
 **Definition 4. (Complement)**
@@ -583,3 +593,8 @@ two layouts' composition, we first determine the composite of their single
 variate function, and then use the [function-to-layout
 Algorithm](#function-to-layout) to find the composition or to conclude that such
 composition does not exist.
+
+## TODO
+
+- [ ] Actually figure out how to find $f_B$ for complement
+- [ ] Prove the left-distribution for composition
