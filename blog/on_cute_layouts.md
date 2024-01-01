@@ -28,8 +28,17 @@ ingenious design of its central concept:
 offset. As simple as that, layouts are accompanied by *operations* that allow
 users to flexibly and efficiently write performant tensor programs.
 
-In this blog post, I attempt to formalize the definition of CuTe layout and its
-accompanying operations.
+In this blog post, we attempt to formalize the definition of CuTe layout and its
+accompanying operations: [complementation](#complemention) and
+[composition](#composition).
+
+Our idea is to think of layouts as a way to represent function $f: \mathbb{N}
+\to \mathbb{N}$ that maps each integer to a multilinear function's output
+defined by the layout.
+
+We build a correspondence between layouts and these functions via an algorithm,
+and then use this correspondence to construct layout operations such as
+[complementation](#complemention) and [composition](#composition).
 
 ## Basic definitions and properties
 
@@ -37,7 +46,7 @@ accompanying operations.
 
 <div class="statement" markdown="1" id="layout-def">
 
-**Definition. (Layout)** Let $D$ be a positive integer. A layout $L = N :
+**Definition 1. (Layout)** Let $D$ be a positive integer. A layout $L = N :
 S$ is a pair of tuples, each with $D$ positive integers:
 
 $$
@@ -58,7 +67,7 @@ layout's *stride.* Additionally, each tuple $(n_i, s_i)$ for $i \in \{0, 1,
 
 <div class="statement" markdown="1">
 
-**Definition. (Canonical multivariate function)**
+**Definition 2. (Canonical multivariate function)**
 A layout $L$ represents a multivariable function $g_L : [0, n_0) \times [0,
 n_1) \times \cdots \times [0, n_{D - 1}) \subseteq \mathbb{N}^{D} \to
 \mathbb{N}$, defined by:
@@ -121,10 +130,10 @@ Thus, we have the following definition:
 
 <div class="statement" markdown="1">
 
-**Definition. (Canonical singlevariate function)**
+**Definition 3. (Canonical singlevariate function)**
 Let $L = (n_0, n_1, ..., n_{D-1}) : (s_0, s_1, ..., s_{D-1})$ be a layout.  Let
 $M = n_0 n_1 \cdots n_{D-1}$ be $L$'s size.  The canonical singlevariate
-function of L$$ is $f_L: [0, M) \to \mathbb{N}$ defined by:
+function of $L$ is $f_L: [0, M) \to \mathbb{N}$ defined by:
 
 $$
 f_L(x)
@@ -170,7 +179,7 @@ a layout?
 
 ## What function $f: \mathbb{N} \to \mathbb{N}$ can be admitted by a layout?
 
-<div class="statement">
+<div class="statement" id="function-to-layout">
 
 Let $f: [0, M) \to \mathbb{N}$ be an arbitrary function. Then there is an
 algorithm with runtime $O(M^2 \log{M})$ that finds a layout $L = (n_0, n_1, ...
@@ -287,67 +296,116 @@ Thus, $n_0$ being consistent with $f$ and $s_0$ means that there is
 <details markdown="1">
 <summary>Do we only need to recurse on the largest value of $n_0$? Short answer: <b>yes</b>.</summary>
 
-We will prove two statements that give the positive answer to this question.
+We will prove two claims that give the positive answer to this question.
 
 <div markdown="1" class="statement">
 
-Let $n_0$ be the largest consistent value for $f$ and $s_0$.  Then, if
-$\hat{n}_0 < n_0$ is another consistent value, when we necessarily have
-$\hat{n}_0~|~n_0$.
+**Claim 1.**
+Let $n_0$ be the largest consistent value for $f$ and $s_0$. Then, if $\hat{n}_0
+< n_0$ is consistent, we necessarily have $\hat{n}_0~|~n_0$.
 
 </div>
 
-**Proof.**
-Assume that $\hat{n}_0~\nmid~n_0$, we will derive that $\text{lcm}(n_0,
+<details markdown="1">
+<summary><b>Proof.</b></summary>
+Assume that $\hat{n}_0~\nmid~n_0$, we will derive that $l = \text{lcm}(n_0,
 \hat{n}_0)$ is also consistent to $f$ and $s_0$. This is a contradiction to the
-maximality of $n_0$, since $\text{lcm}(n_0, \hat{n}_0) > n_0$ because
-$\hat{n}_0~\nmid~n_0$.
+maximality of $n_0$, since $l > n_0$ because $\hat{n}_0~\nmid~n_0$.
 
-Recall that $n_0$ and $\hat{n}_0$ being consistent with $f$ and $s_0$
-means that for all $x \in [0, M)$, we have:
+Take $k \in \mathbb{N}$ such that $\hat{n}_0~\nmid~k n_0$ and $t \in \mathbb{N}$
+such that $t l + k n_0 < M$, we have:
+
+$$
+\left\lfloor \frac{tl + k n_0}{\hat{n}_0} \right\rfloor
+= \underbrace{\frac{tl}{\hat{n}_0}}_{\in \mathbb{N}} + \left\lfloor \frac{k n_0}{\hat{n}_0} \right\rfloor
+= \frac{tl}{\hat{n}_0} + \left\lfloor \frac{k n_0 - 1}{\hat{n}_0} \right\rfloor
+= \left\lfloor \frac{tl + k n_0 - 1}{\hat{n}_0} \right\rfloor
+$$
+
+and:
+
+$$
+(tl + k n_0)~\text{mod}~\hat{n}_0 - 1 = (tl + k n_0 - 1)~\text{mod}~\hat{n}_0
+$$
+
+Hence, using the consistency of $\hat{n}_0$, we have:
 
 $$
 \begin{aligned}
-f(x)
-  &= f\mathopen{}\left( n_0 \cdot \lfloor x / n_0 \rfloor \right)
-   + s_0 \cdot (x~\text{mod}~n_0) \\
-  &= f\mathopen{}\left( \hat{n}_0 \cdot \lfloor x / \hat{n}_0 \rfloor \right)
-   + s_0 \cdot (x~\text{mod}~\hat{n}_0)
+f(tl + k n_0)
+    &= f\mathopen{}\left( \hat{n}_0 \cdot \left\lfloor \frac{tl + k n_0}{\hat{n}_0} \right\rfloor \right)
+     + s_0 \cdot ((t l + k n_0)~\text{mod}~\hat{n}_0) \\
+    &= f\mathopen{}\left( \hat{n}_0 \cdot \left\lfloor \frac{tl + k n_0 - 1}{\hat{n}_0} \right\rfloor \right)
+     + s_0 \cdot ((t l + k n_0 - 1)~\text{mod}~\hat{n}_0 + 1) \\
+    &= f(t l + k n_0 - 1) + s_0
 \end{aligned}
 $$
+
+Using this result for $k = 1, 2, ..., l / n_0 - 1$, we have $f(tl + r) = f(tl) +
+s_0 r$ for all $r \in [0, l)$ and $t$ such that $tl + r < M$.
+
+Finally, using the fact that all $x \in [0, M)$ can be written as $x = tl + r$
+where $r \in [0, r)$, we derive the consistency of $l$, which is a contradiction. $\square$
+
+</details>
 
 <div markdown="1" class="statement">
+
+**Claim 2.**
+If a layout $\hat{L}$ whose first mode is $(\hat{n}_0) : (s_0)$ admits $f$, then
+there exists a layout $L$ whose first mode is $(n_0) : (s_0)$ that also admits
+$f$.
+
 </div>
 
+<details markdown="1">
+<summary><b>Proof.</b></summary>
 
-Let $\hat{n}_0$ be the smallest positive value satisfying the condition above.
-We prove that if there is $n_0 > \hat{n}_0$ which also satisfies the condition
-above, then $\hat{n}_0~|~n_0$.
+Let us write $\hat{L} = (\hat{n}_0, n_1, n_2, ...) : (s_0, s_1, s_2, ...)$.  We
+will prove that $s_1 = s_0 \hat{n}_0$.
 
-Let $n_0 = k \hat{n}_0 + r$ where $0 \leq r < \hat{n}_0$. Then for $x \in [0, M)$, we have:
+To prove this point, we use the hypothesis that $n_0$ is consistent with respect
+to $f$ and $s_0$. This means that $f(x) = x s_0$ for all $x < n_0$. In
+particular, for $x = \hat{n}_0 < n_0$:
+
+$$
+s_0 \hat{n}_0 = f(\hat{n}_0) = L(0, 1, 0, 0, ..., 0) = s_1
+$$
+
+Now that we have prove $s_1 = s_0 \hat{n}_0$, we see that the layout $\tilde{L}
+= (\hat{n}_0 n_1, n_2, ...) : (s_0, s_2, ...)$ has the same singlevariate
+function with $L$. This is because for any $x \in [0, M)$, we have:
 
 $$
 \begin{aligned}
-x &= n_0 \cdot \left\lfloor \frac{x}{n_0} \right\rfloor + x~\text{mod}~n_0 \\
-  &= n_0 \cdot \left\lfloor \frac{x / \hat{n}_0}{k + r / \hat{n}_0} \right\rfloor + x~\text{mod}~n_0 \\
+  s_0 \cdot (x~\text{mod}~\hat{n}_0)
++ s_0 \hat{n}_0 \cdot \left( \left\lfloor \frac{x}{\hat{n}_0} \right\rfloor~\text{mod}~n_1 \right)
+&= s_0 \cdot \left(
+        x~\text{mod}~\hat{n}_0
+        + \hat{n}_0 \cdot \left( \left\lfloor \frac{x}{\hat{n}_0}\right\rfloor~\text{mod}~n_1 \right)
+    \right) \\
+&= s_0 \cdot \left( x~\text{mod}~\hat{n}_0n_1 \right)
 \end{aligned}
 $$
 
-Indeed, apply the condition for $x = n_0$, we
-have:
+Plus, the contributions for all mode $i$'s with $i \geq 2$ are the same between
+$L$ and $\tilde{L}$. This gives $\tilde{L} = L$.
 
-$$
-f(n_0) = f(\hat{n}_0 \cdot \lfloor n_0 / \hat{n}_0 \rfloor)
-       + s_0 \cdot (n_0~\text{mod}~\hat{n}_0)
-$$
+Now, if $\hat{n}_0 n_1 = n_0$, then we are done. If not, we repeat the process
+above and end up with another layout with a strictly arger first size "$n_0$"
+but the same first stride $s_0$. This process must converge, as the first stride
+is increasing and upper-bounded. Also, the process can only converge with the
+first stride being $n_0$, because otherwise, we can still repeat.
 
+This completes the proof. $\square$
 
-Here, consistency means that $f(x + i k) = f(x) + i s_0$, for all
-$x \in [0, M]$ and $i \in \mathbb{N}$ such that $x + i k \in [0, M]$. If no such
-$k$ is found, we say that the function $f$ is *inconsistent*, i.e., there is no
-layout admitting $f$ as its singlevariate function. Otherwise, we repeat the
-process on the function to find $(n_1, s_1)$:
+</details>
 
+</details> <!-- Why does largest n_0 work? -->
+
+### Recurse
+
+To find $(n_1) : (s_1)$, we repeat the algorithm recursively on the function:
 
 $$
 g : \left[ 0, \left\lfloor M / n_0 \right\rfloor \right] \to \mathbb{N}~~~~~~~~~g(x) := f(n_0 x)
@@ -355,28 +413,6 @@ $$
 
 Essentially, this means to restrict $f$ into the sub-domain where the $0$-th
 coordinate is $0$.
-
-To prove the correctness of this algorithm, it remains to check that if there's
-a layout admitting $f$, then there is a layout admitting $f$ whose first mode is
-$(n_0) : (s_0)$ where $n_0$ is the *smallest value* found in (3a).
-
-It is easy to check that if there is a layout admitting $f$ whose first model is
-$(n^{'}_0): (s_0)$ where $n^{'}_0 > n_0$, then we must have $n_0~|~n^{'}_0$
-(otherwise, using periodic argument, we can find $n^{'}_0 < n_0$ such that $f(x
-+ i n^{'}_0) = f(x) + i s_0$).
-
-Let $\hat{n}_0$
-
-Now, suppose that a layout $L = (kn_0, n_1, ..., n_{D-1}) : (s_0, s_1, ...,
-s_{D-1})$ admits $f$. We can see that the layout $L' = (n_0, k, n_1, ...,
-n_{D-1}) : (s_0, s_0, s_1, ..., s_{D-1})$ has the same single variate function
-as $L$, hence it also admits $f$.
-
-This completes the proof that the smallest consistent value for $n_0$ suffices
-for recursion.
-
-<br>
-</details> <!-- Why does largest n_0 work? -->
 
 ### Runtime analysis
 
@@ -507,58 +543,43 @@ layouts, we mean uniqueness upto the equivalence via a layout's canonical
 singlevariate function.
 
 
-## Complement
+## Complemention
 
 <div class="statement" id="complement-def" markdown="1">
 
-**Definition 2. (Complement)**
-Let $A = (N_a) : (D_a)$ be a layout.  For an integer $M$ that is divisible by
-$\text{size}(A) = n_0 n_1 \cdots n_{D-1}$, the *complement of $A$ with
-respect to $M$*, denoted by $C(A, M)$, is the layout $B$ that satisfies two
-conditions:
-1. The associated layout function $f_B$ is strictly increasing.
+**Definition 4. (Complement)**
+Let $A = N : S$ be a layout. Then, for an integer $M$, the *complement of $A$
+with respect to $M$* -- denoted by $\text{Complement}(A, M)$ -- is the layout
+$B$ that satisfies two conditions:
+1. $B$'s singlevariate function is strictly increasing.
 2. The concatenation layout $(A, B)$ is a bijection $[0, M) \to [0, M)$.
 
 </div>
 
-There are some ground-laying work to ensure that [Definition 2](#complement-def) works.
+Not all layouts have a complement. In particular, we bijection condition above
+rules out all layout $A$ whose singlevariate function is not injective.
 
-**Lemma 2.1.** Let $A$ be an $D$-dimensional layout, then the followings are equivalent:
+The [function-to-layout Algorithm](#function-to-layout) offers deterministic way
+to find $\text{Complement}(A, M)$ for any layout $A$ and positive integer $M$,
+or to tell that such complement does not exist.
 
-1. Let $\sigma$ sorts $\{(n_0, s_0), (n_1, s_1), ..., (n_{D-1}, s_{D-1})\}$
-first by $d$ and then by $n$.
-That is, $\sigma$ is the permutation of $\{0, 1, ..., d-1\}$ such that for $0
-\leq i < j \leq d-1$, we have $s_{\sigma(i)} \leq s_{\sigma(j)}$ and if
-$s_{\sigma(i)} = s_{\sigma(j)}$ then $n_{\sigma(i)} \leq n_{\sigma(j)}$.
-Then $n_{\sigma(i)} s_{\sigma(i)}~|~s_{\sigma(j)}$ for all $0 \leq i < j \leq D-1$.
+Indeed, the idea is to determine $B$'s singlevariate function based on the given
+conditions, and then use [function-to-layout Algorithm](#function-to-layout) to
+find $B$, or to tell if there is no such $B$.
 
-2. $C(A, M)$ exists for *all* positive integers $M$ divisible by $\text{size}(A)$.
+## Composition
 
+<div class="statement" id="composition-def" markdown="1">
 
+**Definition 5. (Composition)**
 
+Let $A = N_a : S_a$ and $B = N_b : S_b$ be two layouts. Their composition $A
+\circ $B is the layout such that $f_{A \circ B} \equiv f_A \circ f_B$.
 
+</div>
 
-<details markdown="1">
-
-Consider the layout $A = (4) : (3)$ which maps $(0, 1, 2, 3) \mapsto (0, 3, 6, 9)$.
-We will try to determine the complement $B := \text{Complement}(A, 24)$.
-
-To that end, we want to find a layout $B = (m, n) : (e, f)$ such that the
-concatenation $(A, B)$ maps $[0, 24) \mapsto [0, 24)$ bijectively.
-
-Equivalently:
-$$
-\begin{aligned}
-&~~~~~~~~~(4, m, n) : (3, e, f)~\text{maps}~[0, 24) \mapsto [0, 24) \\
-&\Longrightarrow (4, 3, 2) : (3, 1, 12)~\text{maps}~[0, 24) \mapsto [0, 24) \\
-\end{aligned}
-$$
-
-Therefore $B = (3, 2) : (1, 12)$.
-
-In fact, more generally, we have $\text{complement}(A, 12k) = (3, 2k) : (1, 12)$ for
-each positive integer $k$.
-
-Maybe another more general rule is that
-$\boxed{ \text{complement}\big( (n) : (d), knd \big) = (d, k) : (1, nd) }$.
-</details>
+As for complementation, not all pairs of layouts can be composed.  To determine
+two layouts' composition, we first determine the composite of their single
+variate function, and then use the [function-to-layout
+Algorithm](#function-to-layout) to find the composition or to conclude that such
+composition does not exist.
