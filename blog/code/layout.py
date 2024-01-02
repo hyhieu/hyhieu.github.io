@@ -15,10 +15,29 @@ class Layout:
     N: npt.ArrayLike
     S: npt.ArrayLike
 
+    def __post_init__(self):
+        self._cum_prod = np.concatenate([[1], np.cumprod(self.N[:-1])])
+
     def __repr__(self) -> str:
         n_str = ",".join([str(n) for n in self.N])
         s_str = ",".join([str(s) for s in self.S])
         return f"[layout] ({n_str}) : ({s_str})"
+
+    def size(self) -> int:
+        r"""The layout's size is the product of all its dimensions."""
+        return np.prod(self.N)
+
+    def single2multi(self, x: int) -> tuple[int, ...]:
+        r"""1-D coordinate to multi coordinate."""
+        return tuple(((x // self._cum_prod) % self.N).tolist())
+
+    def multi2single(self, *args) -> int:
+        r"""Multi coordinate to 1-D coordinate."""
+        return np.dot(self._cum_prod, np.array(args))
+
+    def f_single(self, x: int) -> int:
+        r"""Evaluate the layout's singlevariate function."""
+        return np.array(self.single2multi(x)).dot(self.S)
 
 
 def find_layout(f: npt.ArrayLike) -> Layout | None:
@@ -66,4 +85,20 @@ def find_layout(f: npt.ArrayLike) -> Layout | None:
     return None
 
 
-print(find_layout(np.array([0, 2, 4, 7, 9, 11])))  # (3,2) : (2,7)
+# print(find_layout(np.array([0, 2, 4, 7, 9, 11])))  # (3,2) : (2,7)
+
+
+def test_layout_function():
+    """Simple opreations."""
+    layout = Layout(N=[3, 4], S=[1, 3])
+
+    assert layout.single2multi(5) == (2, 1)
+    assert layout.multi2single(2, 1) == 5
+    assert layout.multi2single(2, 3) == 11
+
+    for x in range(layout.size()):
+        assert x == layout.multi2single(*layout.single2multi(x))
+        assert x == layout.f_single(x)
+
+
+test_layout_function()
