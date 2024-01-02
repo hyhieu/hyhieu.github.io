@@ -561,8 +561,13 @@ singlevariate function.
 Let $A = N : S$ be a layout. Then, for an integer $M$, the *complement of $A$
 with respect to $M$* -- denoted by $\text{Complement}(A, M)$ -- is the layout
 $B$ that satisfies two conditions:
-1. $B$'s singlevariate function is strictly increasing.
-2. The concatenation layout $(A, B)$ is a bijection $[0, M) \to [0, M)$.
+1. $A(x) \neq B(x)$ for all $x \in [0, \text{size}(A))$.
+2. $B$'s singlevariate function is strictly increasing.
+3. ~~The concatenation layout $(A, B)$ is a bijection $[0, M) \to [0, M)$.~~
+There is something wrong with this definition. MAYBE we need to go back to the
+[original](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute/02_layout_operations.md#complement)
+But need to reflect the intuition about bijection. The original writing on this
+point is not clear at all.
 
 </div>
 
