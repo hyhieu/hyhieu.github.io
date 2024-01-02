@@ -71,7 +71,7 @@ def find_layout(f: npt.ArrayLike) -> Layout | None:
         row_d = pad_f[1:, :-1] - pad_f[:-1, :-1]
 
         # row diff in the last column. need to remove the padded zeros
-        last_f = pad_f[: m%n_0, -1]
+        last_f = pad_f[: m % n_0, -1]
         last_d = last_f[1:] - last_f[:-1]
 
         n_0_consistent = np.all(row_d[:, :-1] == s_0) and np.all(last_d == s_0)
