@@ -58,10 +58,28 @@ $$
 
 </div>
 
-The tuple $N$ is called the layout's *size,* while the tuple $S$ is called the
-layout's *stride.* Additionally, each tuple $(n_i, s_i)$ for $i \in \{0, 1,
-..., D-1\}$ is called a *mode* of $L$'s.
+There are some terminologies associated with the definition of layout:
 
+- The tuple $N$ is called the layout's *size.*
+
+- The maximum offset that the layout can represent,
+i.e., $\sum_{i=0}^{D-1}s_i (n_i - 1)$, is the layout's *cosize.*
+
+- The tuple $S$ is called the layout's *stride.*
+
+- The pair $(n_i, s_i)$, sometimes written $(n_i) : (s_i)$, is called the
+$i^\text{th}$ *mode* of $L$.
+
+In this note, we are not very concerned with the goal of layout objects, much
+rather with the mathemtical constructions of layouts and the operations on them.
+However, the summary of layouts is that they are used to represent
+*offsets* of elements in CuTe tensors (that is, how far is each element from the
+tensor's first element in the GPU memory). In particular, the size tuple $N$
+represents the shapes of a tensor, while the stride tuple $S$ represents the
+strides in each mode of the shape.
+
+In the next section, we will study the *canonical functions* of layouts, which
+represent how to map certain coordinate representations to offsets in layouts.
 
 ### Canonical function
 
