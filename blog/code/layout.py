@@ -60,8 +60,6 @@ def find_layout(f: npt.ArrayLike) -> Layout | None:
     t = np.where(m_s_0 != f)[0][0]
 
     for n_0 in range(t, 0, -1):
-        # TODO(hieu): continue here
-
         # check if f is consistent with (n_0) : (s_0) as the first mode
         tgt_sz = (m + n_0 - 1) // n_0 * n_0
         pad_sz = tgt_sz - m
@@ -85,7 +83,21 @@ def find_layout(f: npt.ArrayLike) -> Layout | None:
     return None
 
 
-# print(find_layout(np.array([0, 2, 4, 7, 9, 11])))  # (3,2) : (2,7)
+def test_find_layout():
+    """Ensure that find_layout finds the correct layout."""
+
+    def _test_case(n: npt.ArrayLike, s: npt.ArrayLike):
+        layout_1 = Layout(N=n, S=s)
+        f = [layout_1.f_single(x) for x in range(layout_1.size())]
+        layout_2 = find_layout(f)
+        assert np.all(layout_1.N == layout_2.N), (
+            f"{layout_1.N=} but {layout_2.N=}.")
+        assert np.all(layout_1.S == layout_2.S), (
+            f"{layout_1.S=} but {layout_2.S=}.")
+
+    _test_case([3, 5, 7], [4, 9, 8])
+    _test_case([3, 2], [10, 13])
+    _test_case([9], [4])
 
 
 def test_layout_function():
@@ -101,4 +113,5 @@ def test_layout_function():
         assert x == layout.f_single(x)
 
 
+test_find_layout()
 test_layout_function()
