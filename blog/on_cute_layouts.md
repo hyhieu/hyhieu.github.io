@@ -595,8 +595,6 @@ singlevariate function.
 
 ## Complemention
 
-\# TODO(hieu): this definition has to change.
-
 <div class="statement" id="complement-def" markdown="1">
 
 **Definition 4. (Complement)**
