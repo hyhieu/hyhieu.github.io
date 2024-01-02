@@ -601,15 +601,14 @@ singlevariate function.
 Let $A = N : S$ be a layout. Then, for an integer $M$, the *complement of $A$
 with respect to $M$* -- denoted by $\text{Complement}(A, M)$ -- is the layout
 $B$ that satisfies two conditions:
-1. $A(x) \neq B(x)$ for all $x \in [0, \text{size}(A))$.
-2. $B$'s singlevariate function is strictly increasing.
-3. The concatenation layout $(A, B)$ is a bijection from $[0, M)$ to itself.
+1. $B$'s singlevariate function is strictly increasing.
+2. The concatenation layout $(A, B)$ is a bijection from $[0, M)$ to itself.
 
 </div>
 
 Note that
 [CuTe's original definition](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute/02_layout_operations.md#complement)
-of complementation specifies the following conditions instead of (3).
+of complementation specifies the following conditions instead of (2).
 
 1. $\text{size}(B) \geq \left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor$.
 
@@ -621,7 +620,7 @@ definition is more intuitive of what the complement operation does.
 
 
 Not all layouts have a complement. In particular, we bijection requirement in
-condition (3) rules out all layout $A$ whose singlevariate function is not
+condition (2) rules out all layout $A$ whose singlevariate function is not
 injective.
 
 The [function-to-layout Algorithm](#function-to-layout) offers deterministic way
