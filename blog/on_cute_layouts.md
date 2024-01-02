@@ -81,6 +81,8 @@ strides in each mode of the shape.
 In the next section, we will study the *canonical functions* of layouts, which
 represent how to map certain coordinate representations to offsets in layouts.
 
+\# TODO: maybe write about the extension of layouts (i.e., the last mode become $\infty$).
+
 ### Canonical function
 
 <div class="statement" markdown="1">
