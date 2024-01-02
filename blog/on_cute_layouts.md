@@ -46,7 +46,7 @@ and then use this correspondence to construct layout operations such as
 
 <div class="statement" markdown="1" id="layout-def">
 
-**Definition 1. (Layout)** Let $D$ be a positive integer. A layout $L = N :
+**Definition 1.1. (Layout)** Let $D$ be a positive integer. A layout $L = N :
 S$ is a pair of tuples, each with $D$ positive integers:
 
 $$
@@ -60,12 +60,12 @@ $$
 
 There are some terminologies associated with the definition of layout:
 
-- The tuple $N$ is called the layout's *size.*
+- The product of all elements in the tuple $N$ is called the layout's *size.*
+
+- The tuple $S$ is called the layout's *stride.*
 
 - The maximum offset that the layout can represent,
 i.e., $\sum_{i=0}^{D-1}s_i (n_i - 1)$, is the layout's *cosize.*
-
-- The tuple $S$ is called the layout's *stride.*
 
 - The pair $(n_i, s_i)$, sometimes written $(n_i) : (s_i)$, is called the
 $i^\text{th}$ *mode* of $L$.
@@ -83,7 +83,7 @@ represent how to map certain coordinate representations to offsets in layouts.
 
 \# TODO: maybe write about the extension of layouts (i.e., the last mode become $\infty$).
 
-### Canonical function
+### Canonical functions
 
 <div class="statement" markdown="1">
 
@@ -93,18 +93,18 @@ n_1) \times \cdots \times [0, n_{D - 1}) \subseteq \mathbb{N}^{D} \to
 \mathbb{N}$, defined by:
 
 $$
-g_L(x_0, x_1, ..., x_{D-1}) := n_0 \cdot x_0 + n_1 \cdot x_1 + \cdots + n_{D-1} \cdot x_{D-1}
+g_L(x_0, x_1, ..., x_{D-1}) := s_0 \cdot x_0 + s_1 \cdot x_1 + \cdots + s_{D-1} \cdot x_{D-1}
 $$
 
 We call $g_L$ the *canonical multivariate function* of $L$.
 
 </div>
 
-Throughout this note, when clear from context, we will drop the word
-"canonical" for brevity, and we might use the overloaded notation:
+When clear from context, we will drop the word "canonical" for brevity. We might
+also use the overloaded notation:
 
 $$
-L(x_0, x_1, ..., x_{D-1}) := n_0 \cdot x_0 + n_1 \cdot x_1 + \cdots + n_{D-1} \cdot x_{D-1}
+L(x_0, x_1, ..., x_{D-1}) := s_0 \cdot x_0 + s_1 \cdot x_1 + \cdots + s_{D-1} \cdot x_{D-1}
 $$
 
 Other than the canonical multivariate function, we are also interested in the
@@ -199,11 +199,40 @@ a layout?
 
 ### Basic operations
 
-\# TODO: write about concatenation. what does it mean for the singlevariate
-functions?
+<div markdown="1" class="statement">
 
-\# TODO: maybe write about flattening and merging two consecutive modes. looks
-like those don't change the singlevariate function?
+**Definition 1.2. (Concatenation)**
+
+The concatenation of two layouts $L_1$ and $L_2$ -- denoted by $(L_1, L_2)$ is the layout
+$L$L whose single variate function is:
+
+$$
+L(x)
+    = \text{cosize}(L_1) \cdot L_1(x~\text{mod}~\text{size}(L_1))
+    + L_2\mathopen{}\left(
+        \left\lfloor \frac{x}{\text{size}(L_1)} \right\rfloor
+        ~\text{mod}~\text{size}(L_2)
+    \right)
+$$
+
+</div>
+
+With that definition, it is relatively easy to check the closed form of layout concatentation.
+In particular, if:
+
+$$
+\begin{aligned}
+L_1 &= (m_0, m_1, ..., m_{D-1}) : (t_0, t_1, ..., t_{D-1}) \\
+L_2 &= (n_0, n_1, ..., n_{D-1}) : (s_0, s_1, ..., s_{D-1})
+\end{aligned}
+$$
+
+Then their concatenation is simply obtained by concatenating their sizes and strides:
+
+$$
+(L_1, L_2) = (m_0, m_1, ..., m_{D-1}, n_0, n_1, ..., n_{D-1})
+           : (t_0, t_1, ..., t_{D-1}, s_0, s_1, ..., s_{D-1})
+$$
 
 ## What function $f: \mathbb{N} \to \mathbb{N}$ can be admitted by a layout?
 
@@ -236,22 +265,15 @@ To avoid such trivial dimensions, we can assume that $\boxed{n_i > 1}$ for all
 $i \in \{0, 1, \cdots, D-1\}$.
 
 </details>
-
+<br>
 The gist of the algorithm is to guess the first mode $(n_0) : (s_0)$, and then
-recurse. To this end, we write down the formula for $L(x)$:
+recurse. To this end, we start from the formula of the singlevariate function $L(x)$:
 
 <div id="l-formula"></div>
 
 $$
 \begin{aligned}
 L(x)
-  &= \left(
-    x~\text{mod}~n_0,
-    \left\lfloor \frac{x}{n_0} \right\rfloor~\text{mod}~n_1,
-    \left\lfloor \frac{x}{n_0 n_1} \right\rfloor~\text{mod}~n_2,
-    ...,
-    \left\lfloor \frac{x}{n_0 n_1 \cdots n_{D-2}} \right\rfloor~\text{mod}~n_{D-1}
-  \right)^\top \cdot (s_0, s_1, ..., s_{D-1}) \\
   &= \sum_{i=0}^{D-1} s_i \cdot \left(\left\lfloor \frac{x}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~n_i\right)
 \end{aligned}
 $$
@@ -445,10 +467,10 @@ coordinate is $0$.
 ### Runtime analysis
 
 Our unoptimized implementation of the algorithm runs in $\boxed{O(M^2
-\log{M})}$. The gist of the analysis is based on the assumption that $n_i \geq
-2$ for all $i \in [0, D)$. As such, the resulting layout $L$ has at most
-$O(\log{M})$ modes.  Furthermore, the unoptimized implementations of
-[mode](#guessing-s_0) [guessing](#guessing-n_0) is $O(M^2)$.
+\log{M})}$. The analysis is based on the assumption that $n_i \geq 2$ for all $i
+\in [0, D)$. As such, the resulting layout $L$ has at most $O(\log{M})$ modes.
+Furthermore, the unoptimized implementations of [mode](#guessing-s_0)
+[guessing](#guessing-n_0) is $O(M^2)$.
 
 <details markdown="1">
 <summary>Let's not bore ourselves with the analysis, unless you raelly want to...</summary>
@@ -583,16 +605,26 @@ with respect to $M$* -- denoted by $\text{Complement}(A, M)$ -- is the layout
 $B$ that satisfies two conditions:
 1. $A(x) \neq B(x)$ for all $x \in [0, \text{size}(A))$.
 2. $B$'s singlevariate function is strictly increasing.
-3. ~~The concatenation layout $(A, B)$ is a bijection $[0, M) \to [0, M)$.~~
-There is something wrong with this definition. MAYBE we need to go back to the
-[original](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute/02_layout_operations.md#complement)
-But need to reflect the intuition about bijection. The original writing on this
-point is not clear at all.
+3. The concatenation layout $(A, B)$ is a bijection from $[0, M)$ to itself.
 
 </div>
 
-Not all layouts have a complement. In particular, we bijection condition above
-rules out all layout $A$ whose singlevariate function is not injective.
+Note that
+[CuTe's original definition](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute/02_layout_operations.md#complement)
+of complementation specifies the following conditions instead of (3).
+
+1. $\text{size}(B) \geq \left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor$.
+
+2. $\text{cosize}(B) \leq \left\lfloor \dfrac{M}{\text{cosize(A)}} \right\rfloor \cdot \text{cosize}(A)$.
+
+It is not hard to check that together, these conditions are equivalent to (3) in
+[our definition](#complement-def). In our (obviously biased) opinion, our
+definition is more intuitive of what the complement operation does.
+
+
+Not all layouts have a complement. In particular, we bijection requirement in
+condition (3) rules out all layout $A$ whose singlevariate function is not
+injective.
 
 The [function-to-layout Algorithm](#function-to-layout) offers deterministic way
 to find $\text{Complement}(A, M)$ for any layout $A$ and positive integer $M$,
@@ -618,8 +650,3 @@ two layouts' composition, we first determine the composite of their single
 variate function, and then use the [function-to-layout
 Algorithm](#function-to-layout) to find the composition or to conclude that such
 composition does not exist.
-
-## TODO
-
-- [ ] Actually figure out how to find $f_B$ for complement
-- [ ] Prove the left-distribution for composition
