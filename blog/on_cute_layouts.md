@@ -242,11 +242,8 @@ function. The reverse question is much less trivial: for which functions $f:
 \mathbb{N} \to \mathbb{N}$ there is a layout whose singlevariate function is
 $f$?
 
-<hr>
-
-**-----> Hieu has proofread until here.**
-
-<hr>
+Hieu has proofread until here.
+==============================
 
 In the next section, we will discuss a more general question. For a function $f:
 [0, M) \to \mathbb{N}$, we say that $L$ *admits* $f$ if $L(x) = f(x)$ for all $x
