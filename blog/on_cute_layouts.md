@@ -603,6 +603,44 @@ composition does not exist.
 
 # Logical division
 
+<div class="statement" id="logical-division-def" markdown="1">
+
+**Definition 7. (Logical Division)**
+
+Let $A = N_a : S_a$ and $B = N_b : S_b$ be two layouts. When all the intermediate
+operations are possible, we define their logical division to be:
+
+$$
+\text{LogicalDivision}(A, B)
+  := A \circ \text{Concat}(A, \text{Complement}(B, \text{size}(A)))
+$$
+
+</div>
+
+We find it hard to build an intuition about logical division.
+[Jay Shah's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts)
+perhaps offers better intuitions for this purpose. However, we find it very
+assuring to reason about the logical division via $A$ and $B$'s singlevariate
+functions.
+
+Inparticular, as $A$ and $B$ are layouts:
+
+- Their functions can be easily defined.
+
+- Then, $C = \text{Complement}(B, \text{size}(A))$ is either well-defined or
+does not exist.
+
+- Then, $\text{Concat}(A, C)$ is well-defined.
+
+- Finally, $A \circ \text{Concat}(A, C)$ is either well-defined or does not exist.
+
+This way of reasoning does not only offer an assuring mathemtical definition of
+logical division, but also gives an algorithm to evaluate two layout's logical
+division. While we cannot assert that this is the way layouts are implemented in
+CuTe, we implement logical division operation in Python to help with studying
+the concepts.
+
+
 # Python implementation
 
 Here, we provided the Python implementation for the basic operations with layouts.
