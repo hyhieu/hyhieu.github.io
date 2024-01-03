@@ -605,7 +605,7 @@ composition does not exist.
 
 <div class="statement" id="logical-division-def" markdown="1">
 
-**Definition 7. (Logical Division)**
+**Definition 7. (Logical division)**
 
 Let $A = N_a : S_a$ and $B = N_b : S_b$ be two layouts. When all the intermediate
 operations are possible, we define their logical division to be:
