@@ -3,50 +3,88 @@ layout: post
 date: 2023-12-31
 ---
 
-# On CuTe layouts
+On CuTe layouts
+===============
 
 **[work in progress. many citations missing, and many writings here could be wrong.]**
 
 [[Hieu's personal blog index](./index)]
 
+# Introduction
+
 [CuTe](https://github.com/NVIDIA/cutlass/tree/main/include/cute) is a
 sub-library in NVIDIA's [CUTLASS](https://github.com/nvidia/cutlass).
-
-CuTe makes GPU programming flexible and generalizable across different
-generations of GPU architectures, at least
-[Ampere](https://www.nvidia.com/en-us/data-center/ampere-architecture/) and
+CuTe makes GPU programming flexible and generalizable across different GPU
+architectures, such as
+[Volta](https://www.nvidia.com/en-us/data-center/volta-gpu-architecture/),
+[Ampere](https://www.nvidia.com/en-us/data-center/ampere-architecture/), and
 [Hopper](https://www.nvidia.com/en-us/data-center/technologies/hopper-architecture/).
-Thanks to CuTe, the open-source deep learning community have developed effiicent
-tools for deep learning, among which perhaps the most well-known is
-[Flash-Attention](https://github.com/Dao-AILab/flash-attention).
+CuTe plays the central role in the development of many efficient deep learning
+libraries, including but not limited to
+[Flash-Attention](https://github.com/Dao-AILab/flash-attention),
+[FasterTransformer](https://github.com/NVIDIA/FasterTransformer), and
+[xformers](https://github.com/facebookresearch/xformers).
 
 For some backgrounds, GPU programming is notoriously inflexible and completely
 specific to target architectures. As such, the flexibility and generalization
 provided by CuTe is no less than a miracle. Such miracle stems from the
-ingenious design of its central concept:
-*layout.* A layout maps an $D$-dimensional coordinate into an integral
-offset. As simple as that, layouts are accompanied by *operations* that allow
-users to flexibly and efficiently write performant tensor programs.
+ingenious design of its central concept: *layout.* A layout maps an
+$D$-dimensional coordinate into an integer. Despite the very basic definition,
+layouts accompanied by *operations* have significantly improved the experience
+of writing performant GPU programs.
 
-In this blog post, we attempt to formalize the definition of CuTe layout and its
-accompanying operations: [complementation](#complemention) and
-[composition](#composition).
+# Motivations
 
-Our idea is to think of layouts as a way to represent function $f: \mathbb{N}
-\to \mathbb{N}$ that maps each integer to a multilinear function's output
-defined by the layout.
+While we enjoy the benefits of CuTe and admire its design, we find CuTe's
+[original documentation](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute)
+somewhat inadequate, especially at building a robust background for understanding
+CuTe's concepts. For instance, the complement operation is a fundamental
+operation with CuTe layout, but the doc does not explain *how* to compute a
+complement. While it is okay to treat these low-level operations as black boxes
+and just move on writing good GPU programs with CuTe, we do feel the need to have
+a rigorous foundation of the concepts in our program.
 
-We build a correspondence between layouts and these functions via an algorithm,
-and then use this correspondence to construct layout operations such as
-[complementation](#complemention) and [composition](#composition).
+**Goal.**
+Building such rigurous foundation is the goal of this blog post. In particular,
+we attempt to formalize the definition of CuTe layout and a few of its
+accompanying operations, most importantly [complementation](#complemention),
+[composition](#composition), and [logical division](#logical-division).
 
-## Basic definitions and properties
+**Our source of inspiration.**
+This blog post is not the first attempt at building foundational understanding of CuTe.
+We took so much inspiration of
+[Jay Shah's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts)
+on the same topic. Jay's note elicits the concepts around layouts very well, perhaps
+better than what we are doing, and we recommend the note to anyone who wants to deepen
+their undersatnding of CuTe.
 
-### Layout
+Our blog post offers a different treatment of CuTe's layout.
+[Jay Shah's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts)
+states concise standards to test which layouts are *"admissable for
+complementation"* or *"composition".* In order to derive such standards, they
+introduced some new concepts, such as sorting the modes of layouts, which we
+avoid doing because we think it adds an extra layer of complexity.
+
+**Our roadmap.**
+Here, we treat a layout as a way to represent function $f: \mathbb{N} \to
+\mathbb{N}$ that maps an integer to a multilinear function's output defined by
+the layout. We explain that obtaining such a function from a layout is
+straightforward, and develop an algorithm to find a layout corresponding a
+certain function (it's a deterministic algorithm, but it does not elicit a
+concise standard like
+[Jay's treatment](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts)).
+Then, using the correspondence between layouts and these functions via an
+algorithm, and then use this correspondence to construct layout operations such
+as [complementation](#complemention), [composition](#composition), and
+[logical division](#logical-division).
+
+# The basics
+
+## Layout
 
 <div class="statement" markdown="1" id="layout-def">
 
-**Definition 1.1. (Layout)** Let $D$ be a positive integer. A layout $L = N :
+**Definition 1. (Layout)** Let $D$ be a positive integer. A layout $L = N :
 S$ is a pair of tuples, each with $D$ positive integers:
 
 $$
@@ -57,6 +95,22 @@ S &= (s_0, s_1, ..., s_{D-1})
 $$
 
 </div>
+
+<details>
+<summary>So what's the goal of layouts?</summary>
+
+In this note, we are not very concerned with the goal of layout objects, much
+rather with their mathemtical constructions and operations.
+
+However, the TL;DR of layouts's goal is that they are used to represent
+*offsets* of elements in CuTe tensors -- that is, how far is each element from the
+tensor's first element in the GPU memory.
+
+For instance, a contiguous row-major matrix of size `(m, n)` as we typically see
+in `numpy` has the layout $(m, n) : (n, 1)$, meaning that its $(i, j)$ entry is
+$ni + j$ memory cells away from its $(0, 0)$ element.
+</details> <!-- So what's the goal of layouts? -->
+<br>
 
 There are some terminologies associated with the definition of layout:
 
@@ -70,20 +124,10 @@ i.e., $\sum_{i=0}^{D-1}s_i (n_i - 1)$, is the layout's *cosize.*
 - The pair $(n_i, s_i)$, sometimes written $(n_i) : (s_i)$, is called the
 $i^\text{th}$ *mode* of $L$.
 
-In this note, we are not very concerned with the goal of layout objects, much
-rather with the mathemtical constructions of layouts and the operations on them.
-However, the summary of layouts is that they are used to represent
-*offsets* of elements in CuTe tensors (that is, how far is each element from the
-tensor's first element in the GPU memory). In particular, the size tuple $N$
-represents the shapes of a tensor, while the stride tuple $S$ represents the
-strides in each mode of the shape.
-
 In the next section, we will study the *canonical functions* of layouts, which
-represent how to map certain coordinate representations to offsets in layouts.
+represent how to map coordinates to offsets in layouts.
 
-\# TODO: maybe write about the extension of layouts (i.e., the last mode become $\infty$).
-
-### Canonical functions
+## Canonical functions
 
 <div class="statement" markdown="1">
 
@@ -100,7 +144,7 @@ We call $g_L$ the *canonical multivariate function* of $L$.
 
 </div>
 
-When clear from context, we will drop the word "canonical" for brevity. We might
+When clear from context, we drop the word "canonical" for brevity, and might
 also use the overloaded notation:
 
 $$
@@ -111,32 +155,31 @@ Other than the canonical multivariate function, we are also interested in the
 *canonical singlevariate function* of a layout. This singlevariate function is
 constructed from the layout's multivariate function via the natural isomorphism
 between $[0, n_0 n_1 \cdots n_{D-1})$ and $[0, n_0) \times [0, n_1) \times
-\cdots \times [0, n_{D - 1})$, which we can define via the canonical
-multivariate function of the layout:
+\cdots \times [0, n_{D - 1})$. Intuitively, this isomorphism is the enumerating
+of the points on the integral lattice $[0, n_0) \times [0, n_1) \times \cdots
+\times [0, n_{D - 1})$. Here comes the tricky piece -- *this isomorphism is itself a layout:*
 
 $$
-\text{Multi}\to\text{Single}
+\text{MultiToSingle}
     = (n_0, n_1, n_2, ..., n_{D-1}) :
       (1, n_0, n_0 n_1, n_0 n_1 n_2, ..., n_0 n_1 \cdots n_{D-2})
 $$
 
-It is not hard to check that the function $\text{Multi}\to\text{Single}$ as
-defined above is bijective. Then, $\text{Single}\to\text{Multi}$ is just the
-invert from the other direction.
-
-A self-contained formula for $\text{Multi}\to\text{Single}$ is:
+As $\text{MultiToSingle}$ is an isomorphism, its invert $\text{SingleToMulti}$
+is *mathematically* well-defined. Here is a self-contained formula for
+$\text{SingleToMulti}$:
 
 $$
 \begin{aligned}
-\text{Multi}\to\text{Single}(x_0, x_1, ..., x_{D-1})
-  &:= x_0
+\text{MultiToSingle}(x_0, x_1, ..., x_{D-1})
+  &= x_0
     + n_0 \cdot x_1
     + n_0 n_1 \cdot x_2
     + n_0 n_1 n_2 \cdot x_3
     + \cdots
     + n_0 n_1 \cdots n_{D-2} \cdot x_{D-1} \\
-\text{Single}\to\text{Multi}(x)
-  &:= \left(
+\text{SingleToMulti}(x)
+  &= \left(
     x~\text{mod}~n_0,
     \left\lfloor \frac{x}{n_0} \right\rfloor~\text{mod}~n_1,
     \left\lfloor \frac{x}{n_0 n_1} \right\rfloor~\text{mod}~n_2,
@@ -146,7 +189,8 @@ $$
 \end{aligned}
 $$
 
-Thus, we have the following definition:
+Using the $\text{Single}\to\text{Multi}$ function, we can define a layout's
+canonical single variate function:
 
 <div class="statement" markdown="1">
 
@@ -157,51 +201,63 @@ function of $L$ is $f_L: [0, M) \to \mathbb{N}$ defined by:
 
 $$
 f_L(x)
-  := \left( \text{Single}\to\text{Multi}(x) \right)^\top \cdot (s_0, s_1, ..., s_{D-1})
+  := \text{SingleToMulti}(x)^\top \cdot (s_0, s_1, ..., s_{D-1})
   = \sum_{i=0}^{D-1} s_i \cdot \left(\left\lfloor \frac{x}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~n_i\right)
 $$
 
 </div>
 
-Similar to the case of canonical multivariate function, we also drop the terms
-"canonical" when clear from context. We might also write $L(x)$ instead of
-$f_L(x)$, again, when clear from context.
+Similar to our treatment of canonical multivariate functions, we also drop the
+terms "canonical" when clear from context. We might also write $L(x)$ instead of
+$f_L(x)$.
 
-Additionally, since the original
-[CuTe document](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute/02_layout_operations.md)
-simply uses the term "function" to refer to "canonical singlevariate function",
-we will also call it the layout function, or maybe the layout's associated
-function.
+<details>
+<summary><b>Note:</b> the terms "canonical single/multi-variate functions" are a bit different from the <a href="https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute/02_layout_operations.md">CuTe's original docmentation</a>.</summary>
+
+They simply use the term "function" to refer to "canonical singlevariate
+function". We find that when clear from context, it is okay to just say "the
+layout's function", or "the layout's associated function".
+
+</details>
 
 <details markdown="1">
 <summary><b>Digression:</b> column-major vs. row-major.</summary>
 
 The way we define the singlevariate function of a layout corresponds to how we
-traverse the layout's $D$-dimensional coordinate space from left to right. This
-traversal is sometimes called the *column-major* traversal. Column-major
-traversal is used in MATLAB and Fortran. In contrast, most modern deep learning
-frameworks like `numpy`, `torch`, and `jax` use row-major traversal. It is
-possible to redefine the entire theory on layouts using row-major traversal, but
-we choose to follow CuTe's original choice of being column-major.
+traverse the layout's $D$-dimensional coordinate space in the increasing order
+of its modes. This traversal is sometimes called the *column-major* traversal.
+
+Column-major traversal is used in MATLAB and Fortran. In contrast, most modern
+deep learning frameworks like `numpy`, `torch`, and `jax` use row-major
+traversal.
+
+It is possible to redefine the entire theory on layouts using
+row-major traversal, but we choose to follow CuTe's original choice of being
+column-major.
 
 </details>
-<br>
 
 Clearly, given any layout $L$, we can easily construct its singlevariate
 function. The reverse question is much less trivial: for which functions $f:
 \mathbb{N} \to \mathbb{N}$ there is a layout whose singlevariate function is
 $f$?
 
+<hr>
+
+**-----> Hieu has proofread until here.**
+
+<hr>
+
 In the next section, we will discuss a more general question. For a function $f:
 [0, M) \to \mathbb{N}$, we say that $L$ *admits* $f$ if $L(x) = f(x)$ for all $x
 \in [0, M)$. Then, which functions $f: \mathbb{N} \to \mathbb{N}$ is admitted by
 a layout?
 
-### Basic operations
+## Basic operations
 
 <div markdown="1" class="statement">
 
-**Definition 1.2. (Concatenation)**
+**Definition 4. (Concatenation)**
 
 The concatenation of two layouts $L_1$ and $L_2$ -- denoted by $(L_1, L_2)$ is the layout
 $L$L whose single variate function is:
@@ -234,7 +290,7 @@ $$
            : (t_0, t_1, ..., t_{D-1}, s_0, s_1, ..., s_{D-1})
 $$
 
-## What function $f: \mathbb{N} \to \mathbb{N}$ can be admitted by a layout?
+# What function $f: \mathbb{N} \to \mathbb{N}$ can be admitted by a layout?
 
 <div class="statement" id="function-to-layout">
 
@@ -245,7 +301,7 @@ algorithm with runtime $O(M^2 \log{M})$ that finds a layout $L = (n_0, n_1, ...
 
 </div>
 
-### Algorithm
+## Algorithm
 
 Without loss of generality, assume that $n_i > 1$ for all $i \in [0, D)$.
 <details markdown="1">
@@ -281,7 +337,7 @@ $$
 From this formula, we necessarily have $L(0) = 0$. In other words, if $f(x) \neq
 0$, there is no layout admitting $f$.
 
-### Guessing $s_0$
+## Guessing $s_0$
 
 Also from the formula, we can guess $s_0$ by letting $x = 1$. Thanks to the
 assumption that $n_i > 1$ for all $i$'s, we have:
@@ -297,7 +353,7 @@ $$
 Comparing this with [$L$'s formula](#l-formula), we have $\boxed{s_0 = L(1) =
 f(1)}$.
 
-### Guessing $n_0$
+## Guessing $n_0$
 
 It is possible that the layout $L = (M) : (s_0)$ admits $f$. We can check
 whether $f(k) = k s_0$ for all $kx \in [0, M)$, and if yes, we return here.
@@ -453,7 +509,7 @@ This completes the proof. $\square$
 
 </details> <!-- Why does largest n_0 work? -->
 
-### Recurse
+## Recurse
 
 To find $(n_1) : (s_1)$, we repeat the algorithm recursively on the function:
 
@@ -464,7 +520,7 @@ $$
 Essentially, this means to restrict $f$ into the sub-domain where the $0$-th
 coordinate is $0$.
 
-### Runtime analysis
+## Runtime analysis
 
 Our unoptimized implementation of the algorithm runs in $\boxed{O(M^2
 \log{M})}$. The analysis is based on the assumption that $n_i \geq 2$ for all $i
@@ -493,111 +549,11 @@ is found.
 
 </details>
 
-### Python implementation
-
-<details markdown="1">
-<summary>Here's the algorithm implemented in Python.</summary>
-
-```python
-r"""Simple experiments with CuTe layout."""
-
-from __future__ import annotations
-from dataclasses import dataclass
-import numpy as np
-import numpy.typing as npt
-
-
-@dataclass
-class Layout:
-    r"""A CuTe layout."""
-
-    N: npt.ArrayLike
-    S: npt.ArrayLike
-
-    def __repr__(self) -> str:
-        n_str = ",".join([str(n) for n in self.N])
-        s_str = ",".join([str(s) for s in self.S])
-        return f"[layout] ({n_str}) : ({s_str})"
-
-
-def find_layout(f: npt.ArrayLike) -> Layout | None:
-    r"""Returns a layout admitting `f` or `None` if no such layout exists."""
-
-    if f[0] != 0:
-        return None
-
-    m = np.size(f)
-    s_0 = f[1]
-
-    # this is the layout (m) : (s_0)
-    m_s_0 = np.arange(0, m * s_0, s_0)
-
-    # check if (n_0) : (s_0) is a solution. if yes, return
-    if np.all(m_s_0 == f):
-        return Layout(N=np.array([m]), S=np.array([s_0]))
-
-    # unique index t s.t.: f[i] = i * s_0 for i = 0, ..., t-1 but f[t] != i * t
-    t = np.where(m_s_0 != f)[0][0]
-
-    for n_0 in range(t, 0, -1):
-        # check if f is consistent with (n_0) : (s_0) as the first mode
-        tgt_sz = (m + n_0 - 1) // n_0 * n_0
-        pad_sz = tgt_sz - m
-        pad_f = np.pad(f, [(0, pad_sz)]).reshape(-1, n_0).transpose()
-
-        # row diff for all columns, except for the last one
-        row_d = pad_f[1:, :-1] - pad_f[:-1, :-1]
-
-        # row diff in the last column. need to remove the padded zeros
-        last_f = pad_f[: m%n_0, -1]
-        last_d = last_f[1:] - last_f[:-1]
-
-        n_0_consistent = np.all(row_d[:, :-1] == s_0) and np.all(last_d == s_0)
-        if n_0_consistent:
-            r = find_layout(pad_f[0, :])
-            if r is None:
-                return None
-            return Layout(N=np.concatenate([[n_0], r.N]),
-                          S=np.concatenate([[s_0], r.S]))
-
-    return None
-
-
-print(find_layout(np.array([0, 2, 4, 7, 9, 11])))  # (3,2) : (2,7)
-```
-</details>  <!-- Python implementation -->
-
-
-
-
-
-
-<hr>
-
-##### Are layout representations unique?
-
-In general, multiple layouts might represent the same singlevariate function.
-
-<details markdown="1">
-<summary><b>Example:</b> multiple layouts associated to the same function.</summary>
-
-The two layouts $A = (10) : (3)$ and $B = (2, 5) : (3, 6)$ share the same
-function: $f_A(x) = f_B(x) = 3x$  for all $x \in \{0, 1, ... 9 \}$.
-
-</details>
-
-If two layouts have the same associated function, we say that they are
-*equivalent*. This equivalence partitions the set of all layouts into equivalent
-classes. In the next sections, when we discuss certain types of uniqueness for
-layouts, we mean uniqueness upto the equivalence via a layout's canonical
-singlevariate function.
-
-
-## Complemention
+# Complemention
 
 <div class="statement" id="complement-def" markdown="1">
 
-**Definition 4. (Complement)**
+**Definition 5. (Complement)**
 Let $A = N : S$ be a layout. Then, for an integer $M$, the *complement of $A$
 with respect to $M$* -- denoted by $\text{Complement}(A, M)$ -- is the layout
 $B$ that satisfies two conditions:
@@ -631,11 +587,11 @@ Indeed, the idea is to determine $B$'s singlevariate function based on the given
 conditions, and then use [function-to-layout Algorithm](#function-to-layout) to
 find $B$, or to tell if there is no such $B$.
 
-## Composition
+# Composition
 
 <div class="statement" id="composition-def" markdown="1">
 
-**Definition 5. (Composition)**
+**Definition 6. (Composition)**
 
 Let $A = N_a : S_a$ and $B = N_b : S_b$ be two layouts. Their composition $A
 \circ $B is the layout such that $f_{A \circ B} \equiv f_A \circ f_B$.
@@ -647,3 +603,136 @@ two layouts' composition, we first determine the composite of their single
 variate function, and then use the [function-to-layout
 Algorithm](#function-to-layout) to find the composition or to conclude that such
 composition does not exist.
+
+# Logical division
+
+# Python implementation
+
+Here, we provided the Python implementation for the basic operations with layouts.
+We have only tested the code on very basic cases, so if you use it, please
+proceed carefully.
+
+<details markdown="1">
+<summary>Python implementation of basic CuTe layout operations.</summary>
+
+```python
+r"""Simple experiments with CuTe layout."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+import numpy as np
+import numpy.typing as npt
+
+
+@dataclass
+class Layout:
+    r"""A CuTe layout."""
+
+    N: npt.ArrayLike
+    S: npt.ArrayLike
+
+    def __post_init__(self):
+        self._cum_prod = np.concatenate([[1], np.cumprod(self.N[:-1])])
+
+    def __repr__(self) -> str:
+        n_str = ",".join([str(n) for n in self.N])
+        s_str = ",".join([str(s) for s in self.S])
+        return f"[layout] ({n_str}) : ({s_str})"
+
+    def size(self) -> int:
+        r"""The layout's size is the product of all its dimensions."""
+        return np.prod(self.N)
+
+    def single2multi(self, x: int) -> tuple[int, ...]:
+        r"""1-D coordinate to multi coordinate."""
+        return tuple(((x // self._cum_prod) % self.N).tolist())
+
+    def multi2single(self, *args) -> int:
+        r"""Multi coordinate to 1-D coordinate."""
+        return np.dot(self._cum_prod, np.array(args))
+
+    def f_single(self, x: int) -> int:
+        r"""Evaluate the layout's singlevariate function."""
+        return np.array(self.single2multi(x)).dot(self.S)
+
+
+def find_layout(f: npt.ArrayLike) -> Layout | None:
+    r"""Returns a layout admitting `f` or `None` if no such layout exists."""
+
+    if f[0] != 0:
+        return None
+
+    m = np.size(f)
+    s_0 = f[1]
+
+    # this is the layout (m) : (s_0)
+    m_s_0 = np.arange(0, m * s_0, s_0)
+
+    # check if (n_0) : (s_0) is a solution. if yes, return
+    if np.all(m_s_0 == f):
+        return Layout(N=np.array([m]), S=np.array([s_0]))
+
+    # unique index t s.t.: f[i] = i * s_0 for i = 0, ..., t-1 but f[t] != i * t
+    t = np.where(m_s_0 != f)[0][0]
+
+    for n_0 in range(t, 0, -1):
+        # check if f is consistent with (n_0) : (s_0) as the first mode
+        tgt_sz = (m + n_0 - 1) // n_0 * n_0
+        pad_sz = tgt_sz - m
+        pad_f = np.pad(f, [(0, pad_sz)]).reshape(-1, n_0).transpose()
+
+        # row diff for all columns, except for the last one
+        row_d = pad_f[1:, :-1] - pad_f[:-1, :-1]
+
+        # row diff in the last column. need to remove the padded zeros
+        last_f = pad_f[: m % n_0, -1]
+        last_d = last_f[1:] - last_f[:-1]
+
+        n_0_consistent = np.all(row_d[:, :-1] == s_0) and np.all(last_d == s_0)
+        if n_0_consistent:
+            r = find_layout(pad_f[0, :])
+            if r is None:
+                return None
+            return Layout(N=np.concatenate([[n_0], r.N]),
+                          S=np.concatenate([[s_0], r.S]))
+
+    return None
+
+
+def test_find_layout():
+    """Ensure that find_layout finds the correct layout."""
+
+    def _test_case(n: npt.ArrayLike, s: npt.ArrayLike):
+        layout_1 = Layout(N=n, S=s)
+        f = [layout_1.f_single(x) for x in range(layout_1.size())]
+        layout_2 = find_layout(f)
+        assert np.all(layout_1.N == layout_2.N), (
+            f"{layout_1.N=} but {layout_2.N=}.")
+        assert np.all(layout_1.S == layout_2.S), (
+            f"{layout_1.S=} but {layout_2.S=}.")
+
+    _test_case([3, 5, 7], [4, 9, 8])
+    _test_case([3, 2], [10, 13])
+    _test_case([9], [4])
+
+
+def test_layout_function():
+    """Simple opreations."""
+    layout = Layout(N=[3, 4], S=[1, 3])
+
+    assert layout.single2multi(5) == (2, 1)
+    assert layout.multi2single(2, 1) == 5
+    assert layout.multi2single(2, 3) == 11
+
+    for x in range(layout.size()):
+        assert x == layout.multi2single(*layout.single2multi(x))
+        assert x == layout.f_single(x)
+
+
+test_find_layout()
+test_layout_function()
+
+```
+</details>  <!-- Python implementation -->
