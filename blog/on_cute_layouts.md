@@ -244,8 +244,10 @@ $f$?
 
 In the next section, we will discuss a general question regarding the canonical
 functions.  For a function $f: [0, M) \to \mathbb{N}$, we say that $L$ *admits*
-$f$ if $L(x) = f(x)$ for all $x \in [0, M)$. Then, which functions $f:
-\mathbb{N} \to \mathbb{N}$ is admitted by a layout?
+$f$ if $L(x) = f(x)$ for all $x \in [0, M)$. Under that definition, which
+function $f: \mathbb{N} \to \mathbb{N}$ is admitted by a layout?
+
+<!-- HIEU HAS PROOFREAD UNTIL THIS POINT -->
 
 # What function $f: \mathbb{N} \to \mathbb{N}$ can be admitted by a layout?
 
