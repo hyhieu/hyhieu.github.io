@@ -189,7 +189,7 @@ $$
 $$
 
 Using the $\text{SingleToMulti}$ function, we can define a layout's
-canonical single variate function:
+canonical singlevariate function:
 
 <div class="statement" markdown="1">
 
@@ -506,14 +506,14 @@ is found.
 
 </details>
 
-## Basic operations
+# Concatenation
 
 <div markdown="1" class="statement">
 
 **Definition 4. (Concatenation)**
 
-The concatenation of two layouts $L_1$ and $L_2$ -- denoted by $(L_1, L_2)$ is the layout
-$L$L whose single variate function is:
+The concatenation of two layouts $L_1$ and $L_2$ -- denoted by $(L_1, L_2)$ is
+the layout $L$L whose singlevariate function is:
 
 $$
 L(x)
@@ -552,7 +552,7 @@ Let $A = N : S$ be a layout. Then, for an integer $M$, the *complement of $A$
 with respect to $M$* -- denoted by $\text{Complement}(A, M)$ -- is the layout
 $B$ that satisfies two conditions:
 1. $B$'s singlevariate function is strictly increasing.
-2. The concatenation layout $(A, B)$ is a bijection from $[0, M)$ to itself.
+2. The concatenation layout $(A, B)$'s singlevariate is a bijection from $[0, M)$ to itself.
 
 </div>
 
