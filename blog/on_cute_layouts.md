@@ -110,7 +110,6 @@ For instance, a contiguous row-major matrix of size `(m, n)` as we typically see
 in `numpy` has the layout $(m, n) : (n, 1)$, meaning that its $(i, j)$ entry is
 $ni + j$ memory cells away from its $(0, 0)$ element.
 </details> <!-- So what's the goal of layouts? -->
-<br>
 
 There are some terminologies associated with the definition of layout:
 
@@ -212,7 +211,8 @@ terms "canonical" when clear from context. We might also write $L(x)$ instead of
 $f_L(x)$.
 
 <details>
-<summary><b>Note:</b> the terms "canonical single/multi-variate functions" are a bit different from the <a href="https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute/02_layout_operations.md">CuTe's original docmentation</a>.</summary>
+<summary><b>Note:</b> the terms "canonical single/multi-variate functions" are a bit
+different from the <a href="https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute/02_layout_operations.md">CuTe's original docmentation</a>.</summary>
 
 They simply use the term "function" to refer to "canonical singlevariate
 function". We find that when clear from context, it is okay to just say "the
@@ -278,7 +278,7 @@ To avoid such trivial dimensions, we can assume that $\boxed{n_i > 1}$ for all
 $i \in \{0, 1, \cdots, D-1\}$.
 
 </details>
-<br>
+
 The gist of the algorithm is to guess the first mode $(n_0) : (s_0)$, and then
 recurse. To this end, we start from the formula of the singlevariate function $L(x)$:
 
