@@ -189,7 +189,7 @@ $$
 \end{aligned}
 $$
 
-Using the $\text{Single}\to\text{Multi}$ function, we can define a layout's
+Using the $\text{SingleToMulti}$ function, we can define a layout's
 canonical single variate function:
 
 <div class="statement" markdown="1">
@@ -242,50 +242,10 @@ function. The reverse question is much less trivial: for which functions $f:
 \mathbb{N} \to \mathbb{N}$ there is a layout whose singlevariate function is
 $f$?
 
-Hieu has proofread until here.
-==============================
-
-In the next section, we will discuss a more general question. For a function $f:
-[0, M) \to \mathbb{N}$, we say that $L$ *admits* $f$ if $L(x) = f(x)$ for all $x
-\in [0, M)$. Then, which functions $f: \mathbb{N} \to \mathbb{N}$ is admitted by
-a layout?
-
-## Basic operations
-
-<div markdown="1" class="statement">
-
-**Definition 4. (Concatenation)**
-
-The concatenation of two layouts $L_1$ and $L_2$ -- denoted by $(L_1, L_2)$ is the layout
-$L$L whose single variate function is:
-
-$$
-L(x)
-    = \text{cosize}(L_1) \cdot L_1(x~\text{mod}~\text{size}(L_1))
-    + L_2\mathopen{}\left(
-        \left\lfloor \frac{x}{\text{size}(L_1)} \right\rfloor
-        ~\text{mod}~\text{size}(L_2)
-    \right)
-$$
-
-</div>
-
-With that definition, it is relatively easy to check the closed form of layout concatentation.
-In particular, if:
-
-$$
-\begin{aligned}
-L_1 &= (m_0, m_1, ..., m_{D-1}) : (t_0, t_1, ..., t_{D-1}) \\
-L_2 &= (n_0, n_1, ..., n_{D-1}) : (s_0, s_1, ..., s_{D-1})
-\end{aligned}
-$$
-
-Then their concatenation is simply obtained by concatenating their sizes and strides:
-
-$$
-(L_1, L_2) = (m_0, m_1, ..., m_{D-1}, n_0, n_1, ..., n_{D-1})
-           : (t_0, t_1, ..., t_{D-1}, s_0, s_1, ..., s_{D-1})
-$$
+In the next section, we will discuss a general question regarding the canonical
+functions.  For a function $f: [0, M) \to \mathbb{N}$, we say that $L$ *admits*
+$f$ if $L(x) = f(x)$ for all $x \in [0, M)$. Then, which functions $f:
+\mathbb{N} \to \mathbb{N}$ is admitted by a layout?
 
 # What function $f: \mathbb{N} \to \mathbb{N}$ can be admitted by a layout?
 
@@ -545,6 +505,43 @@ Thus, each value $(n_i, s_i)$ can be determined in $O(M^2)$, or an inconsistency
 is found.
 
 </details>
+
+## Basic operations
+
+<div markdown="1" class="statement">
+
+**Definition 4. (Concatenation)**
+
+The concatenation of two layouts $L_1$ and $L_2$ -- denoted by $(L_1, L_2)$ is the layout
+$L$L whose single variate function is:
+
+$$
+L(x)
+    = \text{cosize}(L_1) \cdot L_1(x~\text{mod}~\text{size}(L_1))
+    + L_2\mathopen{}\left(
+        \left\lfloor \frac{x}{\text{size}(L_1)} \right\rfloor
+        ~\text{mod}~\text{size}(L_2)
+    \right)
+$$
+
+</div>
+
+With that definition, it is relatively easy to check the closed form of layout concatentation.
+In particular, if:
+
+$$
+\begin{aligned}
+L_1 &= (m_0, m_1, ..., m_{D-1}) : (t_0, t_1, ..., t_{D-1}) \\
+L_2 &= (n_0, n_1, ..., n_{D-1}) : (s_0, s_1, ..., s_{D-1})
+\end{aligned}
+$$
+
+Then their concatenation is simply obtained by concatenating their sizes and strides:
+
+$$
+(L_1, L_2) = (m_0, m_1, ..., m_{D-1}, n_0, n_1, ..., n_{D-1})
+           : (t_0, t_1, ..., t_{D-1}, s_0, s_1, ..., s_{D-1})
+$$
 
 # Complemention
 
