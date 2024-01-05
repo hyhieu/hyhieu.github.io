@@ -96,19 +96,25 @@ $$
 
 </div>
 
-<details>
+<details markdown="1">
 <summary>So what's the goal of layouts?</summary>
 
-In this note, we are not very concerned with the goal of layout objects, much
-rather with their mathemtical constructions and operations.
+In this note, we are not very concerned with the goal of layouts. We are much
+rather focus on their mathematical constructions and the operations on them.
 
-However, the TL;DR of layouts's goal is that they are used to represent
-*offsets* of elements in CuTe tensors -- that is, how far is each element from the
-tensor's first element in the GPU memory.
+That said, the TL;DR of layout's goal is that they are used to represent
+*offsets* of elements in CuTe tensors -- that is, how far is each element from
+the tensor's first element in its memory.
 
 For instance, a contiguous row-major matrix of size `(m, n)` as we typically see
 in `numpy` has the layout $(m, n) : (n, 1)$, meaning that its $(i, j)$ entry is
 $ni + j$ memory cells away from its $(0, 0)$ element.
+
+Later in this note, with a better understanding of
+[canonical functions](#canonical-functions), we will see that the layout $(m, n) : (n, 1)$
+is *reasonably* the same as the layout $(n, m) : (1, n)$, but the latter behaves much
+better with many operations.
+
 </details> <!-- So what's the goal of layouts? -->
 
 There are some terminologies associated with the definition of layout:
