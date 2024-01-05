@@ -1,31 +1,57 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: "en-US" }}">
+
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+    <link
+      rel="stylesheet"
+      href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}"
+    >
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+    <!-- KATEX -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+      integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
+      crossorigin="anonymous"
+    >
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+      integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8"
+      crossorigin="anonymous">
+    </script>
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+      integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+      crossorigin="anonymous">
+    </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             renderMathInElement(document.body, {
               // customised options
-              // • auto-render specific keys, e.g.:
+              // auto-render specific keys, e.g.:
               delimiters: [
                   {left: '$$', right: '$$', display: true},
                   {left: '$', right: '$', display: false},
                   {left: '\\(', right: '\\)', display: false},
                   {left: '\\[', right: '\\]', display: true}
               ],
-              // • rendering keys, e.g.:
+              // rendering keys, e.g.:
               throwOnError : false
             });
         });
     </script>
+
+    <!-- HIEU'S CUSTOMIZED STYLES -->
 
     <style>
       details {
@@ -45,8 +71,7 @@
       }
 
       details .statement * { /* This targets all elements inside .statement */
-        margin: 0;
-        padding: 0;
+        margin-bottom: 0;
       }
     </style>
 
@@ -59,22 +84,26 @@
       }
 
       .statement * { /* This targets all elements inside .statement */
-        margin: 0;
-        padding: 0;
+        margin-bottom: 0;
       }
     </style>
 
   </head>
+
   <body>
     <div class="container-lg px-3 my-5 markdown-body">
-      {% if site.title and site.title != page.title %}
-      <h1><a href="{{ "/" | absolute_url }}">{{ site.title }}</a></h1>
-      {% endif %}
 
       {{ content }}
 
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"
+      integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg="
+      crossorigin="anonymous">
+    </script>
+
     <script>anchors.add();</script>
   </body>
+
 </html>

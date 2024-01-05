@@ -559,7 +559,8 @@ Let $A = N : S$ be a layout. Then, for an integer $M$, the *complement of $A$
 with respect to $M$* -- denoted by $\text{Complement}(A, M)$ -- is the layout
 $B$ that satisfies two conditions:
 1. $B$'s singlevariate function is strictly increasing.
-2. The concatenation layout $(A, B)$'s singlevariate is a bijection from $[0, M)$ to itself.
+2. The concatenation layout $(A, B)$'s singlevariate function is a bijection
+from $[0, M)$ to itself.
 
 </div>
 
@@ -567,14 +568,40 @@ Note that
 [CuTe's original definition](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute/02_layout_operations.md#complement)
 of complementation specifies the following conditions instead of (2).
 
-1. $\text{size}(B) \geq \left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor$.
+1. $\left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor \leq \text{size}(B)$.
 
 2. $\text{cosize}(B) \leq \left\lfloor \dfrac{M}{\text{cosize(A)}} \right\rfloor \cdot \text{cosize}(A)$.
 
-It is not hard to check that together, these conditions are equivalent to (3) in
-[our definition](#complement-def). In our (obviously biased) opinion, our
-definition is more intuitive of what the complement operation does.
+<details markdown="1">
 
+<summary>
+It is not hard to check that these conditions are equivalent to the
+bijective condition in <a href="#complement-def">our definition</a>.
+</summary>
+
+<div markdown="1" class="statement">
+
+**Claim.** The concatenation layout $(A, B)$'s singlevariate function is a bijection
+from $[0, M)$ to itself if and only if
+
+1. $\left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor \leq \text{size}(B)$
+and $\text{cosize}(B) \leq \left\lfloor \dfrac{M}{\text{cosize(A)}} \right\rfloor \cdot \text{cosize}(A)$.
+
+</div>
+
+<details>
+
+<summary><b>Proof.</b></summary>
+
+TODO: write the proof.
+
+</details>
+
+</details>
+
+In our (obviously
+biased) opinion, our definition is more intuitive of what the complement
+operation does.
 
 Not all layouts have a complement. In particular, we bijection requirement in
 condition (2) rules out all layout $A$ whose singlevariate function is not
@@ -616,7 +643,7 @@ operations are possible, we define their logical division to be:
 
 $$
 \text{LogicalDivision}(A, B)
-  := A \circ \text{Concat}(A, \text{Complement}(B, \text{size}(A)))
+  := A \circ \text{Concat}(B, \text{Complement}(B, \text{size}(A)))
 $$
 
 </div>
@@ -634,9 +661,9 @@ Inparticular, as $A$ and $B$ are layouts:
 - Then, $C = \text{Complement}(B, \text{size}(A))$ is either well-defined or
 does not exist.
 
-- Then, $\text{Concat}(A, C)$ is well-defined.
+- Then, $\text{Concat}(B, C)$ is well-defined.
 
-- Finally, $A \circ \text{Concat}(A, C)$ is either well-defined or does not exist.
+- Finally, $A \circ \text{Concat}(B, C)$ is either well-defined or does not exist.
 
 This way of reasoning does not only offer an assuring mathemtical definition of
 logical division, but also gives an algorithm to evaluate two layout's logical
