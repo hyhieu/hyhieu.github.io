@@ -113,12 +113,14 @@ $ni + j$ memory cells away from its $(0, 0)$ element.
 
 There are some terminologies associated with the definition of layout:
 
-- The product of all elements in the tuple $N$ is called the layout's *size.*
+- The product of all elements in the tuple $N$ is called the layout's *size.* Each
+element in the size tuple is sometimes called an *extent* of $L$.
 
 - The tuple $S$ is called the layout's *stride.*
 
 - The maximum offset that the layout can represent,
-i.e., $\sum_{i=0}^{D-1}s_i (n_i - 1)$, is the layout's *cosize.*
+i.e., $1 + \sum_{i=0}^{D-1}s_i (n_i - 1)$, is the layout's *cosize* and is denoted by
+$\text{cosize}(L)$.
 
 - The pair $(n_i, s_i)$, sometimes written $(n_i) : (s_i)$, is called the
 $i^\text{th}$ *mode* of $L$.
@@ -199,9 +201,11 @@ $M = n_0 n_1 \cdots n_{D-1}$ be $L$'s size.  The canonical singlevariate
 function of $L$ is $f_L: [0, M) \to \mathbb{N}$ defined by:
 
 $$
+\begin{aligned}
 f_L(x)
-  := \text{SingleToMulti}(x)^\top \cdot (s_0, s_1, ..., s_{D-1})
-  = \sum_{i=0}^{D-1} s_i \cdot \left(\left\lfloor \frac{x}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~n_i\right)
+  &:= \text{SingleToMulti}(x)^\top \cdot (s_0, s_1, ..., s_{D-1}) \\
+  &= \sum_{i=0}^{D-1} s_i \cdot \left(\left\lfloor \frac{x}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~n_i\right)
+\end{aligned}
 $$
 
 </div>
