@@ -532,8 +532,8 @@ $$
 
 </div>
 
-With that definition, it is relatively easy to check the closed form of layout concatentation.
-In particular, if:
+With that definition, it is relatively easy to check the closed form of layout
+concatentation. In particular, if:
 
 $$
 \begin{aligned}
@@ -548,6 +548,14 @@ $$
 (L_1, L_2) = (m_0, m_1, ..., m_{D-1}, n_0, n_1, ..., n_{D-1})
            : (t_0, t_1, ..., t_{D-1}, s_0, s_1, ..., s_{D-1})
 $$
+
+<details markdown="1">
+
+<summary><b>Proof.</b></summary>
+
+TODO: prove this.
+
+</details>
 
 # Complemention
 
@@ -581,11 +589,13 @@ bijective condition in <a href="#complement-def">our definition</a>.
 
 <div markdown="1" class="statement">
 
-**Claim.** The concatenation layout $(A, B)$'s singlevariate function is a bijection
-from $[0, M)$ to itself if and only if
+**Claim.** The following two statements are equivalent:
 
 1. $\left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor \leq \text{size}(B)$
 and $\text{cosize}(B) \leq \left\lfloor \dfrac{M}{\text{cosize(A)}} \right\rfloor \cdot \text{cosize}(A)$.
+
+2. The concatenation layout $(A, B)$'s singlevariate function is a bijection
+from $[0, M)$ to itself.
 
 </div>
 
