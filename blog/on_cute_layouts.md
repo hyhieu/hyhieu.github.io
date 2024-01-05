@@ -59,7 +59,7 @@ better than what we are doing, and we recommend the note to anyone who wants to 
 their undersatnding of CuTe.
 
 Our blog post offers a different treatment of CuTe's layout.
-[Jay Shah's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts)
+[Jay's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts)
 states concise standards to test which layouts are *"admissable for
 complementation"* or *"composition".* In order to derive such standards, they
 introduced some new concepts, such as sorting the modes of layouts, which we
@@ -659,7 +659,7 @@ $$
 </div>
 
 We find it hard to build an intuition about logical division.
-[Jay Shah's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts)
+[Jay's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts)
 perhaps offers better intuitions for this purpose. However, we find it very
 assuring to reason about the logical division via $A$ and $B$'s singlevariate
 functions.
