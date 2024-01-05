@@ -519,8 +519,8 @@ the layout $L$L whose singlevariate function is:
 
 $$
 L(x)
-    = \text{cosize}(L_1) \cdot L_1(x~\text{mod}~\text{size}(L_1))
-    + L_2\mathopen{}\left(
+    = L_1(x~\text{mod}~\text{size}(L_1))
+    + \text{cosize}(L_1) \cdot L_2\mathopen{}\left(
         \left\lfloor \frac{x}{\text{size}(L_1)} \right\rfloor
         ~\text{mod}~\text{size}(L_2)
     \right)
@@ -550,6 +550,7 @@ $$
 <div class="statement" id="complement-def" markdown="1">
 
 **Definition 5. (Complement)**
+
 Let $A = N : S$ be a layout. Then, for an integer $M$, the *complement of $A$
 with respect to $M$* -- denoted by $\text{Complement}(A, M)$ -- is the layout
 $B$ that satisfies two conditions:
