@@ -21,7 +21,7 @@ architectures, such as
 [Hopper](https://www.nvidia.com/en-us/data-center/technologies/hopper-architecture/).
 CuTe plays the central role in the development of many efficient deep learning
 libraries, including but not limited to
-[Flash-Attention](https://github.com/Dao-AILab/flash-attention),
+[FlashAttention](https://github.com/Dao-AILab/flash-attention),
 [FasterTransformer](https://github.com/NVIDIA/FasterTransformer), and
 [xformers](https://github.com/facebookresearch/xformers).
 
@@ -37,12 +37,12 @@ of writing performant GPU programs.
 
 While we enjoy the benefits of CuTe and admire its design, we find CuTe's
 [original documentation](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute)
-somewhat inadequate, especially at building a robust background for understanding
-CuTe's concepts. For instance, the complement operation is a fundamental
-operation with CuTe layout, but the doc does not explain *how* to compute a
-complement. While it is okay to treat these low-level operations as black boxes
-and just move on writing good GPU programs with CuTe, we do feel the need to have
-a rigorous foundation of the concepts in our program.
+somewhat inadequate, especially at building a foundational understanding of
+CuTe's concepts. For instance, the complement operation is a fundamental one
+with CuTe layout, but the doc does not explain *how* to compute a complement.
+While it is okay to treat these low-level operations as black boxes and just
+move on writing good GPU programs with CuTe, we do feel the need to have a
+rigorous foundation of the concepts in our program.
 
 **Goal.**
 Building such rigurous foundation is the goal of this blog post. In particular,
