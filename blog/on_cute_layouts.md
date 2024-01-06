@@ -615,13 +615,13 @@ TODO: write the proof.
 
 </details>
 
-In our (obviously
-biased) opinion, our definition is more intuitive of what the complement
-operation does.
+In our (obviously biased) opinion, our definition is more intuitive of what the
+complement operation does.
 
-Not all layouts have a complement. In particular, we bijection requirement in
-condition (2) rules out all layout $A$ whose singlevariate function is not
-injective.
+Not all layouts have a complement. In particular, bijection requirement in our
+definition rules out all layout $A$ whose singlevariate function is not
+injective. [Jay's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts)
+offers a method to check whether a layout has a complement layout.
 
 The [function-to-layout Algorithm](#function-to-layout) offers deterministic way
 to find $\text{Complement}(A, M)$ for any layout $A$ and positive integer $M$,
