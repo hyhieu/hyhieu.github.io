@@ -62,11 +62,19 @@ Our blog post offers a different treatment of CuTe's layout.
 [Jay's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts)
 states concise standards to test which layouts are *"admissable for
 complementation"* or *"composition".* In order to derive such standards, they
-introduced some new concepts, such as sorting the modes of layouts, which we
-avoid doing because we think it adds an extra layer of complexity.
+introduced some new concepts, such as sorting the modes of layouts. A
+consequence of their new standards anc concepts is that some layouts are not
+admissable for complement or composition. Ruling out such layouts makes sense
+practically, since we rarely encounter them while programming, but doing so
+means that the theory constructed around layouts does not faithfully reflect the
+behaviors of layouts in the CuTe library. We do not say such is a bad
+consequence. Instead, augmented by the intuitions harvested from
+[Jay's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts),
+here we provide an *algorithmic* treatment of layouts, which we hope more
+closely reflects their behaviors in the CuTe library.
 
 **Our roadmap.**
-Here, we treat a layout as a way to represent function $f: \mathbb{N} \to
+We treat a layout as a way to represent function $f: \mathbb{N} \to
 \mathbb{N}$ that maps an integer to a multilinear function's output defined by
 the layout. We explain that obtaining such a function from a layout is
 straightforward, and develop an algorithm to find a layout corresponding a
