@@ -30,8 +30,8 @@ specific to target architectures. As such, the flexibility and generalization
 provided by CuTe is no less than a miracle. Such miracle stems from the
 ingenious design of its central concept: *layout.* A layout maps an
 $D$-dimensional coordinate into an integer. Despite the very basic definition,
-layouts accompanied by *operations* have significantly improved the experience
-of writing performant GPU programs.
+layouts accompanied by the operations on them have significantly improved the
+experience of writing performant GPU programs.
 
 # Motivations
 
