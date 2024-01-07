@@ -567,7 +567,17 @@ $$
 
 <summary><b>Proof.</b></summary>
 
-TODO: prove this.
+We use the following identity regrading floor functions:
+
+<div markdown="1" class="statement>
+
+For any real number $x$ and positive integers $m, n$:
+$
+\left\lfloor \dfrac{x}{mn} \right\rfloor
+= \left\lfloor \dfrac{\left\lfloor x/m \right\rfloor}{n} \right\rfloor
+$
+
+</div>
 
 </details>
 
