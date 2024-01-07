@@ -538,7 +538,7 @@ the layout $L$L whose singlevariate function is:
 $$
 L(x)
     = L_1(x~\text{mod}~\text{size}(L_1))
-    + \text{cosize}(L_1) \cdot L_2\mathopen{}\left(
+    + L_2\mathopen{}\left(
         \left\lfloor \frac{x}{\text{size}(L_1)} \right\rfloor
         ~\text{mod}~\text{size}(L_2)
     \right)
@@ -569,7 +569,7 @@ $$
 
 We use the following identity regrading floor functions:
 
-<div markdown="1" class="statement>
+<div markdown="1" class="statement">
 
 For any real number $x$ and positive integers $m, n$:
 $
