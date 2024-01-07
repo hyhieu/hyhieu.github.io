@@ -533,7 +533,7 @@ is found.
 **Definition 4. (Concatenation)**
 
 The concatenation of two layouts $L_1$ and $L_2$ -- denoted by $(L_1, L_2)$ is
-the layout $L$L whose singlevariate function is:
+the layout $L$ whose singlevariate function is:
 
 $$
 L(x)
@@ -551,7 +551,7 @@ concatentation. In particular, if:
 
 $$
 \begin{aligned}
-L_1 &= (m_0, m_1, ..., m_{D-1}) : (t_0, t_1, ..., t_{D-1}) \\
+L_1 &= (m_0, m_1, ..., m_{E-1}) : (t_0, t_1, ..., t_{E-1}) \\
 L_2 &= (n_0, n_1, ..., n_{D-1}) : (s_0, s_1, ..., s_{D-1})
 \end{aligned}
 $$
@@ -559,8 +559,8 @@ $$
 Then their concatenation is simply obtained by concatenating their sizes and strides:
 
 $$
-(L_1, L_2) = (m_0, m_1, ..., m_{D-1}, n_0, n_1, ..., n_{D-1})
-           : (t_0, t_1, ..., t_{D-1}, s_0, s_1, ..., s_{D-1})
+(L_1, L_2) = (m_0, m_1, ..., m_{E-1}, n_0, n_1, ..., n_{D-1})
+           : (t_0, t_1, ..., t_{E-1}, s_0, s_1, ..., s_{D-1})
 $$
 
 <details markdown="1">
@@ -571,13 +571,48 @@ We use the following identity regrading floor functions:
 
 <div markdown="1" class="statement">
 
-For any real number $x$ and positive integers $m, n$:
-$
+For any positive integers $x, m, n$:
+
+$$
 \left\lfloor \dfrac{x}{mn} \right\rfloor
 = \left\lfloor \dfrac{\left\lfloor x/m \right\rfloor}{n} \right\rfloor
-$
+$$
 
 </div>
+
+Using this identity, we have:
+
+$$
+\begin{aligned}
+(L_1, L_2)(x)
+  &= \underbrace{
+        \sum_{i=1}^{E-1}
+            t_i \cdot \mathopen{}\left(
+                   \left\lfloor \frac{x}{m_0 m_1 \cdots m_{i-1}} \right\rfloor~\text{mod}~m_i
+            \right)
+     }_{L_1(x)} \\
+  &+ \sum_{i=1}^{D-1}
+     s_i \cdot \mathopen{}\left(
+            \left\lfloor \frac{x}{m_0 m_1 \cdots m_{E-1} n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~n_i
+     \right) \\
+  &= L_1(x) + \sum_{i=1}^{D-1}
+     s_i \cdot \mathopen{}\left(
+            \left\lfloor \frac{x / (m_0 m_1 \cdots m_{E-1})}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~n_i
+     \right) \\
+  &= L_1(x) + \sum_{i=1}^{D-1}
+     s_i \cdot \mathopen{}\left(
+            \left\lfloor \frac{x / \text{size}(L_1)}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~n_i
+     \right) \\
+  &= L_1(x) + \sum_{i=1}^{D-1}
+     s_i \cdot \mathopen{}\left(
+            \left\lfloor \frac{\lfloor x / \text{size}(L_1) \rfloor}{n_0 n_1 \cdots n_{i-1}} \right\rfloor~\text{mod}~n_i
+     \right) \\
+  &= L_1(x) + L_2(x)
+\end{aligned}
+$$
+Note that we have used the definition of size that  $m_0 m_1 \cdots m_{E-1} =
+\text{size}(L_1)$, and then used the identity above to wrap $x /
+\text{size}(L_1)$ in a floor function. $\square$
 
 </details>
 
