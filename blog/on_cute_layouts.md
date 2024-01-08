@@ -528,7 +528,7 @@ is found.
 
 # Concatenation
 
-<div markdown="1" class="statement">
+<div markdown="1" class="statement" id="layout-def">
 
 **Definition 4. (Concatenation)**
 
@@ -536,18 +536,21 @@ The concatenation of two layouts $L_1$ and $L_2$ -- denoted by $(L_1, L_2)$ is
 the layout $L$ whose singlevariate function is:
 
 $$
+\begin{aligned}
+L &: [0, \text{size}(L_1) \cdot \text{size}(L_2)) \to \mathbb{N} \\
 L(x)
-    = L_1(x~\text{mod}~\text{size}(L_1))
+    &= L_1(x~\text{mod}~\text{size}(L_1))
     + L_2\mathopen{}\left(
         \left\lfloor \frac{x}{\text{size}(L_1)} \right\rfloor
         ~\text{mod}~\text{size}(L_2)
     \right)
+\end{aligned}
 $$
 
 </div>
 
-With that definition, it is relatively easy to check the closed form of layout
-concatentation. In particular, if:
+With that definition, it is relatively easy to check that we have a closed
+formula of layout concatentation. In particular, if:
 
 $$
 \begin{aligned}
@@ -615,6 +618,20 @@ Note that we have used the definition of size that  $m_0 m_1 \cdots m_{E-1} =
 \text{size}(L_1)$ in a floor function. $\square$
 
 </details>
+
+Using the closed formula of layout concatenation, we can see that:
+
+$$
+\text{cosize}((L_1, L_2)) = \text{cosize}(L_1) + \text{cosize}(L_2)
+$$
+
+It is also possible to obtain this cosize formula using our
+[definition of concatenation](#layout-def).
+
+As simple as the concatenation operation is, it plays an important role in
+defining two much more complex yet crucial operations on layouts:
+[complementation](#complemention) and [composition](#composition). We discuss
+them in the next sections.
 
 # Complemention
 
