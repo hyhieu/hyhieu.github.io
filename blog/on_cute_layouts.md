@@ -147,12 +147,13 @@ represent how to map coordinates to offsets in layouts.
 <div class="statement" markdown="1">
 
 **Definition 2. (Canonical multivariate function)**
+
 A layout $L$ represents a multivariable function $g_L : [0, n_0) \times [0,
 n_1) \times \cdots \times [0, n_{D - 1}) \subseteq \mathbb{N}^{D} \to
 \mathbb{N}$, defined by:
 
 $$
-g_L(x_0, x_1, ..., x_{D-1}) := s_0 \cdot x_0 + s_1 \cdot x_1 + \cdots + s_{D-1} \cdot x_{D-1}
+g_L(x_0, x_1, ..., x_{D-1}) := s_0 x_0 + s_1 x_1 + \cdots + s_{D-1} x_{D-1}
 $$
 
 We call $g_L$ the *canonical multivariate function* of $L$.
@@ -163,7 +164,7 @@ When clear from context, we drop the word "canonical" for brevity, and might
 also use the overloaded notation:
 
 $$
-L(x_0, x_1, ..., x_{D-1}) := s_0 \cdot x_0 + s_1 \cdot x_1 + \cdots + s_{D-1} \cdot x_{D-1}
+L(x_0, x_1, ..., x_{D-1}) := s_0 x_0 + s_1 x_1 + \cdots + s_{D-1} x_{D-1}
 $$
 
 Other than the canonical multivariate function, we are also interested in the
@@ -175,14 +176,16 @@ of the points on the integral lattice $[0, n_0) \times [0, n_1) \times \cdots
 \times [0, n_{D - 1})$. Here comes the tricky piece -- *this isomorphism is itself a layout:*
 
 $$
+\begin{aligned}
 \text{MultiToSingle}
-    = (n_0, n_1, n_2, ..., n_{D-1}) :
-      (1, n_0, n_0 n_1, n_0 n_1 n_2, ..., n_0 n_1 \cdots n_{D-2})
+    &= (n_0, n_1, n_2, ..., n_{D-1}) \\
+    &:~~(1, n_0, n_0 n_1, n_0 n_1 n_2, ..., n_0 n_1 \cdots n_{D-2})
+\end{aligned}
 $$
 
 As $\text{MultiToSingle}$ is an isomorphism, its invert $\text{SingleToMulti}$
 is *mathematically* well-defined. Here is a self-contained formula for
-$\text{SingleToMulti}$:
+$\text{MultiToSingle}$ and $\text{SingleToMulti}$:
 
 $$
 \begin{aligned}
@@ -210,6 +213,7 @@ canonical singlevariate function:
 <div class="statement" markdown="1">
 
 **Definition 3. (Canonical singlevariate function)**
+
 Let $L = (n_0, n_1, ..., n_{D-1}) : (s_0, s_1, ..., s_{D-1})$ be a layout.  Let
 $M = n_0 n_1 \cdots n_{D-1}$ be $L$'s size.  The canonical singlevariate
 function of $L$ is $f_L: [0, M) \to \mathbb{N}$ defined by:
