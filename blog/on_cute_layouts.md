@@ -10,7 +10,7 @@ On CuTe layouts
 
 [[Hieu's personal blog index](./index)]
 
-# Introduction
+## Introduction
 
 [CuTe](https://github.com/NVIDIA/cutlass/tree/main/include/cute) is a
 sub-library in NVIDIA's [CUTLASS](https://github.com/nvidia/cutlass).
@@ -33,7 +33,7 @@ $D$-dimensional coordinate into an integer. Despite the very basic definition,
 layouts accompanied by the operations on them have significantly improved the
 experience of writing performant GPU programs.
 
-# Motivations
+## Motivations
 
 While we enjoy the benefits of CuTe and admire its design, we find CuTe's
 [original documentation](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute)
@@ -86,7 +86,7 @@ algorithm, and then use this correspondence to construct layout operations such
 as [complementation](#complemention), [composition](#composition), and
 [logical division](#logical-division).
 
-# The basics
+## The basics
 
 ## Layout
 
@@ -271,7 +271,7 @@ function $f: \mathbb{N} \to \mathbb{N}$ is admitted by a layout?
 
 <!-- HIEU HAS PROOFREAD UNTIL THIS POINT -->
 
-# What function $f: \mathbb{N} \to \mathbb{N}$ can be admitted by a layout?
+## What function $f: \mathbb{N} \to \mathbb{N}$ can be admitted by a layout?
 
 <div class="statement" id="function-to-layout">
 
@@ -282,7 +282,7 @@ algorithm with runtime $O(M^2 \log{M})$ that finds a layout $L = (n_0, n_1, ...
 
 </div>
 
-## Algorithm
+### Algorithm
 
 Without loss of generality, assume that $n_i > 1$ for all $i \in [0, D)$.
 <details markdown="1">
@@ -318,7 +318,7 @@ $$
 From this formula, we necessarily have $L(0) = 0$. In other words, if $f(x) \neq
 0$, there is no layout admitting $f$.
 
-## Guessing $s_0$
+### Guessing $s_0$
 
 Also from the formula, we can guess $s_0$ by letting $x = 1$. Thanks to the
 assumption that $n_i > 1$ for all $i$'s, we have:
@@ -334,7 +334,7 @@ $$
 Comparing this with [$L$'s formula](#l-formula), we have $\boxed{s_0 = L(1) =
 f(1)}$.
 
-## Guessing $n_0$
+### Guessing $n_0$
 
 It is possible that the layout $L = (M) : (s_0)$ admits $f$. We can check
 whether $f(k) = k s_0$ for all $kx \in [0, M)$, and if yes, we return here.
@@ -490,7 +490,7 @@ This completes the proof. $\square$
 
 </details> <!-- Why does largest n_0 work? -->
 
-## Recurse
+### Recurse
 
 To find $(n_1) : (s_1)$, we repeat the algorithm recursively on the function:
 
@@ -501,7 +501,7 @@ $$
 Essentially, this means to restrict $f$ into the sub-domain where the $0$-th
 coordinate is $0$.
 
-## Runtime analysis
+### Runtime analysis
 
 Our unoptimized implementation of the algorithm runs in $\boxed{O(M^2
 \log{M})}$. The analysis is based on the assumption that $n_i \geq 2$ for all $i
@@ -530,7 +530,7 @@ is found.
 
 </details>
 
-# Concatenation
+## Concatenation
 
 <div markdown="1" class="statement" id="layout-def">
 
@@ -623,21 +623,22 @@ Note that we have used the definition of size that  $m_0 m_1 \cdots m_{E-1} =
 
 </details>
 
-Using the closed formula of layout concatenation, we can see that:
+We also have the following summary regarding the size and cosize of layout
+concatenations:
 
 $$
-\text{cosize}((L_1, L_2)) = \text{cosize}(L_1) + \text{cosize}(L_2)
+\begin{aligned}
+\text{size}((L_1, L_2)) &= \text{size}(L_1) \cdot \text{size}(L_2) \\
+\text{cosize}((L_1, L_2)) &= \text{cosize}(L_1) + \text{cosize}(L_2)
+\end{aligned}
 $$
-
-It is also possible to obtain this cosize formula using our
-[definition of concatenation](#layout-def).
 
 As simple as the concatenation operation is, it plays an important role in
 defining two much more complex yet crucial operations on layouts:
 [complementation](#complemention) and [composition](#composition). We discuss
 them in the next sections.
 
-# Complemention
+## Complemention
 
 <div class="statement" id="complement-def" markdown="1">
 
@@ -647,8 +648,8 @@ Let $A = N : S$ be a layout. Then, for an integer $M$, the *complement of $A$
 with respect to $M$* -- denoted by $\text{Complement}(A, M)$ -- is the layout
 $B$ that satisfies two conditions:
 1. $B$'s singlevariate function is strictly increasing.
-2. The concatenation layout $(A, B)$'s singlevariate function is a bijection
-from $[0, M)$ to itself.
+2. The concatenation layout $(A, B)$'s singlevariate function restricted on $[0, M)$
+is a bijection.
 
 </div>
 
@@ -656,9 +657,12 @@ Note that
 [CuTe's original definition](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute/02_layout_operations.md#complement)
 of complementation specifies the following conditions instead of (2).
 
-1. $\left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor \leq \text{size}(B)$.
+1. $\{A(x) : x \in [0, M)\} \cup \{B(x) : x \in [0, M) \} = \emptyset$. In words, the
+images of $A$ and $B$ on $[0, M)$ are disjoint.
 
-2. $\text{cosize}(B) \leq \left\lfloor \dfrac{M}{\text{cosize(A)}} \right\rfloor \cdot \text{cosize}(A)$.
+2. $\left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor \leq \text{size}(B)$.
+
+3. $\text{cosize}(B) \leq \left\lfloor \dfrac{M}{\text{cosize(A)}} \right\rfloor \cdot \text{cosize}(A)$.
 
 <details markdown="1">
 
@@ -671,11 +675,13 @@ bijective condition in <a href="#complement-def">our definition</a>.
 
 **Claim.** The following two statements are equivalent:
 
-1. $\left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor \leq \text{size}(B)$
-and $\text{cosize}(B) \leq \left\lfloor \dfrac{M}{\text{cosize(A)}} \right\rfloor \cdot \text{cosize}(A)$.
+1. The concatenation layout $(A, B)$'s singlevariate function restricted on $[0, M)$
+is a bijection.
 
-2. The concatenation layout $(A, B)$'s singlevariate function is a bijection
-from $[0, M)$ to itself.
+
+2. $\{A(x) | x \in [0, M)\} \cup \{B(x) | x \in [0, M) \} = \emptyset$,
+$\left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor \leq \text{size}(B)$
+and $\text{cosize}(B) \leq \left\lfloor \dfrac{M}{\text{cosize(A)}} \right\rfloor \cdot \text{cosize}(A)$.
 
 </div>
 
@@ -683,7 +689,43 @@ from $[0, M)$ to itself.
 
 <summary><b>Proof.</b></summary>
 
-TODO: write the proof.
+$(1) \Longrightarrow (2):$ Assuming (1), then injectivity of $(A, B)$ immediately
+gives us $\{A(x) | x \in [0, M)\} \cup \{B(x) | x \in [0, M) \} = \emptyset$.
+Additionally, the domain of $(A, B)$ must contain $[0, M)$, so:
+
+$$
+\begin{aligned}
+&\text{size}((A, B)) = \text{size}(A) \cdot \text{size}(B) \geq M \\
+&\Longrightarrow \text{size}(B)
+  \geq \dfrac{M}{\text{size(A)}}
+  \geq \left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor
+\end{aligned}
+$$
+
+Finally, since the singlevariate function $(A, B): [0, M) \to [0, M)$ is a bijection,
+we have $f_{(A, B)}(x) < M$ for all $x \in [0, M)$.
+
+<!--
+In particular, at
+$\hat{x} = \text{size}(A) \cdot \text{size}(B) - 1$:
+
+$$
+\begin{aligned}
+M &> f_{(A, B)}(\hat{x}) \\
+  &= A(\underbrace{\hat{x}~\text{mod}~\text{size}(A)}_{\text{}})
+   + B\mathopen{}\left(
+      \left\lfloor \frac{\hat{x}}{\text{size}(A)} \right\rfloor
+      ~\text{mod}~\text{size}(B) \right)
+
+\end{aligned}
+$$
+-->
+
+TODO: finish this proof.
+
+$(2) \Longrightarrow (1):$
+
+
 
 </details>
 
@@ -705,7 +747,7 @@ Indeed, the idea is to determine $B$'s singlevariate function based on the given
 conditions, and then use [function-to-layout Algorithm](#function-to-layout) to
 find $B$, or to tell if there is no such $B$.
 
-# Composition
+## Composition
 
 <div class="statement" id="composition-def" markdown="1">
 
@@ -722,7 +764,7 @@ variate function, and then use the [function-to-layout
 Algorithm](#function-to-layout) to find the composition or to conclude that such
 composition does not exist.
 
-# Logical division
+## Logical division
 
 <div class="statement" id="logical-division-def" markdown="1">
 
@@ -762,7 +804,7 @@ CuTe, we implement logical division operation in Python to help with studying
 the concepts.
 
 
-# Python implementation
+## Python implementation
 
 Here, we provided the Python implementation for the basic operations with layouts.
 We have only tested the code on very basic cases, so if you use it, please
