@@ -657,7 +657,7 @@ Note that
 [CuTe's original definition](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute/02_layout_operations.md#complement)
 of complementation specifies the following conditions instead of (2).
 
-1. $\{A(x) : x \in [0, M)\} \cup \{B(x) : x \in [0, M) \} = \emptyset$. In words, the
+1. $\{A(x) : x \in [0, M)\} \cap \{B(x) : x \in [0, M) \} = \emptyset$. In words, the
 images of $A$ and $B$ on $[0, M)$ are disjoint.
 
 2. $\left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor \leq \text{size}(B)$.
@@ -679,7 +679,7 @@ bijective condition in <a href="#complement-def">our definition</a>.
 is a bijection.
 
 
-2. $\{A(x) | x \in [0, M)\} \cup \{B(x) | x \in [0, M) \} = \emptyset$,
+2. $\{A(x) | x \in [0, M)\} \cap \{B(x) | x \in [0, M) \} = \emptyset$,
 $\left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor \leq \text{size}(B)$
 and $\text{cosize}(B) \leq \left\lfloor \dfrac{M}{\text{cosize(A)}} \right\rfloor \cdot \text{cosize}(A)$.
 
