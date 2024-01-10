@@ -282,6 +282,12 @@ algorithm with runtime $O(M^2 \log{M})$ that finds a layout $L = (n_0, n_1, ...
 
 </div>
 
+<details markdown="1">
+
+<summary markdown="1">Here is the algorithm.
+We also provide its <a href="#python-implementation">Python implementation</a>.
+</summary>
+
 ### Algorithm
 
 Without loss of generality, assume that $n_i > 1$ for all $i \in [0, D)$.
@@ -530,6 +536,9 @@ is found.
 
 </details>
 
+</details>
+
+
 ## Concatenation
 
 <div markdown="1" class="statement" id="layout-def">
@@ -739,9 +748,9 @@ definition rules out all layout $A$ whose singlevariate function is not
 injective. [Jay's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts)
 offers a method to check whether a layout has a complement layout.
 
-The [function-to-layout Algorithm](#function-to-layout) offers deterministic way
-to find $\text{Complement}(A, M)$ for any layout $A$ and positive integer $M$,
-or to tell that such complement does not exist.
+The [function-to-layout Algorithm](#function-to-layout) offers a deterministic
+way to find $\text{Complement}(A, M)$ for any layout $A$ and positive integer
+$M$, or to tell that such complement does not exist.
 
 Indeed, the idea is to determine $B$'s singlevariate function based on the given
 conditions, and then use [function-to-layout Algorithm](#function-to-layout) to
@@ -788,7 +797,7 @@ functions.
 
 In particular, as $A$ and $B$ are layouts:
 
-- Their functions can be easily defined.
+- Their singlevariate functions can be easily defined.
 
 - Then, $C = \text{Complement}(B, \text{size}(A))$ is either well-defined or
 does not exist.
