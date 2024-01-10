@@ -86,6 +86,8 @@ algorithm, and then use this correspondence to construct layout operations such
 as [complementation](#complemention), [composition](#composition), and
 [logical division](#logical-division).
 
+TODO: How about coalesce, left/right inverse? Are the fundamental enough to cover?
+
 ## The basics
 
 ## Layout
