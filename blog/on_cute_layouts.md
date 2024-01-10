@@ -748,9 +748,9 @@ definition rules out all layout $A$ whose singlevariate function is not
 injective. [Jay's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts)
 offers a method to check whether a layout has a complement layout.
 
-The [function-to-layout Algorithm](#function-to-layout) offers a deterministic
-way to find $\text{Complement}(A, M)$ for any layout $A$ and positive integer
-$M$, or to tell that such complement does not exist.
+The [function-to-layout Algorithm](#function-to-layout) offers a procedure to
+find $\text{Complement}(A, M)$ for any layout $A$ and positive integer $M$, or
+to tell that such complement does not exist.
 
 Indeed, the idea is to determine $B$'s singlevariate function based on the given
 conditions, and then use [function-to-layout Algorithm](#function-to-layout) to
@@ -767,11 +767,38 @@ Let $A = N_a : S_a$ and $B = N_b : S_b$ be two layouts. Their composition $A
 
 </div>
 
-As for complementation, not all pairs of layouts can be composed.  To determine
+As for complementation, not all pairs of layouts can be composed. To determine
 two layouts' composition, we first determine the composite of their single
 variate function, and then use the [function-to-layout
 Algorithm](#function-to-layout) to find the composition or to conclude that such
 composition does not exist.
+
+Our definition of composition uses the same approach with
+[CuTE's original documentation](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute):
+we both use function composites.
+Next, we prove the left distribution of the composition operation according to
+our definition.
+
+*TODO(hieu): the wording in the paragraph above is very awkward.*
+
+<div markdown="1" class="statement">
+
+**Proposition.**
+
+Composition is left-distributing with respect to concatentation. That is, for
+three layouts $A$, $B$, $C$, assuming all compositions are feasible, we have:
+
+$$
+A \circ (B, C) = (A \circ B, A \circ C)
+$$
+
+</div>
+
+<details markdown="1">
+<summary><b>Proof.</b></summary>
+
+TODO: write the proof.
+</details>
 
 ## Logical division
 
