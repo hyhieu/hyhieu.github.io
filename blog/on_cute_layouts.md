@@ -273,14 +273,39 @@ function $f: \mathbb{N} \to \mathbb{N}$ is admitted by a layout?
 
 <!-- HIEU HAS PROOFREAD UNTIL THIS POINT -->
 
+## Layout extensions
+
+Now that we have discussed the canonical functions, we can discuss a layout's *extension*.
+This concept is introduced in
+[Jay's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts).
+While the concept is not presented in
+[CuTe's original definition](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute),
+we find it very natural once we have understood the basics of layouts. More importantly,
+the concept of extension serves to make the mathemetical proofs later in this blog post
+consistent, and enhances our understanding of layouts.
+
+<div class="statement" id="def-layout-extension">
+
+**Definition. (Layout extension)**
+
+Let $L = (n_0, n_1, ..., n_{D-1}) : (s_0, s_1, ..., s_{D-1})$ be a
+$D$-dimensional layout. $L$'s extension is the layout with all modes of $L$'s,
+except for the last mode whose dimension is replaced with $+\infty$. More precisely:
+
+$$
+L_\text{ext} := (n_0, n_1, ..., n_{D-2}, +\infty) : (s_0, s_1, ..., s_{D-2}, s_{D-1})
+$$
+
+</div>
+
 ## What function $f: \mathbb{N} \to \mathbb{N}$ can be admitted by a layout?
 
 <div class="statement" id="function-to-layout">
 
-Let $f: [0, M) \to \mathbb{N}$ be an arbitrary function. Then there is an
-algorithm with runtime $O(M^2 \log{M})$ that finds a layout $L = (n_0, n_1, ...
-, n_{D-1}) : (s_0, s_1, ..., s_{D-1})$ such that $L(x) = f(x)$ for all $x \in
-[0, M)$, or reports that there is no such layout.
+Let $f: [0, M) \to \mathbb{N}$ be an arbitrary function. We present in this
+section an algorithm with runtime $O(M^2 \log{M})$ that either finds a layout $L
+= (n_0, n_1, ...  , n_{D-1}) : (s_0, s_1, ..., s_{D-1})$ such that $L(x) = f(x)$
+for all $x \in [0, M)$, or reports that there is no such layout.
 
 </div>
 
