@@ -298,6 +298,8 @@ $$
 
 </div>
 
+TODO: write about the canonical functions of extensions.
+
 ## What function $f: \mathbb{N} \to \mathbb{N}$ can be admitted by a layout?
 
 <div class="statement" id="function-to-layout">
