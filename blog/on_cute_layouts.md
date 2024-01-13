@@ -298,7 +298,31 @@ $$
 
 </div>
 
-TODO: write about the canonical functions of extensions.
+The multivariate function of $L_\text{ext}$ is defined similarly to that of
+$L$'s, except that the last coordinate can take any value, instead of being
+restricted to $[0, n_{D-1})$:
+
+$$
+\begin{aligned}
+g_{L_\text{ext}}
+  &: [0, n_0) \times
+     [0, n_1) \times \cdots
+     [0, n_{D-2}) \times \mathbb{N}
+  \to \mathbb{N} \\
+g_{L_\text{ext}}(x_0, x_1, ..., x_{D-1})
+  &= s_0 x_0 + s_1 x_1 + \cdots + s_{D-1} x_{D-1}
+\end{aligned}
+$$
+
+The singlevariate function $L_\text{ext}$ is therefore:
+
+$$
+L_\text{ext}(x)
+  = L(x~\text{mod}~n_0 n_1 \cdots n_{D-1})
+  + \text{cosize}(L) \cdot \left\lfloor \dfrac{x}{n_0 n_1 \cdots n_{D-1}} \right\rfloor
+$$
+
+**TODO(hieu): is this correct?**
 
 ## What function $f: \mathbb{N} \to \mathbb{N}$ can be admitted by a layout?
 
