@@ -129,8 +129,11 @@ better with many operations.
 
 There are some terminologies associated with the definition of layout:
 
-- The product of all elements in the tuple $N$ is called the layout's *size.* Each
-element in the size tuple is sometimes called an *extent* of $L$.
+
+- Each element in the size tuple is sometimes called an *extent* of $L$.
+
+- $\text{size}(L)$ is simply the product of all extents of $L$:
+$\text{size}(L) = n_0 n_1 \cdots n_{D-1}$.
 
 - The tuple $S$ is called the layout's *stride.*
 
