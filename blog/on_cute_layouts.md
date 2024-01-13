@@ -107,7 +107,7 @@ $$
 </div>
 
 <details markdown="1">
-<summary>So what's the goal of layouts?</summary>
+<summary>So what is the goal of layouts?</summary>
 
 In this note, we are not very concerned with the goal of layouts. We are much
 rather focus on their mathematical constructions and the operations on them.
@@ -125,7 +125,7 @@ Later in this note, with a better understanding of
 is *reasonably* the same as the layout $(n, m) : (1, n)$, but the latter behaves much
 better with many operations.
 
-</details> <!-- So what's the goal of layouts? -->
+</details> <!-- So what is the goal of layouts? -->
 
 There are some terminologies associated with the definition of layout:
 
@@ -292,7 +292,7 @@ consistent, and enhances our understanding of layouts.
 **Definition. (Layout extension)**
 
 Let $L = (n_0, n_1, ..., n_{D-1}) : (s_0, s_1, ..., s_{D-1})$ be a
-$D$-dimensional layout. $L$'s extension is the layout with all modes of $L$'s,
+$D$-dimensional layout. $L$'s extension is the layout with all modes of $L$,
 except for the last mode whose dimension is replaced with $+\infty$. More precisely:
 
 $$
