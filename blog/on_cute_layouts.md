@@ -301,6 +301,20 @@ is to group contiguous modes of a layout, as we discuss in this section.
 **Definition (Mode grouping).**
 Let $L = (n_0, n_1, ..., n_{D-1}) : (s_0, s_1, ..., s_{D-1})$ be a
 $D$-dimensional layout, and $a$, $b$ be integers in $[0, D)$.
+If $s_a = s_{a+1} = \cdots = s_{b-1} = s$, then the $a$-$b$ mode-grouping operation
+on $L$ is defined as follows:
+
+$$
+\begin{aligned}
+\text{GroupMode}_{a, b}(L)
+:= (n_0, n_1, ..., n_{a-1},
+    n_a n_{a+1} \cdots n_{b-1},
+    n_b, ..., n_{D-1})
+ : (s_1, s_1, ..., s_{a-1},
+    s,
+    s_b, ..., s_{D-1})
+\end{aligned}
+$$
 
 </div>
 
