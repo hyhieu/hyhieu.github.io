@@ -318,6 +318,9 @@ $$
 
 </div>
 
+It can be seen from the definition that mode-grouping does not change the
+layout's singlevariate function.
+
 [Later in this note](#what-function-can-be-admitted-by-a-layout), we will discuss an
 algorithm to determine which functions can be expressed by a layout.
 
