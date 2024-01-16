@@ -276,7 +276,7 @@ function $f: \mathbb{N} \to \mathbb{N}$ is admitted by a layout?
 
 <!-- HIEU HAS PROOFREAD UNTIL THIS POINT -->
 
-## Mode grouping
+## Mode coalescing
 
 Canonical functions allow us an intuitive way to think about layouts: as
 functions from $\mathbb{N}$ to itself. With this intuition, we consider multiple
@@ -294,19 +294,19 @@ TODO: write the example.
 
 In CuTe layout's language, the different tensor views above are implemented by
 having different tensors with equivalent layouts. A common way to create such layouts
-is to group contiguous modes of a layout, as we discuss in this section.
+is to *coalesce* contiguous modes of a layout, as we discuss in this section.
 
-<div markdown="1" id="mode-grouping">
+<div markdown="1" id="mode-coalescing-def">
 
-**Definition (Mode grouping).**
+**Definition (Mode coalescing).**
 Let $L = (n_0, n_1, ..., n_{D-1}) : (s_0, s_1, ..., s_{D-1})$ be a
 $D$-dimensional layout, and $a$, $b$ be integers in $[0, D)$.
-If $s_a = s_{a+1} = \cdots = s_{b-1} = s$, then the $a$-$b$ mode-grouping operation
+If $s_a = s_{a+1} = \cdots = s_{b-1} = s$, then the $a$-$b$ mode-coalescing operation
 on $L$ is defined as follows:
 
 $$
 \begin{aligned}
-\text{GroupMode}_{a, b}(L)
+\text{Coalesce}_{a, b}(L)
 := (n_0, n_1, ..., n_{a-1},
     n_a n_{a+1} \cdots n_{b-1},
     n_b, ..., n_{D-1})
@@ -318,7 +318,7 @@ $$
 
 </div>
 
-It can be seen from the definition that mode-grouping does not change the
+It can be seen from the definition that mode-coalescing does not change the
 layout's singlevariate function.
 
 [Later in this note](#what-function-can-be-admitted-by-a-layout), we will discuss an
