@@ -659,7 +659,6 @@ L(x)
     &= L_1(x~\text{mod}~\text{size}(L_1))
     + L_2\mathopen{}\left(
         \left\lfloor \frac{x}{\text{size}(L_1)} \right\rfloor
-        ~\text{mod}~\text{size}(L_2)
     \right)
 \end{aligned}
 $$
