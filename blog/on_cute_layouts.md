@@ -276,48 +276,6 @@ function $f: \mathbb{N} \to \mathbb{N}$ is admitted by a layout?
 
 <!-- HIEU HAS PROOFREAD UNTIL THIS POINT -->
 
-## Mode coalescing
-
-Canonical functions allow us an intuitive way to think about layouts: as
-functions from $\mathbb{N}$ to itself. With this intuition, we consider multiple
-layouts sharing the same singlevariate functions to be equivalent. Many examples
-of such layouts are in PyTorch's `Tensor.view` method, which allows users to
-treat a tensor with different methods *without* duplicating the tensor's data in
-their memory.
-
-<details>
-<summary>Here is an example.</summary>
-
-TODO: write the example.
-
-</details>
-
-In CuTe layout's language, the different tensor views above are implemented by
-having different tensors with equivalent layouts. A common way to create such layouts
-is to *coalesce* contiguous modes of a layout, as we discuss in this section.
-
-<div markdown="1" id="mode-coalescing-def">
-
-**Definition (Mode coalescing).**
-Let $L = (n_0, n_1, ..., n_{D-1}) : (s_0, s_1, ..., s_{D-1})$ be a
-$D$-dimensional layout, and $a$, $b$ be integers in $[0, D)$.
-If $s_a = s_{a+1} = \cdots = s_{b-1} = s$, then the $a$-$b$ mode-coalescing operation
-on $L$ is defined as follows:
-
-$$
-\begin{aligned}
-\text{Coalesce}_{a, b}(L)
-:= (n_0, n_1, ..., n_{a-1},
-    n_a n_{a+1} \cdots n_{b-1},
-    n_b, ..., n_{D-1})
- : (s_1, s_1, ..., s_{a-1},
-    s,
-    s_b, ..., s_{D-1})
-\end{aligned}
-$$
-
-</div>
-
 It can be seen from the definition that mode-coalescing does not change the
 layout's singlevariate function.
 
@@ -326,14 +284,14 @@ algorithm to determine which functions can be expressed by a layout.
 
 ## Layout extensions
 
-Now that we have discussed the canonical functions, we can discuss a layout's *extension*.
-This concept is introduced in
+Now that we have discussed the canonical functions, we can discuss a layout's
+*extension*. This concept is introduced in
 [Jay's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts).
 While the concept is not presented in
 [CuTe's original definition](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute),
-we find it very natural once we have understood the basics of layouts. More importantly,
-the concept of extension serves to make the mathemetical proofs later in this blog post
-consistent, and enhances our understanding of layouts.
+we find it very natural once we have understood the basics of layouts. More
+importantly, the concept of extension serves to make the mathemetical proofs
+later in this blog post consistent, and enhances our understanding of layouts.
 
 <div class="statement" id="def-layout-extension">
 
@@ -349,8 +307,8 @@ $$
 
 </div>
 
-The multivariate function of $L_\text{ext}$ is defined similarly to that of
-$L$'s, except that the last coordinate can take any value, instead of being
+The multivariate function of $L_\text{ext}$ is defined naturally based on that
+of $L$, except that the last coordinate can take any value, instead of being
 restricted to $[0, n_{D-1})$:
 
 $$
