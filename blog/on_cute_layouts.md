@@ -732,7 +732,7 @@ images of $A$ and $B$ on $[0, M)$ are disjoint.
 
 2. $\left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor \leq \text{size}(B)$.
 
-3. $\text{cosize}(B) \leq \left\lfloor \dfrac{M}{\text{cosize(A)}} \right\rfloor \cdot \text{cosize}(A)$.
+3. $\text{cosize}(B) \leq \left\lceil \dfrac{M}{\text{cosize(A)}} \right\rceil \cdot \text{cosize}(A)$.
 
 <details markdown="1">
 
