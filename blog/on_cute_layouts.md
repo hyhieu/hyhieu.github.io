@@ -751,7 +751,7 @@ is a bijection.
 
 2. $\{A(x) | x \in [0, M)\} \cap \{B(x) | x \in [0, M) \} = \emptyset$,
 $\left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor \leq \text{size}(B)$
-and $\text{cosize}(B) \leq \left\lfloor \dfrac{M}{\text{cosize(A)}} \right\rfloor \cdot \text{cosize}(A)$.
+and $\text{cosize}(B) \leq \left\lceil \dfrac{M}{\text{cosize(A)}} \right\rceil \cdot \text{cosize}(A)$.
 
 </div>
 
