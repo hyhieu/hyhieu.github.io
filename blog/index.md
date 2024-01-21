@@ -26,3 +26,10 @@ Dec 31st 2023
 <br>
 *From conceptual to formal construction of CuTe's layout algebra.*
 <hr>
+
+Jan 22nd 2024
+<br>
+[**A difficult week**](./a_difficult_week)
+<br>
+*The first stomach flu of my 14 months son.*
+<hr>
