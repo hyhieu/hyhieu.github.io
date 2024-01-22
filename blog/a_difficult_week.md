@@ -44,7 +44,7 @@ exhaustion, I kept hearing a cacophonous noise from another world that made me
 very upset.
 
 But for some reasons that I could only describe as a miracle, I did not snap.
-Throughout the week, not once did I got angry at my wife or my son (I have an
+Throughout the week, not once did I get angry at my wife or my son (I have an
 anger management problem under stress). I did feel sad; I did feel tired; at
 times I was not fully present wherever I was; but did not, for once, let anger
 take the better part of me.  When I had some seconds for emotions to rush into
