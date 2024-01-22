@@ -8,46 +8,54 @@ A difficult week
 
 [[Hieu's personal blog index](./index)]
 
-It's a cloudy Sunday afternoon, and I find myself in my office looking outside a
-large window, feeling a strange urge to write something. Now I do have another
-[blog post](./on_cute_layouts) to finish, and I do not plan to abandon it, but
-the urge to write is just so strong I decided to create this entry to write down
-what is in my mind.
+It's a cloudy Sunday afternoon, and I find myself in my office staring at the
+turmoil outside a large window. Staring back at me are the frail leaves just
+waiting to fall from their trees. The winds howl as if they cannot wait to yank
+down the leaves. Tonight will be stormy.
 
-The writing urge I am feeling is reminiscent; the last time I vividly remember
-felling such an urge was in 2017, and then it just silently disappeared as I
-entered my communication anxiety. That said, there is a large gap between
-feeling the urge to write and being able to get into a writing flow that
-produces something nice to read. Still, feeling the urge is progress. So here I
-am, writing.
+Haruki Murakami has this excellent paragraph about storms:
+> And once the storm is over, you won't remember how you made it through, how
+you managed to survive. You won't even be sure, whether the storm is really
+over. But one thing is certain. When you come out of the storm, you won't be
+the same person who walked in.
 
-As writing goes, I need a topic. Actually, unless I am [Haruki
-Murakami](https://en.wikipedia.org/wiki/Haruki_Murakami), I need a topic. The
-topic today is my family.
+If such is true, my self who is writing this blog post is not the same person I
+was last week. The week was a storm for my family.
 
-We just survived a difficult week, and despite feeling exhausted about
-everything we went through, I feel incredibly optimistic about our future, so I
-write to celebrate. Last Tuesday, my son woke up on the floor next to his bed,
-which is covered in his own vomit. That marked our 14 months boy's first stomach
-flu. The next day came his diarrhea, and eventually a fever that lasted until
-Friday. On Thursday, when he was 103.9F, my wife and I were so worried we took
-him to urgent care.  Fortunately, the doctor assured us everything is fine and
-sent us home, and indeed, the next day his fever was gone. The unfortunate part
-is that his flu spread into my wife and me, so now both of us must care for
-ourselves, all while helping our baby recover.
+Last Tuesday, my son woke up on the floor next to his bed, the bed covered in
+his own vomit. That marked the first stomach flu of our 14 months boy. The next
+day came his diarrhea, and then a fever that lasted until Friday. On Thursday,
+when he was 103.9F, my wife and I took him to urgent care.  Fortunately, a
+doctor assured us everything is fine and sent us home, and indeed, the next day
+his fever was gone. The unfortunate part is that his flu spread into my wife and
+me, so now both of us must care for ourselves, all while helping our baby
+recover.
 
-Despite feeling super exhausted at times, I am incredibly happy to think of my
-sweet family. During the week, while caring for my son, I kept hearing a
-cacophonous noise that made me very tired. But with some effort to focus myself
-on my wife and son, I was able to keep myself calm and sane enough to move pass
-the difficult hours.
+All events swept through us like a storm. We were exhausted. When our son fell
+asleep, we slept, hoping to regain some strengths so that we could continue to
+care for him when he wakes up. There is no time to feel scared or sad that our
+baby was suffering. There is no time to reflect our experience. There's barely
+time to recharge enough energy to get us to the next rest. Like we are in a
+storm.
 
-I now realize that I have essentially failed to express my feelings with the
-words above. For whatever reasons, the words here are just not painting the
-vision I wanted to show. Not the best execution, or perhaps my writing flow has
-not come back yet. Anyhow, that is for an abrupt end, and I am going back to what
-I was doing before I started writing.
+Storms are messy. They splash us with not only the frosting rain but also the
+freezing, loud winds. In our storm, apart from our son's sickness and our own
+exhaustion, I kept hearing a cacophonous noise from another world that made me
+very upset.
 
-This post is simply an appreciation that I hope to deliver to my wife and son.
-I thank them for being the sweethearts that kept me plowing through the last few
-difficult days.
+But for some reasons that I could only describe as a miracle, I did not snap.
+Throughout the week, not once did I got angry at my wife or my son (I have an
+anger management problem under stress). I did feel sad; I did feel tired; at
+times I was not fully present wherever I was; but did not, for once, let anger
+take the better part of me.  When I had some seconds for emotions to rush into
+my brain, the top emotion was how much I appreciate my wife. I would look at her
+and thank God she was there. I don't know what my son and I have done to deserve
+the care and love from such a resilient and strong woman.
+
+Today, my son no longer has vomits, diarrhea, or fevers. My wife and I, while
+both exhausted, are on our paths to recover. I sure don't "remember how we made
+it through", and I am too afraid to contemplate "whether the storm is really
+over", but I know one thing: my wife and I have become different versions of
+ourselves after the challenging week. A better version.
+
+I am optimistic about our next days. After storms come rainbows.
