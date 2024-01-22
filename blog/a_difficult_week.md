@@ -46,11 +46,13 @@ very upset.
 But for some reasons that I could only describe as a miracle, I did not snap.
 Throughout the week, not once did I get angry at my wife or my son (I have an
 anger management problem under stress). I did feel sad; I did feel tired; at
-times I was not fully present wherever I was; but did not, for once, let anger
-take the better part of me.  When I had some seconds for emotions to rush into
-my brain, the top emotion was how much I appreciate my wife. I would look at her
-and thank God she was there. I don't know what my son and I have done to deserve
-the care and love from such a resilient and strong woman.
+times I was not fully present wherever I was; but I did not, for once, let anger
+take the better part of me.
+
+Instead, when I had some seconds for emotions to rush into my brain, the top
+emotion was how much I appreciate my wife. I would look at her and thank God she
+was there. I don't know what my son and I have done to deserve the care and love
+from such a resilient and strong woman.
 
 Today, my son no longer has vomits, diarrhea, or fevers. My wife and I, while
 both exhausted, are on our paths to recover. I sure don't "remember how we made
