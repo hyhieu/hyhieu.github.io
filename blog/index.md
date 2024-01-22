@@ -29,7 +29,7 @@ Dec 31st 2023
 
 Jan 22nd 2024
 <br>
-[**A difficult week**](./a_difficult_week)
+[**A storm**](./a_storm)
 <br>
 *The first stomach flu of my 14 months son.*
 <hr>
