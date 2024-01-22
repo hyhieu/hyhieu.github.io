@@ -9,7 +9,7 @@ A difficult week
 [[Hieu's personal blog index](./index)]
 
 It's a cloudy Sunday afternoon, and I find myself in my office staring at the
-turmoil outside a large window. Staring back at me are the frail leaves just
+turmoil outside its large window. Staring back at me are the frail leaves just
 waiting to fall from their trees. The winds howl as if they cannot wait to yank
 down the leaves. Tonight will be stormy.
 
