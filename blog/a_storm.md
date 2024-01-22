@@ -57,7 +57,7 @@ from such a resilient and strong woman.
 Today, my son no longer has vomits, diarrhea, or fevers. My wife and I, while
 both exhausted, are on our paths to recover. I sure don't "remember how we made
 it through", and I am too afraid to contemplate "whether the storm is really
-over", but I know one thing: my wife and I have become different versions of
+over", but I know one thing: my wife and I have become a different version of
 ourselves after the challenging week. A better version.
 
 I am optimistic about our next days. After storms come rainbows.
