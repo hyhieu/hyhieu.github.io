@@ -726,14 +726,13 @@ is a bijection.
 
 Note that
 [CuTe's original definition](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute/02_layout_operations.md#complement)
-of complementation specifies the following conditions instead of (2).
+of complementation specifies the following conditions:
 
-1. $\{A(x) : x \in [0, M)\} \cap \{B(x) : x \in [0, M) \} = \emptyset$. In words, the
-images of $A$ and $B$ on $[0, M)$ are disjoint.
+1. $\text{cosize}((A, B)) \geq M$.
 
-2. $\left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor \leq \text{size}(B)$.
+2. $\text{size}(B) \geq \left\lceil \dfrac{M}{\text{size}(A)} \right\rceil$.
 
-3. $\text{cosize}(B) \leq \left\lceil \dfrac{M}{\text{cosize(A)}} \right\rceil \cdot \text{cosize}(A)$.
+3. $B(i) \neq A(j)$ for all $i \in [1, \text{size}(B))$, $j \in [0, \text{size}(A))$.
 
 <details markdown="1">
 
