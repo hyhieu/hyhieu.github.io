@@ -687,6 +687,7 @@ $$
   &= L_1(x) + L_2(x)
 \end{aligned}
 $$
+
 Note that we have used the definition of size that  $m_0 m_1 \cdots m_{E-1} =
 \text{size}(L_1)$, and then used the identity above to wrap $x /
 \text{size}(L_1)$ in a floor function. $\square$
