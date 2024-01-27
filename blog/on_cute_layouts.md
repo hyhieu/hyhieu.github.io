@@ -47,7 +47,7 @@ rigorous foundation of the concepts when writing our programs.
 **Goal.**
 Building such rigurous foundation is the goal of this blog post. In particular,
 we attempt to formalize the definition of CuTe layout and a few of its
-accompanying operations, most importantly [complementation](#complemention),
+accompanying operations, most importantly [complementation](#complement),
 [composition](#composition), and [logical division](#logical-division).
 
 **Our source of inspiration.**
@@ -83,7 +83,7 @@ concise standard like
 [Jay's treatment](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts)).
 Then, using the correspondence between layouts and these functions via an
 algorithm, and then use this correspondence to construct layout operations such
-as [complementation](#complemention), [composition](#composition), and
+as [complementation](#complement), [composition](#composition), and
 [logical division](#logical-division).
 
 TODO: How about coalesce, left/right inverse? Are these fundamental enough to cover?
@@ -706,10 +706,10 @@ $$
 
 As simple as the concatenation operation is, it plays an important role in
 defining two much more complex yet crucial operations on layouts:
-[complementation](#complemention) and [composition](#composition). We discuss
+[complementation](#complement) and [composition](#composition). We discuss
 them in the next sections.
 
-## Complemention
+## Complement
 
 <div class="statement" id="complement-def" markdown="1">
 
