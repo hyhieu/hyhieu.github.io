@@ -760,7 +760,7 @@ $j \in [0, \text{size}(A))$.
 <summary><b>Proof.</b></summary>
 
 $(1) \Longrightarrow (2):$ Assuming (1), then injectivity of $(A, B)$ immediately
-gives us $\{A(x) | x \in [0, M)\} \cup \{B(x) | x \in [0, M) \} = \emptyset$.
+gives us $B(i) \neq A(j)$ for all $i \in [1, \text{size}(B))$ and $j \in [0, \text{size}(A))$.
 Additionally, the domain of $(A, B)$ must contain $[0, M)$, so:
 
 $$
