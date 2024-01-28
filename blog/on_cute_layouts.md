@@ -732,7 +732,7 @@ of complementation specifies the following conditions:
 
 2. $\text{size}(B) \geq \left\lceil \dfrac{M}{\text{size}(A)} \right\rceil$.
 
-3. $B(i) \neq A(j)$ for all $i \in [1, \text{size}(B))$, $j \in [0, \text{size}(A))$.
+3. $B(i) \neq A(j)$ for all $i \in [1, \text{size}(B))$ and $j \in [0, \text{size}(A))$.
 
 <details markdown="1">
 
@@ -743,15 +743,15 @@ bijective condition in <a href="#complement-def">our definition</a>.
 
 <div markdown="1" class="statement">
 
-**Claim.** The following two statements are equivalent:
+**Claim.** The following statements are equivalent:
 
 1. The concatenation layout $(A, B)$'s singlevariate function restricted on $[0, M)$
 is a bijection.
 
-
-2. $\{A(x) | x \in [0, M)\} \cap \{B(x) | x \in [0, M) \} = \emptyset$,
-$\left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor \leq \text{size}(B)$
-and $\text{cosize}(B) \leq \left\lceil \dfrac{M}{\text{cosize(A)}} \right\rceil \cdot \text{cosize}(A)$.
+2. $\text{cosize}((A, B)) \geq M$,
+$\text{size}(B) \geq \left\lceil \dfrac{M}{\text{size}(A)} \right\rceil$,
+and $B(i) \neq A(j)$ for all $i \in [1, \text{size}(B))$ and
+$j \in [0, \text{size}(A))$.
 
 </div>
 
