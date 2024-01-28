@@ -767,8 +767,9 @@ $$
 \begin{aligned}
 &\text{size}((A, B)) = \text{size}(A) \cdot \text{size}(B) \geq M \\
 &\Longrightarrow \text{size}(B)
-  \geq \dfrac{M}{\text{size(A)}}
-  \geq \left\lfloor \dfrac{M}{\text{size(A)}} \right\rfloor
+  \geq \dfrac{M}{\text{size(A)}} \\
+&\Longrightarrow \text{size}(B)
+  \geq \left\lceil \dfrac{M}{\text{size(A)}} \right\rceil
 \end{aligned}
 $$
 
@@ -800,9 +801,6 @@ $(2) \Longrightarrow (1):$
 </details>
 
 </details>
-
-In our (obviously biased) opinion, our definition is more intuitive of what the
-complement operation does.
 
 Not all layouts have a complement. In particular, bijection requirement in our
 definition rules out all layout $A$ whose singlevariate function is not
