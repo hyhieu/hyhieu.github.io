@@ -239,7 +239,7 @@ $f_L(x)$.
 
 <details>
 <summary><b>Note:</b> the terms "canonical single/multi-variate functions" are a bit
-different from the <a href="https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute/02_layout_operations.md">CuTe's original docmentation</a>.</summary>
+different from the <a href="https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute/02_layout_algebra.md">CuTe's original docmentation</a>.</summary>
 
 They simply use the term "function" to refer to "canonical singlevariate
 function". We find that when clear from context, it is okay to just say "the
@@ -725,10 +725,10 @@ is a bijection.
 </div>
 
 Note that
-[CuTe's original definition](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute/02_layout_operations.md#complement)
+[CuTe's original definition](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute/02_layout_algebra.md#complement)
 of complementation specifies the following conditions:
 
-1. $\text{cosize}((A, B)) \geq M$.
+1. $\text{cosize}((A, B)) \leq M$.
 
 2. $\text{size}(B) \geq \left\lceil \dfrac{M}{\text{size}(A)} \right\rceil$.
 
@@ -748,10 +748,10 @@ bijective condition in <a href="#complement-def">our definition</a>.
 1. The concatenation layout $(A, B)$'s singlevariate function restricted on $[0, M)$
 is a bijection.
 
-2. $\text{cosize}((A, B)) \geq M$,
+2. $\text{cosize}((A, B)) \leq M$,
 $\text{size}(B) \geq \left\lceil \dfrac{M}{\text{size}(A)} \right\rceil$,
 and $B(i) \neq A(j)$ for all $i \in [1, \text{size}(B))$ and
-$j \in [0, \text{size}(A))$.
+$j \in [0, \text{size}(A)$.
 
 </div>
 
@@ -759,7 +759,7 @@ $j \in [0, \text{size}(A))$.
 
 <summary><b>Proof.</b></summary>
 
-$(1) \Longrightarrow (2):$ Assuming (1), then injectivity of $(A, B)$ immediately
+$(1) \Longrightarrow (2):$ Assuming (1), then the injectivity of $(A, B)$ immediately
 gives us $B(i) \neq A(j)$ for all $i \in [1, \text{size}(B))$ and $j \in [0, \text{size}(A))$.
 Additionally, the domain of $(A, B)$ must contain $[0, M)$, so:
 
@@ -773,8 +773,12 @@ $$
 \end{aligned}
 $$
 
-Finally, since the singlevariate function $(A, B): [0, M) \to [0, M)$ is a bijection,
-we have $f_{(A, B)}(x) < M$ for all $x \in [0, M)$.
+Finally, the surjectivity of $(A, B): [0, M) \to [0, M)$ gives us
+$\text{cosize}((A, B)) \geq M$.
+
+$(2) \Longrightarrow (1):$ Conversely, assuming these three conditions, then
+$B(i) \neq A(j)$ for all $i \in [1, \text{size}(B))$ and $j \in [0, \text{size}(A))$
+means $(A, B): [0, M) \to [0, M)$ is injective. We need
 
 <!--
 In particular, at
@@ -793,8 +797,6 @@ $$
 -->
 
 TODO: finish this proof.
-
-$(2) \Longrightarrow (1):$
 
 
 
