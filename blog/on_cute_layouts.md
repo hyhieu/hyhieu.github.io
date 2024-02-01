@@ -834,13 +834,11 @@ variate function, and then use the [function-to-layout
 Algorithm](#function-to-layout) to find the composition or to conclude that such
 composition does not exist.
 
-Our definition of composition uses the same approach with
-[CuTE's original documentation](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute):
-we both use function composites.
-Next, we prove the left distribution of the composition operation according to
-our definition.
-
-*TODO(hieu): the wording in the paragraph above is very awkward.*
+It turns out that by using only arguments with function composition, we can
+derive the left distribution of composition with respect to concatenation. This
+is a different approach compared to
+[CuTE's original documentation](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute),
+which uses the left distribution property to *define* composition.
 
 <div markdown="1" class="statement">
 
