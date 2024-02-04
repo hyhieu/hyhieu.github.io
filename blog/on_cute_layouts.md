@@ -901,7 +901,7 @@ the concepts.
 
 ## Python implementation
 
-Here, we provided the Python implementation for the basic operations with layouts.
+Here, we provide the Python implementation for the basic operations with layouts.
 We have only tested the code on very basic cases, so if you use it, please
 proceed carefully.
 
