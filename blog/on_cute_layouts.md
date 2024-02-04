@@ -856,6 +856,9 @@ $$
 <details markdown="1">
 <summary><b>Proof.</b></summary>
 
+We simply use the definition of [concatenation](#concatenation) and
+[composition](#composition).
+
 TODO: write the proof.
 </details>
 
