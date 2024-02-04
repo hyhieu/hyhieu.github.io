@@ -352,7 +352,8 @@ We also provide its <a href="#python-implementation">Python implementation</a>.
 
 ### Algorithm
 
-Without loss of generality, assume that $n_i > 1$ for all $i \in [0, D)$.
+Without loss of generality, assume that $n_i > 1$ for all $i \in [0, D)$. That is,
+we only look for layouts whose all dimensions is larger than $1$.
 <details markdown="1">
 <summary>Why can we assume so?</summary>
 
