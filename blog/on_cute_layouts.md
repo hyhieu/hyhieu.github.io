@@ -345,7 +345,6 @@ for all $x \in [0, M)$, or reports that there is no such layout.
 </div>
 
 <details markdown="1">
-
 <summary markdown="1">Here is the algorithm.
 We also provide its <a href="#python-implementation">Python implementation</a>.
 </summary>
