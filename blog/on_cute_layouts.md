@@ -293,7 +293,7 @@ we find it very natural once we have understood the basics of layouts. More
 importantly, the concept of extension serves to make the mathemetical proofs
 later in this blog post consistent, and enhances our understanding of layouts.
 
-<div class="statement" id="def-layout-extension">
+<div class="statement" id="def-layout-extension" markdown="1">
 
 **Definition. (Layout extension)**
 
