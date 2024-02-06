@@ -25,13 +25,10 @@ efficient deep learning libraries, including but not limited to
 [FasterTransformer](https://github.com/NVIDIA/FasterTransformer), and
 [xFormers](https://github.com/facebookresearch/xformers).
 
-For some backgrounds, GPU programming is notoriously inflexible and completely
-specific to target architectures. As such, the flexibility and generalization
-provided by CuTe is no less than a miracle. Such miracle stems from the
-ingenious design of its central concept: *layout.* A layout maps an
-$D$-dimensional coordinate into an integer. Despite the very basic definition,
-layouts accompanied by the operations on them have significantly improved the
-experience of writing performant GPU programs.
+CuTe's benefits stem from the ingenious design of its central concept:
+*layout.* A layout maps an $D$-dimensional coordinate into an integer. Despite
+the very basic definition, layouts accompanied by the operations on them have
+significantly improved the experience of writing performant GPU programs.
 
 ## Motivations
 
