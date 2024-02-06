@@ -19,11 +19,11 @@ architectures, such as
 [Volta](https://www.nvidia.com/en-us/data-center/volta-gpu-architecture/),
 [Ampere](https://www.nvidia.com/en-us/data-center/ampere-architecture/), and
 [Hopper](https://www.nvidia.com/en-us/data-center/technologies/hopper-architecture/).
-CuTe plays the central role in the development of many efficient deep learning
-libraries, including but not limited to
+Thanks to these benefits, CuTe plays the central role in the development of many
+efficient deep learning libraries, including but not limited to
 [FlashAttention](https://github.com/Dao-AILab/flash-attention),
 [FasterTransformer](https://github.com/NVIDIA/FasterTransformer), and
-[xformers](https://github.com/facebookresearch/xformers).
+[xFormers](https://github.com/facebookresearch/xformers).
 
 For some backgrounds, GPU programming is notoriously inflexible and completely
 specific to target architectures. As such, the flexibility and generalization
