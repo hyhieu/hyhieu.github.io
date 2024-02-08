@@ -56,7 +56,7 @@ on the same topic. Jay's note elicits the concepts around layouts very well, per
 better than what we are doing, and we recommend the note to anyone who wants to deepen
 their undersatnding of CuTe.
 
-Our blog post offers a different treatment of CuTe's layout.
+In this post, we provide a different treatment of CuTe's layout.
 [Jay's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts)
 states concise standards to test which layouts are *"admissable for
 complementation"* or *"composition".* In order to derive such standards, they
