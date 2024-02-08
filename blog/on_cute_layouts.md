@@ -50,7 +50,7 @@ accompanying operations, most importantly [complementation](#complement),
 
 **Our source of inspiration.**
 This blog post is not the first attempt at building foundational understanding of CuTe.
-We took so much inspiration of
+We are inspired by
 [Jay Shah's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts)
 on the same topic. Jay's note elicits the concepts around layouts very well, perhaps
 better than what we are doing, and we recommend the note to anyone who wants to deepen
