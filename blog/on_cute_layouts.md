@@ -262,10 +262,9 @@ column-major.
 
 </details>
 
-Clearly, given any layout $L$, we can easily construct its singlevariate
-function. The reverse question is much less trivial: for which functions $f:
-\mathbb{N} \to \mathbb{N}$ there is a layout whose singlevariate function is
-$f$?
+Given any layout $L$, we can easily construct its singlevariate function. The
+reverse question is much less trivial: for which functions $f: \mathbb{N} \to
+\mathbb{N}$ there is a layout whose singlevariate function is $f$?
 
 In the next section, we will discuss a general question regarding the canonical
 functions.  For a function $f: [0, M) \to \mathbb{N}$, we say that $L$ *admits*
