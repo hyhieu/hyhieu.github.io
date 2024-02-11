@@ -881,7 +881,7 @@ perhaps offers better intuitions for this purpose. However, we find it very
 assuring to reason about the logical division via $A$ and $B$'s singlevariate
 functions.
 
-In particular, as $A$ and $B$ are layouts:
+In particular, since $A$ and $B$ are layouts:
 
 - Their singlevariate functions can be easily defined.
 
