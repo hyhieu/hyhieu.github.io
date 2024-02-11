@@ -163,7 +163,7 @@ We call $g_L$ the *canonical multivariate function* of $L$.
 
 </div>
 
-When clear from context, we drop the word "canonical" for brevity, and might
+For brevity, when clear from context, we drop the word "canonical", and might
 also use the overloaded notation:
 
 $$
