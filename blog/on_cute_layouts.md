@@ -210,7 +210,7 @@ $$
 \end{aligned}
 $$
 
-Using the $\text{SingleToMulti}$ function, we can define a layout's
+Using the $\text{SingleToMulti}$ function above, we can define a layout's
 canonical singlevariate function:
 
 <div class="statement" markdown="1">
