@@ -316,7 +316,7 @@ g_{L_\text{ext}}
      [0, n_{D-2}) \times \mathbb{N}
   \to \mathbb{N} \\
 g_{L_\text{ext}}(x_0, x_1, ..., x_{D-1})
-  &= s_0 x_0 + s_1 x_1 + \cdots + s_{D-1} x_{D-1}
+  &= s_0 x_0 + s_1 x_1 + \cdots + s_{D-2} x_{D-2} + s_{D-1} x_{D-1}
 \end{aligned}
 $$
 
