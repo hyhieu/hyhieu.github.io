@@ -602,7 +602,7 @@ is found.
 
 **Definition 4. (Concatenation)**
 
-The concatenation of two layouts $L_1$ and $L_2$ -- denoted by $(L_1, L_2)$ is
+The concatenation of two layouts $L_1$ and $L_2$ -- denoted by $(L_1, L_2)$ -- is
 the layout $L$ whose singlevariate function is:
 
 $$
