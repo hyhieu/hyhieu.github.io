@@ -328,8 +328,6 @@ L_\text{ext}(x)
   + \text{cosize}(L) \cdot \left\lfloor \dfrac{x}{n_0 n_1 \cdots n_{D-1}} \right\rfloor
 $$
 
-**TODO(hieu): is this correct?**
-
 ## What function $f: \mathbb{N} \to \mathbb{N}$ can be admitted by a layout?
 
 <div class="statement" id="function-to-layout">
