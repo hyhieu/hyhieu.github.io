@@ -27,7 +27,7 @@ efficient deep learning libraries, including but not limited to
 
 CuTe's benefits stem from the ingenious design of its central concept:
 *layout.* A layout represents a map from a $D$-dimensional coordinate to an
-integer. Despite the very basic intuition, layouts accompanied by the
+integer. Despite this very basic intuition, layouts accompanied by the
 operations on them have significantly improved the experience of writing
 performant GPU programs.
 
