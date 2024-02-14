@@ -33,7 +33,7 @@ performant GPU programs.
 
 ## Motivations
 
-While we enjoy the benefits of CuTe and admire its design, we find CuTe's
+Despite the benefits of CuTe, we find CuTe's
 [original documentation](https://github.com/NVIDIA/cutlass/blob/main/media/docs/cute)
 somewhat inadequate, especially at building a foundational understanding of
 CuTe's concepts. For instance, the complement operation is a fundamental one
