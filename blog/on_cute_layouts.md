@@ -13,7 +13,7 @@ On CuTe layouts
 ## Introduction
 
 [CuTe](https://github.com/NVIDIA/cutlass/tree/main/include/cute) is a
-sub-library in NVIDIA's [CUTLASS](https://github.com/nvidia/cutlass).
+library in NVIDIA's [CUTLASS](https://github.com/nvidia/cutlass).
 CuTe makes GPU programming flexible and generalizable across different GPU
 architectures, such as
 [Volta](https://www.nvidia.com/en-us/data-center/volta-gpu-architecture/),
