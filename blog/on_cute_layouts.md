@@ -736,7 +736,7 @@ bijective condition in <a href="#complement-def">our definition</a>.
 
 <div markdown="1" class="statement">
 
-**Claim.** The following statements are equivalent:
+**Claim.** The following two statements are equivalent:
 
 1. The concatenation layout $(A, B)$'s singlevariate function restricted on $[0, M)$
 is a bijection.
