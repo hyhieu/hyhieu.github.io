@@ -771,7 +771,7 @@ $\text{cosize}((A, B)) \geq M$.
 
 $(2) \Longrightarrow (1):$ Conversely, assuming these three conditions, then
 $B(i) \neq A(j)$ for all $i \in [1, \text{size}(B))$ and $j \in [0, \text{size}(A))$
-means $(A, B): [0, M) \to [0, M)$ is injective. We need
+means $(A, B): [0, M) \to [0, M)$ is injective. The remaining part is surjectivity.
 
 <!--
 In particular, at
