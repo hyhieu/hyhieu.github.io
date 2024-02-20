@@ -86,8 +86,6 @@ as [complementation](#complement), [composition](#composition), and
 
 TODO: How about coalesce, left/right inverse? Are these fundamental enough to cover?
 
-## The basics
-
 ## Layout
 
 <div class="statement" markdown="1" id="layout-def">
