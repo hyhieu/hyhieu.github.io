@@ -169,12 +169,13 @@ L(x_0, x_1, ..., x_{D-1}) := s_0 x_0 + s_1 x_1 + \cdots + s_{D-1} x_{D-1}
 $$
 
 Other than the canonical multivariate function, we are also interested in the
-*canonical singlevariate function* of a layout. This singlevariate function is
+*canonical singlevariate function* of a layout. The singlevariate function is
 constructed from the layout's multivariate function via the natural isomorphism
 between $[0, n_0 n_1 \cdots n_{D-1})$ and $[0, n_0) \times [0, n_1) \times
 \cdots \times [0, n_{D - 1})$. Intuitively, this isomorphism is the enumerating
 of the points on the integral lattice $[0, n_0) \times [0, n_1) \times \cdots
-\times [0, n_{D - 1})$. Here comes the tricky piece -- *this isomorphism is itself a layout:*
+\times [0, n_{D - 1})$. Here comes the tricky piece:
+*this isomorphism is itself a layout:*
 
 $$
 \begin{aligned}
