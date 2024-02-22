@@ -185,7 +185,7 @@ $$
 $$
 
 As $\text{MultiToSingle}$ is an isomorphism, its invert $\text{SingleToMulti}$
-is *mathematically* well-defined. Here is a self-contained formula for
+is *mathematically* well-defined. Following is a self-contained formula for
 $\text{MultiToSingle}$ and $\text{SingleToMulti}$:
 
 $$
