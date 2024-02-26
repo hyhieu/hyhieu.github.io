@@ -777,23 +777,13 @@ $\text{cosize}((A, B)) \geq M$.
 
 $(2) \Longrightarrow (1):$ Conversely, assuming these three conditions, then
 $B(i) \neq A(j)$ for all $i \in [1, \text{size}(B))$ and $j \in [0, \text{size}(A))$
-means $(A, B): [0, M) \to [0, M)$ is injective. The remaining part is surjectivity.
+means $(A, B): [0, M) \to [0, M)$ is injective.
 
-<!--
-In particular, at
-$\hat{x} = \text{size}(A) \cdot \text{size}(B) - 1$:
-
-$$
-\begin{aligned}
-M &> f_{(A, B)}(\hat{x}) \\
-  &= A(\underbrace{\hat{x}~\text{mod}~\text{size}(A)}_{\text{}})
-   + B\mathopen{}\left(
-      \left\lfloor \frac{\hat{x}}{\text{size}(A)} \right\rfloor
-      ~\text{mod}~\text{size}(B) \right)
-
-\end{aligned}
-$$
--->
+The remaining is to prove that $f_{(A, B)}$ is surjective. However, the established
+injectivity above means that $\text{cosize}((A, B)) \geq M$, as the domain of $(A, B)$
+has size $M$. On the other thand, $\text{cosize}((A, B)) \leq M$, as its codomain
+is a subset of $[0, M)$. These inequalities mean that $\text{cosize}((A, B)) = M$,
+establishing the surjectivity of the $f_{(A, B)}$ and finishing our proof. $\square$
 
 TODO: finish this proof.
 
