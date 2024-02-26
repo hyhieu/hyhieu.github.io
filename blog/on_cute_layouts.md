@@ -769,6 +769,9 @@ $$
 \end{aligned}
 $$
 
+Note that in the last derivation, we used the fact that if $a \in \mathbb{Z}$,
+$x \in \mathbb{R}$, then $a \geq x$ implies $a \geq \lceil x\rceil$.
+
 Finally, the surjectivity of $(A, B): [0, M) \to [0, M)$ gives us
 $\text{cosize}((A, B)) \geq M$.
 
