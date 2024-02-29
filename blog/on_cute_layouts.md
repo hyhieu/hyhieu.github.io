@@ -867,11 +867,9 @@ $$
 
 </div>
 
-It is not easy to build an intuition about logical division.
-[Jay's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts)
-perhaps offers better intuitions for this purpose. However, we find it very
-assuring to reason about the logical division via $A$ and $B$'s singlevariate
-functions.
+We find this way of defining logical division to be very useful, as it offers
+very assuring to reason about the logical division via $A$ and $B$'s
+singlevariate functions.
 
 In particular, since $A$ and $B$ are layouts:
 
