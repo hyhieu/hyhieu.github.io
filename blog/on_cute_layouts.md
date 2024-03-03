@@ -793,7 +793,7 @@ TODO: is the proof correct?
 
 </details>
 
-Not all layouts have a complement. In particular, bijection requirement in our
+Not all layouts have a complement. In particular, the bijection requirement in our
 definition rules out all layout $A$ whose singlevariate function is not
 injective. [Jay's note](https://research.colfax-intl.com/a-note-on-the-algebra-of-cute-layouts)
 offers a method to check whether a layout has a complement layout.
