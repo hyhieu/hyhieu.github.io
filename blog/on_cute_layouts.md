@@ -785,7 +785,7 @@ has size $M$. On the other thand, $\text{cosize}((A, B)) \leq M$, as its codomai
 is a subset of $[0, M)$. These inequalities mean that $\text{cosize}((A, B)) = M$,
 establishing the surjectivity of the $f_{(A, B)}$ and finishing our proof. $\square$
 
-TODO: is the proof correct?
+TODO: double check the proof?
 
 
 
