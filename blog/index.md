@@ -33,3 +33,10 @@ Jan 22nd 2024
 <br>
 *The first stomach flu of my 14 months son.*
 <hr>
+
+March 6th 2024
+<br>
+[**Online softmax**](./online_softmax)
+<br>
+*A cool algorithm to compute softmax on the fly.*
+<hr>
