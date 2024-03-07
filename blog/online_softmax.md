@@ -93,6 +93,37 @@ O_k &= \exp(M_{k-1} - M_k) \cdot O_{k-1} + \exp(s_k - M_k) \cdot V_k
 \end{align*}
 $$
 
+
+**What if we see two pairs: $(s_k, V_k)$ and $(s_{k-1}, V_{k-1})$ at the same time?**
+We see that most of the formula above can be reused:
+
+$$
+\begin{align*}
+M_{k} &= \max(M_{k-2}, s_{k-1}, s_k) \\
+S_{k} &= \exp(M_{k-2} - M_k) \cdot S_{k-2} + \exp(s_{k-1} - M_k) + \exp(s_k - M_k) \\
+\end{align*}
+$$
+
+The key is to choose the identity regarding $O_k$ to recurse:
+
+$$
+\begin{align*}
+\exp(M_k) \cdot O_k
+  &= \exp(s_k) \cdot V_k + \exp(M_{k-1}) \cdot O_{k-1} \\
+  &= \exp(s_k) \cdot V_k + \exp(s_{k-1}) \cdot V_{k-1} + \exp(M_{k-2}) \cdot O_{k-2} \\
+\end{align*}
+$$
+
+Which leads to:
+
+$$
+\begin{align*}
+O_k &= \exp(M_{k-2} - M_k) \cdot O_{k-2}
+     + \exp(s_{k-1} - M_k) \cdot V_{k-1}
+     + \exp(s_k - M_k) \cdot V_k
+\end{align*}
+$$
+
 # Python implementation
 
 Finally, here is the Python implementation of the online softmax algorithm.
