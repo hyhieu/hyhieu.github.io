@@ -23,10 +23,18 @@ def online_softmax(s: np.ndarray, V: np.ndarray) -> np.ndarray:
     O = np.copy(V[:, 0, :])  # batch_size, d
 
     for k in range(1, n):
-        s_k = s[:, k]  # batch_size
-        M_k = np.maximum(M, s[:, k])  # batch_size
-        S_k = np.exp(M - M_k) * S + np.exp(s_k - M_k)  # batch_size
-        O_k = np.exp(M - M_k)[:, None] * O + np.exp(s_k - M_k)[:, None] * V[:, k, :]  # batch_size, d
+        # batch_size
+        s_k = s[:, k]
+
+        # batch_size
+        M_k = np.maximum(M, s[:, k])
+
+        # batch_size
+        S_k = np.exp(M - M_k) * S + np.exp(s_k - M_k)
+
+        # batch_size, d
+        O_k = np.exp(M - M_k)[:, None] * O + np.exp(s_k - M_k)[:, None] * V[:, k, :]
+
         M, S, O = M_k, S_k, O_k
 
     out = O / S[:, None]
