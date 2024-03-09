@@ -15,8 +15,9 @@ Instead, we are only interested in the setting of the online softmax algorithm.
 
 # Problem formulation
 You see a sequence of $N$ real numbers: $s_1, s_2, \ldots, s_N \in \mathbb{R}$,
-and $N$ vectors $V_1, V_2, \ldots, V_N \in \mathbb{R}^d$, $K$ pairs of
-$(s_i, V_i)$ at a time. The goal is to compute the quantity:
+and $N$ vectors $V_1, V_2, \ldots, V_N \in \mathbb{R}^d$. These real numbers and
+vectors are given $K$ pairs of $(s_i, V_i)$ at a time. The goal is to compute
+the quantity, while maintaining a relatively minimal amount of memory:
 
 $$
 \begin{align*}
