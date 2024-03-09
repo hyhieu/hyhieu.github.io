@@ -132,7 +132,8 @@ vectorization of the described algorithm.
 
 <details markdown="1">  <!-- Python implementation -->
 
-<summary>Code. You can run the tests <a href="./code/online_softmax.py">here</a>.</summary>
+<summary>Code. You can run the tests
+<a href="https://github.com/hyhieu/hyhieu.github.io/blob/master/blog/code/online_softmax.py">here</a>.</summary>
 
 ```python
 def online_softmax(s: np.ndarray, V: np.ndarray) -> np.ndarray:
