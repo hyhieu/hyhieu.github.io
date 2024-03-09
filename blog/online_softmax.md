@@ -10,8 +10,8 @@ Online Softmax
 
 In this post, I discuss the online softmax algorithm. This algorithm is used
 extensively as a sub-routine of various memory-efficient attention algorithms.
-The details of these algorithm is not the concern of this blog post. Instead, we
-are only interested in the setting of the onlien softmax algorithm.
+Memory-efficient attention algorithms are is not the concern of this blog post.
+Instead, we are only interested in the setting of the onlien softmax algorithm.
 
 # Problem formulation
 You see a sequence of $N$ real number: $s_1, s_2, \ldots, s_N \in \mathbb{R}$,
