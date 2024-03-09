@@ -14,7 +14,7 @@ Memory-efficient attention algorithms are is not the concern of this blog post.
 Instead, we are only interested in the setting of the online softmax algorithm.
 
 # Problem formulation
-You see a sequence of $N$ real number: $s_1, s_2, \ldots, s_N \in \mathbb{R}$,
+You see a sequence of $N$ real numbers: $s_1, s_2, \ldots, s_N \in \mathbb{R}$,
 and $N$ vectors $V_1, V_2, \ldots, V_N \in \mathbb{R}^d$, $K$ pairs of
 $(s_i, V_i)$ at a time. The goal is to compute the quantity:
 
