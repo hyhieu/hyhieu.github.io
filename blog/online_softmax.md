@@ -17,13 +17,18 @@ Instead, we are only interested in the setting of the online softmax algorithm.
 You see a sequence of $N$ real numbers: $s_1, s_2, \ldots, s_N \in \mathbb{R}$,
 and $N$ vectors $V_1, V_2, \ldots, V_N \in \mathbb{R}^d$. These real numbers and
 vectors are given $K$ pairs of $(s_i, V_i)$ at a time. The goal is to compute
-the quantity, while maintaining a relatively minimal amount of memory:
+the quantity:
 
 $$
 \begin{align*}
 O &= \dfrac{\sum_{i=1}^N \exp{(s_i)} \cdot V_i}{\sum_{i=1}^N \exp{(s_i)}}
 \end{align*}
 $$
+
+Of course, one easy approach is to keep all the $(s_i, V_i)$ pairs in memory,
+and then compute the output. However, this approach is not memory-efficient. The
+online softmax algorithm aims to compute the output, while maintaining a
+relatively minimal amount of memory.
 
 # The algorithm
 The gist of the online softmax algorithm is to store certain information about
