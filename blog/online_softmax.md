@@ -35,7 +35,7 @@ The gist of the online softmax algorithm is to store certain information about
 the sequence of $(s_i, V_i)$ pairs, and then use this information to compute the
 output.
 
-**A small note for numerical stability.**
+**A note for numerical stability.**
 To account for the instability of taking $e$ to the power of large numbers, we
 instead subtract the value $M = \max\{s_1, s_2, \ldots, s_N\}$ from each $s_i$
 and compute the equivalent quantity:
