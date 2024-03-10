@@ -71,7 +71,8 @@ $$
 
 As such, if we maintain $M_k, S_k, O_k$ for
 $k = 1, 2, \ldots, N$, we can return $O_N / S_N$ at the end.  To this end, every time
-we see a new pair $(s_k, V_k)$, we perform the following updates:
+we see a new pair $(s_k, V_k)$, we perform the updates to $M_k, S_k, O_k$ so that they
+always compute the quantites above. For $M_k$ and $S_k$, the updates are:
 
 $$
 \begin{align*}
