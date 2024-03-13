@@ -44,8 +44,8 @@ O &= \dfrac{\sum_{i=1}^N \exp{(s_i - M)} \cdot V_i}{\sum_{i=1}^N \exp{(s_i - M)}
 \end{align*}
 $$
 
-What we store and update through the algorithm will closely follow the equation
-above.
+What we store and update while observing the $(s_i, V_i)$ pairs will closely
+follow the equation above.
 
 **Recursions.** We define the following quantities:
 
