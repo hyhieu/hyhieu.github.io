@@ -129,6 +129,9 @@ O_k &= \exp(M_{k-2} - M_k) \cdot O_{k-2}
 \end{align*}
 $$
 
+
+TODO(hieu): write about the general case where we observe $K$ pairs at the same time.
+
 # Python implementation
 
 Finally, here is the Python implementation of the online softmax algorithm.
