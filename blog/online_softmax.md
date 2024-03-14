@@ -33,7 +33,8 @@ The gist of the online softmax algorithm is to store certain information about
 the sequence of $(s_i, V_i)$ pairs, and then use this information to compute the
 output.
 
-**A note for numerical stability.**
+## A note for numerical stability.
+
 To account for the instability of taking $e$ to the power of large numbers, we
 instead subtract the value $M = \max\{s_1, s_2, \ldots, s_N\}$ from each $s_i$
 and compute the equivalent quantity:
@@ -47,7 +48,9 @@ $$
 What we store and update while observing the $(s_i, V_i)$ pairs will closely
 follow the equation above.
 
-**Recursions.** We define the following quantities:
+## Recursions
+
+We define the following quantities:
 
 $$
 \begin{align*}
@@ -99,7 +102,8 @@ O_k &= \exp(M_{k-1} - M_k) \cdot O_{k-1} + \exp(s_k - M_k) \cdot V_k
 $$
 
 
-**What if we see two pairs: $(s_k, V_k)$ and $(s_{k-1}, V_{k-1})$ at the same time?**
+## What if we see two pairs: $(s_k, V_k)$ and $(s_{k-1}, V_{k-1})$ at the same time?
+
 We see that most of the formula above can be reused:
 
 $$
