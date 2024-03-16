@@ -102,7 +102,7 @@ O_k &= \exp(M_{k-1} - M_k) \cdot O_{k-1} + \exp(s_k - M_k) \cdot V_k
 $$
 
 
-## What if we see two pairs: $(s_k, V_k)$ and $(s_{k-1}, V_{k-1})$ at the same time?
+## What if we see two pairs: $(s_k, V_k)$ and $(s_{k-1}, V_{k-1})$ at a time?
 
 We see that most of the formula above can be reused:
 
@@ -133,8 +133,12 @@ O_k &= \exp(M_{k-2} - M_k) \cdot O_{k-2}
 \end{align*}
 $$
 
+# How about $K$ pairs at a time?
 
-TODO(hieu): write about the general case where we observe $K$ pairs at the same time.
+TODO(hieu): write the equations.
+
+In many context that we use this algorithm, these updates can even be vectorized to
+make the implementation more efficient.
 
 # Python implementation
 
