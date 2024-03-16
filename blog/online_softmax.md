@@ -23,9 +23,9 @@ O &= \dfrac{\sum_{i=1}^N \exp{(s_i)} \cdot V_i}{\sum_{i=1}^N \exp{(s_i)}}
 \end{align*}
 $$
 
-Of course, one easy approach is to keep all the $(s_i, V_i)$ pairs in memory,
-and then compute the output. However, this approach is not memory-efficient. The
-online softmax algorithm aims to compute the output, while maintaining a
+One easy approach is to keep all the $(s_i, V_i)$ pairs in memory, and then
+compute the output. However, this approach is not memory-efficient in many ways.
+The online softmax algorithm aims to compute the output, while maintaining a
 relatively minimal amount of memory.
 
 # The algorithm
