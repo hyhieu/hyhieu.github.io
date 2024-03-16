@@ -30,8 +30,8 @@ relatively minimal amount of memory.
 
 # The algorithm
 The gist of the online softmax algorithm is to store certain information about
-the sequence of $(s_i, V_i)$ pairs, and then use this information to compute the
-output.
+the pairs $(s_i, V_i)$ that we see sequentially, and then use this information
+to compute the output.
 
 ## A note on numerical stability
 
