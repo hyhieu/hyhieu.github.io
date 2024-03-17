@@ -102,7 +102,7 @@ O_k &= \exp(M_{k-1} - M_k) \cdot O_{k-1} + \exp(s_k - M_k) \cdot V_k
 $$
 
 
-## What if we see two pairs: $(s_k, V_k)$ and $(s_{k-1}, V_{k-1})$ at a time?
+## What if we see two pairs: $(s_{k-1}, V_{k-1})$ and $(s_{k-2}, V_{k-2})$ at a time?
 
 We see that most of the formula above can be reused:
 
