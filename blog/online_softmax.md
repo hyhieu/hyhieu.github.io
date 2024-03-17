@@ -135,7 +135,16 @@ $$
 
 # How about $K$ pairs at a time?
 
-TODO(hieu): write the equations.
+In the general case, where we see $K$ pairs at a time, say $s_{k-i}, V_{k-i}$ for
+$i = 1, 2, \ldots, K$, it turns out that the same recursions above simply extend to:
+
+$$
+\begin{align*}
+M_{k} &= \max(M_{k-K}, s_{k-K+1}, \ldots, s_{k-1}) \\
+S_{k} &= \exp(M_{k-K} - M_k) \cdot S_{k-K} + \sum_{i=1}^{K} \exp(s_{k-i} - M_k) \\
+O_{k} &= \exp(M_{k-K} - M_k) \cdot O_{k-K} + \sum_{i=1}^{K} \exp(s_{k-i} - M_k) \cdot V_{k-i}
+\end{align*}
+$$
 
 In many context that we use this algorithm, these updates can even be vectorized to
 make the implementation more efficient.
