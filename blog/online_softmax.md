@@ -141,8 +141,10 @@ $i = 1, 2, \ldots, K$, it turns out that the same recursions above simply extend
 $$
 \begin{align*}
 M_{k} &= \max(M_{k-K}, s_{k-K+1}, \ldots, s_{k-1}) \\
-S_{k} &= \exp(M_{k-K} - M_k) \cdot S_{k-K} + \sum_{i=1}^{K} \exp(s_{k-i} - M_k) \\
-O_{k} &= \exp(M_{k-K} - M_k) \cdot O_{k-K} + \sum_{i=1}^{K} \exp(s_{k-i} - M_k) \cdot V_{k-i}
+S_{k} &= \exp(M_{k-K} - M_k) \cdot S_{k-K}
+       + \sum_{i=1}^{K} \exp(s_{k-i} - M_k) \\
+O_{k} &= \exp(M_{k-K} - M_k) \cdot O_{k-K}
+       + \sum_{i=1}^{K} \exp(s_{k-i} - M_k) \cdot V_{k-i}
 \end{align*}
 $$
 
