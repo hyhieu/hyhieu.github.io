@@ -12,10 +12,10 @@ In this post, I discuss the online softmax algorithm, which is used extensively
 as a sub-routine of various memory-efficient attention algorithms.
 
 # Problem formulation
-You see a sequence of $N$ real numbers $s_1, s_2, \ldots, s_N \in \mathbb{R}$,
+We see a sequence of $N$ real numbers $s_1, s_2, \ldots, s_N \in \mathbb{R}$,
 and $N$ vectors $V_1, V_2, \ldots, V_N \in \mathbb{R}^d$. These real numbers and
-vectors are given $K$ pairs of $(s_i, V_i)$ at a time. The goal is to compute
-the quantity:
+vectors are shown to us $K$ pairs of $(s_i, V_i)$ at a time. The goal is to
+compute the quantity:
 
 $$
 \begin{align*}
