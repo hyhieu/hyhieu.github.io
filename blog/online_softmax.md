@@ -25,6 +25,9 @@ $$
 
 One easy approach is to keep all the $(s_i, V_i)$ pairs in memory, and then
 compute the output. However, this approach is not memory-efficient in many ways.
+This is because we need to store $N$ pairs of $(s_i, V_i)$, which is $O(N)$
+memory, which is a disaster when $N$ is large.
+
 The online softmax algorithm aims to compute the output, while maintaining a
 relatively minimal amount of memory.
 
