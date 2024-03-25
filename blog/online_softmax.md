@@ -160,7 +160,7 @@ Finally, here is the Python implementation of the online softmax algorithm.
 Bonus: it also supports a batch dimension, which can be considered the
 vectorization of the described algorithm.
 
-TODO(hieu): write the vectorize version.
+TODO(hieu): maybe write the vectorized version for this code?
 
 <details markdown="1">  <!-- Python implementation -->
 
