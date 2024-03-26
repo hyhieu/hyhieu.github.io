@@ -136,7 +136,7 @@ O_k &= \exp(M_{k-2} - M_k) \cdot O_{k-2}
 \end{align*}
 $$
 
-# How about $K$ pairs at a time?
+## How about $K$ pairs at a time?
 
 In the general case, where we see $K$ pairs at a time, say $s_{k-i}, V_{k-i}$ for
 $i = 1, 2, \ldots, K$, it turns out that the same recursions above simply extend to:
