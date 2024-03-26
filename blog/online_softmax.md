@@ -152,7 +152,7 @@ O_{k} &= \exp(M_{k-K} - M_k) \cdot O_{k-K}
 $$
 
 In many contexts that we use the online softmax algorithm, these updates can
-even be vectorized to make the implementation more efficient.
+be vectorized to make the implementation more efficient.
 
 # Python implementation
 
