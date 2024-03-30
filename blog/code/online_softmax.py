@@ -14,7 +14,7 @@ def reference_softmax(s: np.ndarray, V: np.ndarray) -> np.ndarray:
     return o
 
 
-def online_softmax(s: np.ndarray, V: np.ndarray, k: int = 1) -> np.ndarray:
+def online_softmax(s: np.ndarray, V: np.ndarray, K: int = 1) -> np.ndarray:
     """Online softmax."""
     # TODO(hieu): implement the vectorized version: see k pairs (s, v) at a time.
     batch_size, n = s.shape
@@ -23,7 +23,7 @@ def online_softmax(s: np.ndarray, V: np.ndarray, k: int = 1) -> np.ndarray:
     S = np.ones(shape=[batch_size])  # batch_size
     O = np.copy(V[:, 0, :])  # batch_size, d
 
-    for k in range(1, n):
+    for k in range(1, n+1, K):
         # batch_size
         s_k = s[:, k]
 
