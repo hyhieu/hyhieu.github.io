@@ -51,6 +51,9 @@ $$
 What we store and update while observing the $(s_i, V_i)$ pairs will closely
 follow the equation above.
 
+TODO(hieu): write about the alternative where we subtract a large constant from
+each $s_i$ instead of $M$.
+
 ## Recursions
 
 We define the following quantities:
