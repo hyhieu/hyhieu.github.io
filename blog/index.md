@@ -43,7 +43,7 @@ March 6th 2024
 
 April 4th 2024
 <br>
-[**Quantizing attention's KV-cache**](./kv_cache_quant)
+[**Quantizing attention's KV-cache**](./kv_cache_quantize)
 <br>
 *Quantizing attentoin's KV cache.*
 <hr>
