@@ -78,3 +78,33 @@ $$
      \cdot V \cdot (W_v W_o)
 \end{aligned}
 $$
+
+At this point, we introduce the very nice idea of invariant linear projections.
+If $X$ and $Y$ are orthogonal matrices of shape $H \times H$, that is:
+$$
+X X^\top = X^\top X = Y^\top Y = Y Y^\top = I
+$$
+then:
+$$
+\begin{aligned}
+\text{Attention}(Q, K, V)
+  &= \text{softmax}\left(
+       \frac{Q \cdot (W_q W_k^\top) \cdot K}{\sqrt{H}}
+     \right)
+     \cdot V \cdot (W_v W_o) \\
+  &= \text{softmax}\left(
+       \frac{Q \cdot (W_q X X^\top W_k^\top) \cdot K}{\sqrt{H}}
+     \right)
+     \cdot V \cdot (W_v Y Y^\top W_o)
+\end{aligned}
+$$
+
+This means our attention equation is *invariant* if we replace:
+$$
+\begin{aligned}
+W_q &\to W_q \cdot X  \\
+W_k &\to W_k \cdot X  \\
+W_v &\to W_v \cdot Y  \\
+W_o &\to Y^\top \cdot W_o
+\end{aligned}
+$$
