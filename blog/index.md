@@ -40,3 +40,10 @@ March 6th 2024
 <br>
 *A cool algorithm to compute softmax on the fly.*
 <hr>
+
+April 4th 2024
+<br>
+[**Quantizing attention's KV-cache**](./kv_cache_quant)
+<br>
+*Quantizing attentoin's KV cache.*
+<hr>
