@@ -20,7 +20,7 @@ This post focuses on quantizing the content stored in that memory.
 
 ## Attention
 Given $q \in \mathbb{R}^{M \times D}$, $k, v \in \mathbb{R}^{N \times D}$, $W_o
-\in \mathbb{R}^{D \times D}$, and a positive integer $H \in \mathbb{N}$,
+\in \mathbb{R}^{H \times D}$, and a positive integer $H \in \mathbb{N}$,
 typically called thea *head dimension*, the attention operator computes:
 $$
 \begin{aligned}
@@ -34,8 +34,19 @@ v &:= V \cdot W_v \in \mathbb{R}^{N \times H} \\
     \cdot v \cdot W_o
 \end{aligned}
 $$
+
+Note that the dimensions of the QKV projection matrices are:
+$$
+\begin{aligned}
+W_q &\in \mathbb{R}^{D \times H} \\
+W_k &\in \mathbb{R}^{D \times H} \\
+W_v &\in \mathbb{R}^{D \times H} \\
+W_o &\in \mathbb{R}^{H \times D}
+\end{aligned}
+$$
+
 Oftentimes, we store the computed $k$ and $v$ from the previous steps into a KV
-cache.
+cache. These caches are the target of our quantization.
 
 ## Invariant linear projections
 Let us rewrite the above attention operator as:
@@ -56,12 +67,13 @@ $$
      \cdot V W_v \cdot W_o
 \end{aligned}
 $$
+
 Using the associativity of matrix products, we can rewrite the above as:
 $$
 \begin{aligned}
 \text{Attention}(Q, K, V)
   &= \text{softmax}\left(
-       \frac{Q \cdot (W_q W_k)^\top \cdot K}{\sqrt{H}}
+       \frac{Q \cdot (W_q W_k^\top) \cdot K}{\sqrt{H}}
      \right)
      \cdot V \cdot (W_v W_o)
 \end{aligned}
