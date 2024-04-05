@@ -45,7 +45,7 @@ W_o &\in \mathbb{R}^{H \times D}
 \end{aligned}
 $$
 
-Note also that in reality, the output of a so-called multi-head attention
+Note also that in practice, the output of a so-called multi-head attention
 operator is the sum of the above outputs computed on different *heads*, i.e.,
 different versions of $W_q$, $W_k$, $W_v$, and $W_o$.
 
