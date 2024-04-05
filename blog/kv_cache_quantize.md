@@ -35,7 +35,7 @@ v &:= V \cdot W_v \in \mathbb{R}^{N \times H} \\
 \end{aligned}
 $$
 
-Note that the dimensions of the QKV projection matrices are:
+Note that the dimensions of the QKV projection weight matrices are:
 $$
 \begin{aligned}
 W_q &\in \mathbb{R}^{D \times H} \\
@@ -44,6 +44,10 @@ W_v &\in \mathbb{R}^{D \times H} \\
 W_o &\in \mathbb{R}^{H \times D}
 \end{aligned}
 $$
+
+Note also that in reality, the output of a so-called multi-head attention
+operator is the sum of the above outputs computed on different *heads*, i.e.,
+different versions of $W_q$, $W_k$, $W_v$, and $W_o$.
 
 Oftentimes, we store the computed $k$ and $v$ from the previous steps into a KV
 cache. These caches are the target of our quantization.
