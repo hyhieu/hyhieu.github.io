@@ -21,7 +21,7 @@ This post focuses on quantizing the content stored in that memory.
 ## Attention
 Given $q \in \mathbb{R}^{M \times D}$, $k, v \in \mathbb{R}^{N \times D}$, $W_o
 \in \mathbb{R}^{H \times D}$, and a positive integer $H \in \mathbb{N}$,
-typically called thea *head dimension*, the attention operator computes:
+typically called the *head dimension*, the attention operator computes:
 $$
 \begin{aligned}
 q &:= Q \cdot W_q \in \mathbb{R}^{M \times H} \\
