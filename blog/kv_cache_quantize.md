@@ -35,7 +35,8 @@ v &:= V \cdot W_v \in \mathbb{R}^{N \times H} \\
 \end{aligned}
 $$
 
-Note that the dimensions of the QKV projection weight matrices are:
+Note that the dimensions of the QKV projection weight matrices -- namely $W_q$,
+$W_k$, $W_v$, and $W_o$ -- are:
 $$
 \begin{aligned}
 W_q &\in \mathbb{R}^{D \times H} \\
