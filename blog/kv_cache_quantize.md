@@ -67,7 +67,7 @@ $$
      \right)
      \cdot V W_v \cdot W_o \\
   &= \text{softmax}\left(
-       \frac{Q W_q W_k^\top K}{\sqrt{H}}
+       \frac{Q W_q W_k^\top K^\top}{\sqrt{H}}
      \right)
      \cdot V W_v \cdot W_o
 \end{aligned}
@@ -78,7 +78,7 @@ $$
 \begin{aligned}
 \text{Attention}(Q, K, V)
   &= \text{softmax}\left(
-       \frac{Q \cdot (W_q W_k^\top) \cdot K}{\sqrt{H}}
+       \frac{Q \cdot (W_q W_k^\top) \cdot K^\top}{\sqrt{H}}
      \right)
      \cdot V \cdot (W_v W_o)
 \end{aligned}
