@@ -113,3 +113,6 @@ W_v &\to W_v \cdot Y  \\
 W_o &\to Y^\top \cdot W_o
 \end{aligned}
 $$
+
+We note that we can perform these replacements on the weight matrices alone, while
+keeping whatever $Q$, $K$, and $V$ inputs that we receive.
