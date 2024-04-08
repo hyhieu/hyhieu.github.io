@@ -40,10 +40,8 @@ v &:= V \cdot W_v \in \mathbb{R}^{N \times H} \\
 \end{aligned}
 $$
 Here, $Q$, $K$, $V$ are called the *inputs* to the attention operator, while $W_q$,
-$W_k$, $W_v$, and $W_o$ are called the *weights* of the operator.
-
-Note that the dimensions of the QKV projection weight matrices -- namely $W_q$,
-$W_k$, $W_v$, and $W_o$ -- are:
+$W_k$, $W_v$, and $W_o$ are called the *weight matrices* of the operator. The dimensions
+of these weight matrices are:
 $$
 \begin{aligned}
 W_q &\in \mathbb{R}^{D \times H} \\
