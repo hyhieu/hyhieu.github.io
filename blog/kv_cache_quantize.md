@@ -24,9 +24,6 @@ Given $q \in \mathbb{R}^{M \times D}$, $k, v \in \mathbb{R}^{N \times D}$, $W_o
 typically called the *head dimension*, the attention operator computes:
 $$
 \begin{aligned}
-q &:= Q \cdot W_q \in \mathbb{R}^{M \times H} \\
-k &:= K \cdot W_k \in \mathbb{R}^{N \times H} \\
-v &:= V \cdot W_v \in \mathbb{R}^{N \times H} \\
 \text{Attention}(Q, K, V)
   &:= \text{Softmax}\left(
       \frac{q \cdot k^\top}{\sqrt{H}}
@@ -34,6 +31,16 @@ v &:= V \cdot W_v \in \mathbb{R}^{N \times H} \\
     \cdot v \cdot W_o
 \end{aligned}
 $$
+where:
+$$
+\begin{aligned}
+q &:= Q \cdot W_q \in \mathbb{R}^{M \times H} \\
+k &:= K \cdot W_k \in \mathbb{R}^{N \times H} \\
+v &:= V \cdot W_v \in \mathbb{R}^{N \times H} \\
+\end{aligned}
+$$
+Here, $Q$, $K$, $V$ are called the *inputs* to the attention operator, while $W_q$,
+$W_k$, $W_v$, and $W_o$ are called the *weights* of the operator.
 
 Note that the dimensions of the QKV projection weight matrices -- namely $W_q$,
 $W_k$, $W_v$, and $W_o$ -- are:
