@@ -99,7 +99,7 @@ $$
 \begin{aligned}
 \text{Attention}(Q, K, V)
   &= \text{softmax}\left(
-       \frac{Q \cdot (W_q W_k^\top) \cdot K}{\sqrt{H}}
+       \frac{Q \cdot (W_q W_k^\top) \cdot K^\top}{\sqrt{H}}
      \right)
      \cdot V \cdot (W_v W_o) \\
   &= \text{softmax}\left(
