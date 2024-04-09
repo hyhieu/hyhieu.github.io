@@ -103,7 +103,7 @@ $$
      \right)
      \cdot V \cdot (W_v W_o) \\
   &= \text{softmax}\left(
-       \frac{Q \cdot (W_q X X^\top W_k^\top) \cdot K}{\sqrt{H}}
+       \frac{Q \cdot (W_q X X^\top W_k^\top) \cdot K^\top}{\sqrt{H}}
      \right)
      \cdot V \cdot (W_v Y Y^\top W_o)
 \end{aligned}
