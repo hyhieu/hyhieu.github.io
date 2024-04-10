@@ -89,7 +89,7 @@ $$
 \end{aligned}
 $$
 
-At this point, we introduce the very nice idea of invariant linear projections.
+We are now ready to introduce the idea of invariant linear projections.
 If $X$ and $Y$ are orthogonal matrices of shape $H \times H$, that is:
 $$
 X X^\top = X^\top X = Y^\top Y = Y Y^\top = I
