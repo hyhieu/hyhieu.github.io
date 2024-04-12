@@ -109,7 +109,8 @@ $$
 \end{aligned}
 $$
 
-This means our attention equation is *invariant* if we replace:
+This means our attention equation is *invariant* if we replace the weight
+matrices as follows:
 $$
 \begin{aligned}
 W_q &\to W_q \cdot X  \\
