@@ -121,4 +121,4 @@ W_o &\to Y^\top \cdot W_o
 $$
 
 We note that we can perform these replacements on the weight matrices alone, while
-keeping whatever $Q$, $K$, and $V$ inputs that we receive.
+keeping whatever $Q$, $K$, and $V$ inputs passed into this attention operation.
