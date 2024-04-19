@@ -10,13 +10,13 @@ Quantizing an attention's KV cache
 
 [work in progress]
 
-In this post, I discuss an approach to quantize the KV cache of the attention
-operation.  When computing attention over a along sequence, we typically store
-the states of the previous steps into a KV cache. This KV cache is stored in its
-own memory, which can potentially come with its own memory management logics.
-This post focuses on quantizing the content stored in that memory.
+In this post, I discuss a potential approach to quantize the KV cache of the
+attention operation. When computing attention over a along sequence, we
+typically store the states of the previous steps into a KV cache.
 
-# Background
+This KV cache is stored in its own memory, typically accompanied by its own
+memory management logics. This post focuses on quantizing the content stored in
+this memory.
 
 ## Attention
 Given $q \in \mathbb{R}^{M \times D}$, $k, v \in \mathbb{R}^{N \times D}$, $W_o
