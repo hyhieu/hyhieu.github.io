@@ -38,9 +38,10 @@ to compute the output.
 
 ## A note on numerical stability
 
-To account for the instability of taking $e$ to the power of large numbers, we
-instead subtract the value $M = \max\{s_1, s_2, \ldots, s_N\}$ from each $s_i$
-and compute the equivalent quantity:
+To account for the instability of taking $e$ to the power of large numbers,
+softmax implementations typically subtract the value
+$M = \max\{s_1, s_2, \ldots, s_N\}$ from each $s_i$ and compute the
+equivalent quantity:
 
 $$
 \begin{align*}
