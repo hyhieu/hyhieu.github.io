@@ -109,7 +109,7 @@ $$
   &= \text{softmax}\left(
        \frac{(Q \cdot W_q X) (K \cdot W_k (X^{-1})^\top)^\top}{\sqrt{H}}
      \right)
-     \cdot V \cdot (W_v Y Y^{-1} W_o) \\
+     \cdot ( V \cdot W_v Y) \cdot (Y^{-1} W_o) \\
 \end{aligned}
 $$
 
