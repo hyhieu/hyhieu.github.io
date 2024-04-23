@@ -118,7 +118,7 @@ matrices as follows:
 $$
 \begin{aligned}
 W_q &\to W_q \cdot X  \\
-W_k &\to W_k \cdot X  \\
+W_k &\to W_k \cdot (X^{-1})^\top  \\
 W_v &\to W_v \cdot Y  \\
 W_o &\to Y^{-1} \cdot W_o
 \end{aligned}
