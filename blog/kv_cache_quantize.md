@@ -101,7 +101,15 @@ $$
   &= \text{softmax}\left(
        \frac{Q \cdot (W_q X X^{-1} W_k^\top) \cdot K^\top}{\sqrt{H}}
      \right)
-     \cdot V \cdot (W_v Y Y^{-1} W_o)
+     \cdot V \cdot (W_v Y Y^{-1} W_o) \\
+  &= \text{softmax}\left(
+       \frac{(Q \cdot W_q X) (X^{-1} W_k^\top \cdot K^\top)}{\sqrt{H}}
+     \right)
+     \cdot V \cdot (W_v Y Y^{-1} W_o) \\
+  &= \text{softmax}\left(
+       \frac{(Q \cdot W_q X) (K \cdot W_k (X^{-1})^\top)^\top}{\sqrt{H}}
+     \right)
+     \cdot V \cdot (W_v Y Y^{-1} W_o) \\
 \end{aligned}
 $$
 
@@ -112,7 +120,7 @@ $$
 W_q &\to W_q \cdot X  \\
 W_k &\to W_k \cdot X  \\
 W_v &\to W_v \cdot Y  \\
-W_o &\to Y^\top \cdot W_o
+W_o &\to Y^{-1} \cdot W_o
 \end{aligned}
 $$
 
