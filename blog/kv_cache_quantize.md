@@ -90,11 +90,7 @@ $$
 $$
 
 We are now ready to introduce the idea of invariant linear projections.
-Let $X$ and $Y$ be orthogonal matrices of shape $H \times H$, that is:
-$$
-X X^\top = X^\top X = Y^\top Y = Y Y^\top = I
-$$
-then:
+Let $X$ and $Y$ be invertible matrices of shape $H \times H$, then:
 $$
 \begin{aligned}
 \text{Attention}(Q, K, V)
@@ -103,9 +99,9 @@ $$
      \right)
      \cdot V \cdot (W_v W_o) \\
   &= \text{softmax}\left(
-       \frac{Q \cdot (W_q X X^\top W_k^\top) \cdot K^\top}{\sqrt{H}}
+       \frac{Q \cdot (W_q X X^{-1} W_k^\top) \cdot K^\top}{\sqrt{H}}
      \right)
-     \cdot V \cdot (W_v Y Y^\top W_o)
+     \cdot V \cdot (W_v Y Y^{-1} W_o)
 \end{aligned}
 $$
 
