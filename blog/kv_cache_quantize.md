@@ -126,3 +126,5 @@ $$
 
 We note that we can perform these replacements on the weight matrices alone, while
 keeping whatever $Q$, $K$, and $V$ inputs passed into this attention operation.
+
+TODO(hieu): write about training for $X$ and $X^{-1}$.
