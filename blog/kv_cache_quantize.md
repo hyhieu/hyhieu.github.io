@@ -127,4 +127,4 @@ $$
 We note that we can perform these replacements on the weight matrices alone, while
 keeping whatever $Q$, $K$, and $V$ inputs passed into this attention operation.
 
-TODO(hieu): write about training for $X$ and $X^{-1}$.
+The gist of the KV cache quantization procedure, which we will discuss in the next section, is about finding the matrices $X$ and $Y$.
