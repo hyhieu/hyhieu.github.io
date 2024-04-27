@@ -113,7 +113,7 @@ $$
 
 ## What if we see two pairs: $(s_{k-1}, V_{k-1})$ and $(s_{k-2}, V_{k-2})$ at a time?
 
-We see that most of the formula above can be reused:
+Most of the formula above can be reused:
 
 $$
 \begin{align*}
