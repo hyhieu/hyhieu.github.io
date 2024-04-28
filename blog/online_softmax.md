@@ -194,3 +194,5 @@ def online_softmax(s: np.ndarray, V: np.ndarray) -> np.ndarray:
 ```
 
 </details>  <!-- Python implementation -->
+
+TODO(hieu): maybe write about the idea of `S-M-O` reduce.
