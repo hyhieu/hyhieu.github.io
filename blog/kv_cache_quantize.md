@@ -128,3 +128,6 @@ We note that we can perform these replacements on the weight matrices alone, whi
 keeping whatever $Q$, $K$, and $V$ inputs passed into this attention operation.
 
 The gist of the KV cache quantization procedure, which we will discuss in the next section, is about finding the matrices $X$ and $Y$.
+
+## Training invertible quantizers
+TODO(hieu): Write about [Kramer et al, 2020](https://arxiv.org/abs/2010.07033) and Sherman-Morrison-Woodbury transformation.
