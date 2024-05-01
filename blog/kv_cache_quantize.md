@@ -131,3 +131,13 @@ The gist of the KV cache quantization procedure, which we will discuss in the ne
 
 ## Training invertible quantizers
 TODO(hieu): Write about [Kramer et al, 2020](https://arxiv.org/abs/2010.07033) and Sherman-Morrison-Woodbury transformation.
+
+The Sherman-Morrison-Woodbury transformation states that if $A \in \mathbb{R}^{n
+\times n}$ and $C \in \mathbb{R}^{k \times k}$ are invertible matrices, then for
+*any* matrices $U \in \mathbb{n \times k}$ and $V \in \mathbb{R}^{k \times n}$,
+the matrix $A + UCK$ is also invertible, and its inverse is given by:
+
+$$
+\left( A + UCK \right)^{-1}
+$$
+
