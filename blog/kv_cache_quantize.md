@@ -134,6 +134,8 @@ next section, is about finding the matrices $X$ and $Y$.
 TODO(hieu): Write about [Kramer et al, 2020](https://arxiv.org/abs/2010.07033)
 and Sherman-Morrison-Woodbury transformation.
 
+TODO(hieu): actually, it's just Sherman-Morrison. Woodbury is not suitable for this.
+
 The Sherman-Morrison-Woodbury transformation states that if $A \in \mathbb{R}^{n
 \times n}$ and $C \in \mathbb{R}^{k \times k}$ are invertible matrices, then for
 *any* matrices $U \in \mathbb{n \times k}$ and $V \in \mathbb{R}^{k \times n}$,
