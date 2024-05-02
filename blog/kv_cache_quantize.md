@@ -131,14 +131,16 @@ The gist of the KV cache quantization procedure, which we will discuss in the
 next section, is about finding the matrices $X$ and $Y$.
 
 ## Training invertible quantizers
-TODO(hieu): Write about [Kramer et al, 2020](https://arxiv.org/abs/2010.07033) and Sherman-Morrison-Woodbury transformation.
+TODO(hieu): Write about [Kramer et al, 2020](https://arxiv.org/abs/2010.07033)
+and Sherman-Morrison-Woodbury transformation.
 
 The Sherman-Morrison-Woodbury transformation states that if $A \in \mathbb{R}^{n
 \times n}$ and $C \in \mathbb{R}^{k \times k}$ are invertible matrices, then for
 *any* matrices $U \in \mathbb{n \times k}$ and $V \in \mathbb{R}^{k \times n}$,
-the matrix $A + UCK$ is also invertible, and its inverse is given by:
+the matrix $A + UCV$ is also invertible, and its inverse is given by:
 
 $$
-\left( A + UCK \right)^{-1}
+\left( A + UCV \right)^{-1}
+= A^{-1} - A^{-1} U \left( C^{-1} + V A^{-1} U \right)^{-1} VA^{-1}
 $$
 
