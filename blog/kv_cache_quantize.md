@@ -132,17 +132,15 @@ next section, is about finding the matrices $X$ and $Y$.
 
 ## Training invertible quantizers
 TODO(hieu): Write about [Kramer et al, 2020](https://arxiv.org/abs/2010.07033)
-and Sherman-Morrison-Woodbury transformation.
+and the Sherman-Morrison transformation.
 
-TODO(hieu): actually, it's just Sherman-Morrison. Woodbury is not suitable for this.
-
-The Sherman-Morrison-Woodbury transformation states that if $A \in \mathbb{R}^{n
-\times n}$ and $C \in \mathbb{R}^{k \times k}$ are invertible matrices, then for
-*any* matrices $U \in \mathbb{n \times k}$ and $V \in \mathbb{R}^{k \times n}$,
-the matrix $A + UCV$ is also invertible, and its inverse is given by:
+The Sherman-Morrison identity states that if $A \in \mathbb{R}^{n
+\times n}$ is invertible, then for
+*any* two vectors $u, v \in \mathbb{n}$ such that $1 + v^\top A^{-1} u \neq 0$,
+the matrix $A + uv^{\top}$ is also invertible, and its inverse is given by:
 
 $$
-\left( A + UCV \right)^{-1}
-= A^{-1} - A^{-1} U \left( C^{-1} + V A^{-1} U \right)^{-1} VA^{-1}
+\left( A + uv^\top \right)^{-1}
+= A^{-1} - \dfrac{A^{-1} u ^\top A^{-1}}{1 + v^\top A^{-1} u}
 $$
 
