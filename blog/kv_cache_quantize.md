@@ -130,9 +130,14 @@ keeping whatever $Q$, $K$, and $V$ inputs passed into this attention operation.
 The gist of the KV cache quantization procedure, which we will discuss in the
 next section, is about finding the matrices $X$ and $Y$.
 
-## Training invertible quantizers
+## Finding the quantizer matrices
 TODO(hieu): Write about [Kramer et al, 2020](https://arxiv.org/abs/2010.07033)
 and the Sherman-Morrison transformation.
+
+We will find $X$ and $Y$ using gradient descent on a certain data distribution.
+The hard part is that gradient descent does not guarantee that $X$ and $Y$ are
+invertible throughtout the iterations. To ensure invertability, we will use the
+Sherman-Morrison identity.
 
 The Sherman-Morrison identity states that if $A \in \mathbb{R}^{n
 \times n}$ is invertible, then for
