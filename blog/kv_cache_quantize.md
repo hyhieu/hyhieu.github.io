@@ -149,3 +149,4 @@ $$
 = A^{-1} - \dfrac{A^{-1} u ^\top A^{-1}}{1 + v^\top A^{-1} u}
 $$
 
+This identity will be our key tool to learn the quantizer matrices $X$ and $Y$.
