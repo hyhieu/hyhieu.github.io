@@ -150,3 +150,7 @@ $$
 $$
 
 This identity will be our key tool to find the quantizer matrices $X$ and $Y$.
+In particular, we can pick a value of $A$, such as $A = I_{n}$, the $n \times n$
+identity matrix, and find $X$ that minimizes an objective function which allows
+us to convert $K W_k(X^{-1})^\top$ from a high-bit format such as FP16 or BF16
+into a low-bit format such as INT4 as losslessly as possible.
