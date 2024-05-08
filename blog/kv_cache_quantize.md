@@ -135,9 +135,10 @@ TODO(hieu): Write about [Kramer et al, 2020](https://arxiv.org/abs/2010.07033)
 and the Sherman-Morrison transformation.
 
 We will find $X$ and $Y$ using gradient descent on a certain data distribution.
-The hard part is that gradient descent does not guarantee that $X$ and $Y$ are
-invertible throughtout the iterations. To ensure invertability, we will use the
-Sherman-Morrison identity.
+There are two challenges with this approach.  The first challenge is that
+gradient descent does not guarantee that $X$ and $Y$ are invertible throughtout
+the iterations. To ensure invertability, we will use the Sherman-Morrison
+identity.
 
 The Sherman-Morrison identity states that if $A \in \mathbb{R}^{n
 \times n}$ is invertible, then for
