@@ -131,14 +131,11 @@ The gist of the KV cache quantization procedure, which we will discuss in the
 next section, is about finding the matrices $X$ and $Y$.
 
 ## Finding the quantizer matrices
-TODO(hieu): Write about [Kramer et al, 2020](https://arxiv.org/abs/2010.07033)
-and the Sherman-Morrison transformation.
-
 We will find $X$ and $Y$ using gradient descent on a certain data distribution.
 There are two challenges with this approach.  The first challenge is that
 gradient descent does not guarantee that $X$ and $Y$ are invertible throughtout
-the iterations. To ensure invertability, we will use the Sherman-Morrison
-identity.
+the iterations. To ensure invertability, we will use the [Sherman-Morrison
+identity](https://en.wikipedia.org/wiki/Sherman%E2%80%93Morrison_formula).
 
 The Sherman-Morrison identity states that if $A \in \mathbb{R}^{n
 \times n}$ is invertible, then for
