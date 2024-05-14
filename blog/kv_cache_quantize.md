@@ -154,3 +154,6 @@ us to convert $K W_k(X^{-1})^\top$ from a high-bit format such as FP16 or BF16
 into a low-bit format such as INT4 as losslessly as possible.
 
 TODO(hieu): What does "lossless" mean here?
+
+First, we generate $Q \in \mathbb{R}^{M \times N}$ and $K, V \in \mathbb{R}^{N \times H}$
+by running the model we want to quantize on sample data.
