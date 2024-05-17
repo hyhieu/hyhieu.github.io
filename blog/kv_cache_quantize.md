@@ -156,5 +156,6 @@ into a low-bit format such as INT4 as losslessly as possible.
 TODO(hieu): What does "lossless" mean here?
 
 First, we generate $Q \in \mathbb{R}^{M \times N}$ and $K, V \in \mathbb{R}^{N
-\times H}$ by running the model we want to quantize on sample data. Then, we
-perform the transformations
+\times H}$ by running the model we want to quantize on some sample input data.
+We suspect a small number of samples, such as 1000, would suffice. After running model
+through the data, we perform the transformations
