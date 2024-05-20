@@ -41,9 +41,11 @@ March 6th 2024
 *A cool algorithm to compute softmax on the fly.*
 <hr>
 
+<!-- TOOD(hieu): maybe disable until the post is finished
 April 4th 2024
 <br>
 [**Quantizing attention's KV-cache**](./kv_cache_quantize)
 <br>
 *Quantizing attentoin's KV cache.*
 <hr>
+-->
