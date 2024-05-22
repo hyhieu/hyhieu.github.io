@@ -158,6 +158,5 @@ TODO(hieu): What does "lossless" mean here?
 First, we generate $Q \in \mathbb{R}^{M \times N}$ and $K, V \in \mathbb{R}^{N
 \times H}$ by running the model we want to quantize on some sample input data.
 We suspect that similar to when we use data for calibration for other quantization
-techniques, a small number of
-samples, such as 1000, would suffice. After running model through the data, we
-perform the transformations
+techniques, a small number of samples, such as 1000, would suffice. After running
+the model through the data, we perform the transformations
