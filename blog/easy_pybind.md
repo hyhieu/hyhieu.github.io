@@ -17,9 +17,9 @@ While Python is the de-facto language for AI/ML, Python programs can be painfull
 slow.  As such, AI/ML practitioners who develop latency sensitive applications
 often resort to writing *kernels* to accelerate their workloads.
 
-Now, unless you work for Google, your kernels are probably written CUDA, exposed
-via a C/C++ interface, and binded to Python as a package via PyBind11. This
-process, despite being conceptually simple, usually results in an appalling
+Now, unless you work for Google, your kernels are probably written in CUDA,
+exposed via a C/C++ interface, and binded to Python as a package via PyBind11.
+This process, despite being conceptually simple, usually results in an appalling
 amount of *boilerplate complexity.* Here, "boiplerplate complexity" loosely
 means the code, structure of files, libraries, etc. that you need to install
 correctly *before* you can write the first line of code in your kernel. Let us
