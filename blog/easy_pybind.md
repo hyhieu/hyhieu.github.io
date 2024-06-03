@@ -6,7 +6,7 @@ date: 2024-06-03
 Start Writing Kernels Faster Before Writing Faster Kernels
 ==========================================================
 
-[[Hieu's personal blog index](./index)]
+[[Hieu's personal blog](./index)]
 
 In this blog post, I introduce a simple tool to *accelerate* and *simplify*the
 process of writing and exeperimenting with kernels.
@@ -49,9 +49,9 @@ look at two examples.
   used in the process.
 
 This boilerplate complexity obscures the core logic of compiling, linking, and
-binding kernels, turning a conceptually simple process into something opaque and
-untracable. In turn, this creates a steep entrance barrier for anyone aspired to
-develop or research kernels.
+binding kernels. This obscurity turns a conceptually simple process into
+something opaque and untracable one. In turn, a steep entrance barrier is
+imposed for anyone aspired to develop or research kernels.
 
 ## EasyPybind -- a simple tool to kickstart writing kernels
 
