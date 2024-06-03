@@ -49,3 +49,11 @@ April 4th 2024
 *Quantizing attentoin's KV cache.*
 <hr>
 -->
+
+June 3th 2024
+<br>
+[**Start Writing Kernels Faster Before Writing Faster Kernels**](./easy_pybind)
+<br>
+*A simple tool to accelerate and simplify the
+process of writing and exeperimenting with kernels.*
+<hr>
