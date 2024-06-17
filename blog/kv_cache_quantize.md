@@ -160,3 +160,44 @@ First, we generate $Q \in \mathbb{R}^{M \times N}$ and $K, V \in \mathbb{R}^{N
 We suspect that similar to when we use data for calibration for other quantization
 techniques, a small number of samples, such as 1000, would suffice. After running
 the model through the data, we perform the transformations
+
+## How about RoPE?
+
+Thus far, we discussed quantizing the KV caches assuming that `q, k, v` are
+projected using $W_q, W_k, W_v$ only. In reality, the $q$ and $k$ projections
+are typically followed by a RoPE operation. This turns the original projections
+into:
+$$
+\begin{aligned}
+q_m &:= Q[m, :] \cdot W_q \cdot R_{m} \in \mathbb{R}^{M \times H} \\
+k_n &:= K[n, :] \cdot W_k \cdot R_{n} \in \mathbb{R}^{N \times H}
+\end{aligned}
+$$
+where $R_{j} \in \mathbb{R}^{H \times H}$ are the block-diagonal rotational
+matrices defined by:
+$$
+R_{j} =
+\begin{bmatrix}
+  \cos{j \theta_1} & -\sin{j \theta_1} & 0 & 0 & \cdots & 0 & 0 \\
+  \sin{j \theta_1} &  \cos{j \theta_1} & 0 & 0 & \cdots & 0 & 0 \\
+  0 & 0 & \cos{j \theta_2} & -\sin{j \theta_2} & \cdots & 0 & 0 \\
+  0 & 0 & \sin{j \theta_2} &  \cos{j \theta_2} & \cdots & 0 & 0 \\
+  \vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots  \\
+  0 & 0 & 0 & 0 & \cdots & \cos{j \theta_{H/2}} & -\sin{j \theta_{H/2}} \\
+  0 & 0 & 0 & 0 & \cdots & \sin{j \theta_{H/2}} &  \cos{j \theta_{H/2}}
+\end{bmatrix}
+\in \mathbb{R}^{H \times H}
+$$
+
+Let $X, Y$ be the invertible matrices that we use to quantize the KV caches.
+Then, we can rewrite the above as:
+$$
+\begin{aligned}
+  q_m k_n^\top
+  &= \Big( Q_m \cdot W_q \cdot R_{m} \Big) \Big( K_n \cdot W_k \cdot R_{n} \Big)^\top \\
+  &= Q_m W_q \cdot \underbrace{R_{m} R_n^\top}_{D_{m-n}} \cdot W_k^\top K_n \\
+  &= Q_m \cdot W_q X \cdot \underbrace{R_{m} R_n^\top}_{D_{m-n}} \cdot X^{-1} W_k^\top \cdot K_n \\
+\end{aligned}
+$$
+
+Let
