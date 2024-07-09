@@ -200,4 +200,33 @@ $$
 \end{aligned}
 $$
 
-Let
+Let us look at the product $R_{m} R_n^\top$. Every diagonal block of $R_{m}
+R_n^\top$ is a rotation matrix. We can write it as:
+$$
+\begin{aligned}
+\begin{bmatrix}
+  \cos{m \theta_1} & -\sin{m \theta_1} \\
+  \sin{m \theta_1} &  \cos{m \theta_1} \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+  \cos{n \theta_1} & -\sin{n \theta_1} \\
+  \sin{n \theta_1} &  \cos{n \theta_1} \\
+\end{bmatrix}^\top
+&=
+\begin{bmatrix}
+  \cos{m \theta_1} & -\sin{m \theta_1} \\
+  \sin{m \theta_1} &  \cos{m \theta_1} \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+   \cos{n \theta_1} & \sin{n \theta_1} \\
+  -\sin{n \theta_1} & \cos{n \theta_1}
+\end{bmatrix} \\
+&=
+\begin{bmatrix}
+  \cos{(m-n) \theta_1} & -\sin{(m-n) \theta_1} \\
+  \sin{(m-n) \theta_1} &  \cos{(m-n) \theta_1}
+\end{bmatrix}
+\end{aligned}
+$$
