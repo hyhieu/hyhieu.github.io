@@ -26,12 +26,14 @@ paper.
 ### KV compression and decompression
 Unlike existing attention approaches, the
 MLA algorithm projects $h_t$ into a compressed state:
+
 $$
 c_t = h_t \cdot W_{\text{Down}KV} \in \mathbb{R}^{1 \times d_c}
 $$
 
 When the algorithm actually needs the KV caches, it projects the cached states back to
 the original space *for each MLA head*:
+
 $$
 \begin{aligned}
 k_{t, i}^{C} &= c_t \cdot W_{\text{Up}K, i} \in \mathbb{R}^{1 \times d} \\
@@ -43,6 +45,7 @@ Elegantly, the above projections can be completely avoided during inference
 time! To understand why it is the case, we need to study the attention equation.
 For each query $q$ and head $i$-th, the attention equation can be written as
 follows:
+
 $$
 \begin{aligned}
 \text{Attention}(q, k_{t, i}, v_{t, i})
@@ -60,6 +63,7 @@ $$
 $$
 
 This means that if we define:
+
 $$
 \begin{aligned}
 \tilde{W}_{Q, i} &:= W_{Q, i} \cdot W_{\text{Up}K, i}^\top \\
@@ -70,6 +74,7 @@ $$
 Then we can compute the attention equation without ever realizing the
 decompressed KV caches. In fact, the resulting attention equation is even
 compatible with FlashAttention:
+
 $$
 \begin{aligned}
 \text{Attention}(q, k_{t, i}, v_{t, i})
@@ -87,6 +92,7 @@ Amazing, but not with a serious problem coming next!
 Attention need RoPE to encode positional information, i.e., to tell for
 each token what is its index in its sequence. The problem is that RoPE depends on $t$:
 RoPE works by inserting a matrix $R_t$ into the Softmax step, so that:
+
 $$
 W_{Q, i} \cdot W_{\text{Up}K, i}^\top
 $$
