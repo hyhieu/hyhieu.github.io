@@ -111,15 +111,15 @@ That is, for each head $i$-th:
 
 $$
 \begin{aligned}
-q^\text{rope}_{t, i} &:= h_t \cdot W^\text{rope}_{Q, i} \cdot R_t \\
-k^\text{rope}_t &:= h_t \cdot W^\text{rope}_{K} \cdot R_t
+q^{\text{rope}}_{t, i} &:= h_t \cdot W^\text{rope}_{Q, i} \cdot R_t \\
+k^{\text{rope}}_t &:= h_t \cdot W^\text{rope}_{K} \cdot R_t
 \end{aligned}
 $$
 
 Note that the RoPE operation happens in the MQA style, i.e., each query head has
 its own projection with RoPE, but all key heads share the same projection.
 
-These $q^\text{rope}_{t, i}$ and $k_t^\text{rope}$ are then appended to $q$ and
+These $q^{\text{rope}}_{t, i}$ and $k_t^{\text{rope}}$ are then appended to $q$ and
 $k_{t, i}$ from the previous section, before the attention is executed. In equations,
 for each head $i$-th:
 
