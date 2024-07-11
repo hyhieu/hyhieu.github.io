@@ -29,6 +29,7 @@ MLA algorithm projects $h_t$ into a compressed state:
 $$
 c_t = h_t \cdot W_{\text{Down}KV} \in \mathbb{R}^{1 \times d_c}
 $$
+
 When the algorithm actually needs the KV caches, it projects the cached states back to
 the original space *for each MLA head*:
 $$
@@ -37,6 +38,7 @@ k_{t, i}^{C} &= c_t \cdot W_{\text{Up}K, i} \in \mathbb{R}^{1 \times d} \\
 v_{t, i}^{C} &= c_t \cdot W_{\text{Up}V, i} \in \mathbb{R}^{1 \times d}
 \end{aligned}
 $$
+
 Elegantly, the above projections can be completely avoided during inference
 time! To understand why it is the case, we need to study the attention equation.
 For each query $q$ and head $i$-th, the attention equation can be written as
@@ -56,6 +58,7 @@ $$
   c_{t} \cdot \underbrace{W_{\text{Up}V, i} \cdot W_{V, i}}_{\tilde{W}_{V, i}}
 \end{aligned}
 $$
+
 This means that if we define:
 $$
 \begin{aligned}
@@ -63,6 +66,7 @@ $$
 \tilde{W}_{V, i} &:= W_{\text{Up}V, i} \cdot W_{V, i}
 \end{aligned}
 $$
+
 Then we can compute the attention equation without ever realizing the
 decompressed KV caches. In fact, the resulting attention equation is even
 compatible with FlashAttention:
@@ -86,9 +90,11 @@ RoPE works by inserting a matrix $R_t$ into the Softmax step, so that:
 $$
 W_{Q, i} \cdot W_{\text{Up}K, i}^\top
 $$
+
 becomes
 $$
 W_{Q, i} \cdot R_t \cdot W_{\text{Up}K, i}^\top
 $$
+
 This prevents MLA from folding $W_{Q, i}$ and $W_{\text{Up}K, i}^\top$ into a
 single $\tilde{W}_{Q, i}$ matrix.
