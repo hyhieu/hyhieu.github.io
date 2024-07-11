@@ -133,3 +133,10 @@ k^\text{full}_{t, i}
   &:= \text{Attention}(q^\text{full}_{t}, k^\text{full}_{t, i}, v_{t, i})
 \end{aligned}
 $$
+
+Overall, an MLA KV cache of for $L$ past tokens only needs to hold
+$(d_c + d^\text{rope}_h) \cdot L$ numbers, where $d^\text{rope}_h$ is the
+dimension of the RoPE projection.
+
+Sounds good. But implementing this can cause a disaster: there is no fast
+attention kernel supporting that MLA-MQA-concatenated style attention.
