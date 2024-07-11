@@ -89,7 +89,7 @@ $$
 Amazing, but not with a serious problem coming next!
 
 ### RoPE
-Attention need RoPE to encode positional information, i.e., to tell for
+Attentions need RoPE to encode positional information, i.e., to tell for
 each token what is its index in its sequence. The problem is that RoPE depends on $t$:
 RoPE works by inserting a matrix $R_t$ into the Softmax step, so that:
 
@@ -119,7 +119,7 @@ $$
 Note that the RoPE operation happens in the MQA style, i.e., each query head has
 its own projection with RoPE, but all key heads share the same projection.
 
-These $q^\text{rope}_{t, i}$ and $k^\text{rope}_t$ are then appended to $q$ and
+These $q^\text{rope}_{t, i}$ and $k_t^\text{rope}$ are then appended to $q$ and
 $k_{t, i}$ from the previous section, before the attention is executed. In equations,
 for each head $i$-th:
 
