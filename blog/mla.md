@@ -97,10 +97,35 @@ $$
 W_{Q, i} \cdot W_{\text{Up}K, i}^\top
 $$
 
-becomes
+becomes:
 $$
 W_{Q, i} \cdot R_t \cdot W_{\text{Up}K, i}^\top
 $$
 
 This prevents MLA from folding $W_{Q, i}$ and $W_{\text{Up}K, i}^\top$ into a
-single $\tilde{W}_{Q, i}$ matrix.
+single $\tilde{W}_{Q, i}$ matrix. Look, there is no $t$ in the subscript of
+$\tilde{W}_{Q, i}$.
+
+The MLA solution is to create one extra head that carries the RoPE projections.
+That is, for each head $i$-th:
+
+$$
+\begin{aligned}
+q^\text{rope}_{t, i} &:= h_t \cdot W^\text{rope}_{Q, i} \cdot R_t \\
+k^\text{rope}_t &:= h_t \cdot W^\text{rope}_{K} \cdot R_t
+\end{aligned}
+$$
+
+These $q^\text{rope}_{t, i}$ and $k^\text{rope}_t$ are then appended to $q$ and
+$k_{t, i}$ from the previous section, before the attention is executed. In equations:
+
+$$
+\begin{aligned}
+q^\text{full}_{t, i}
+  &:= \Big[ q_t, q^\text{rope}_{t, i} \Big] \\
+k^\text{full}_{t, i}
+  &:= \Big[ k_{t, i}, k^\text{rope}_{t, i} \Big] \\
+\text{Attention}(q_{t}, k_{t, i}, v_{t, i})
+  &:= \text{Attention}(q^\text{full}_{t}, k^\text{full}_{t, i}, v_{t, i})
+\end{aligned}
+$$
