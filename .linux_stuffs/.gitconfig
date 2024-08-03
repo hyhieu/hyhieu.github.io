@@ -1,0 +1,16 @@
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
+[alias]
+  log-5 = log -n5 --oneline
+  log-10 = log -n10 --oneline
+  log-15 = log -n15 --oneline
+  log-20 = log -n20 --oneline
+  log-25 = log -n20 --oneline
+
+[grep]
+  lineNumber = true
+
