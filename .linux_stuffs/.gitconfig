@@ -14,3 +14,7 @@
 [grep]
   lineNumber = true
 
+[user]
+	name = Hieu
+	email = hyhieu@gmail.com
+
