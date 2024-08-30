@@ -12,9 +12,16 @@
   log-25 = log -n20 --oneline
 
 [grep]
+  color = always
   lineNumber = true
 
 [user]
 	name = Hieu
 	email = hyhieu@gmail.com
+
+[push]
+  autoSetupRemote = true
+
+[branch]
+	sort = -committerdate
 
