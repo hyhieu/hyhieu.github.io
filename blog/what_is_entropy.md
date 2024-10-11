@@ -41,10 +41,17 @@ $$
 
 for all $p \in [0, 1]$, where $a$ is a negative real constant.
 
-The proof is completely elementary -- it's based on the theory of Cauchy's functional equation.  It
-does not use any knowledge that a high school student does not know. In fact, if a student practices
-high school mathematical olympiad, they must have studied this proof technique. If you are curious
-to see the proof, please read [John Baez's note](). You can also try to prove it yourself.
+<details>
+
+<summary>
+The proof is completely elementary. If you are curious, please read <a href="">John Baez's note</a>.
+You can also try to prove it yourself.
+</summary>
+
+It's based on the theory of <a href="">Cauchy's functional equation</a>, which does not use any
+knowledge that a high school student does not know. In fact, if a student practices high school
+mathematical olympiad, they must have studied this proof technique.
+</details>
 
 ## Nats and Bits
 Thus far, we have established the desired properties of our *measurement of information,* which
@@ -59,11 +66,69 @@ To avoid such confusions, we define two units: Nats and Bits. For a choice of $a
 *bit* is $\boxed{-a \cdot \ln{2}}$, and a *nat* is $\boxed{-a}$.
 
 With these definitions, a statement like *"this event has an entropy of 10 bits"* can be understood
-will mean that the event happens with probability $p$ where for *some* choice of $a < 0$, we have:
+as the event happens with probability $p$ where for *some* choice of $a < 0$, we have:
 
 $$
-\frac{f(p)}{-a \ln{2}} = \frac{a \ln{p}}{-a \ln{2}} = -\log_2{p}= 10
-\Longleftrightarrow p = 2^{-10} = 1/1024
+\frac{f(p)}{-a \ln{2}} = 10 \times (-a \ln{2})
 $$
 
-And this interpretation is independent of the choice of $a$.
+The good thing is that this means:
+$$
+\frac{a \ln{p}}{-a \ln{2}} = -\log_2{p}= 10 \Longleftrightarrow p = 2^{-10} = 1/1024
+$$
+
+And the final interpretation is independent of the choice of $a$! So, when you hear the statement
+*"this event has an entropy of 10 bits"*, you can operate with your favorite choice of $a$, as I
+do with mine, but we understand that we both means $p = 1/1024$.
+
+## Entropy of a distribution
+What is a distribution, then? If you start telling me to *define* a probability distribution by
+*imagining* that I am drawing a card from a deck, I will give you a middle finger.
+
+A probability distribution is rigorously defined on a *measure space.* Let's go through some simple
+definitions.
+
+<details markdown="1">
+<summary>Click for an adventure into measure theory.</summary>
+
+
+### Measure theory
+
+**Sample space.** Any set $\Omega$ can be a *sample space.*
+
+**$\sigma$-algebra.** A $\sigma$-algebra on $\Omega$ is a collection $\mathcal{F}$ of subsets of $\Omega$
+which has two properties:
+
+  1. *Contains the empty set:* $\emptyset \in \mathcal{F}$.
+
+  2. *Close under complement:* if $A \subseteq \Omega$ and $A \in \mathcal{F}$ then
+     $\Omega - A \in \mathcal{F}$.
+
+  3. *Close under countable union:* if $B \subseteq \mathbb{N}$ and $A_i \in \mathcal{F}$ for all
+     $i \in B$ then $\bigcup_{i \in B} A_i \in \mathcal{F}$.
+
+**Borel sets.** The Borel $\sigma$-algebra $B(\mathbb{R})$ is the smallest $\sigma$-algebra that
+*contains all
+open intervals in $\mathbb{R}$.
+
+**Measure.** A measure on $(\Omega, \mathcal{F})$ is a map $\mu: \mathcal{F} \to [0, +\infty)$ that
+has two properties:
+
+  1. $\mu(\emptyset) = 0$.
+
+  2. *Additive under countable addition:* if $B \subseteq \mathbb{N}$ and $A_i \in \mathcal{F}$
+     for all $i \in B$ then: $\mu\big( \bigcup_{i \in B} A_i \big) = \sum_{i \in B} \mu(A_i)$.
+
+**Probability measure.** A probability measure on $(\Omega, \mathcal{F})$ is a measure $P$ where
+$P(\Omega) = 1$. Note that along with other axioms of a measure, this enforces $P: \mathcal{F} \to
+[0, 1]$.
+
+**Measureable function.** A function $f: \Omega \to \mathbb{R}$ is *measurable* with respect to
+a $\sigma$-algebra $\mathcal{F}$ if for each Borel subset $B \in B(\mathbb{R})$, the pre-image of
+$B$ via $f$ is in $\mathcal{F}$. That is:
+
+$$
+f^{-1}(B) := \{x \in \Omega : f(x) \in B \} \in \mathcal{F}
+$$
+
+</details>
