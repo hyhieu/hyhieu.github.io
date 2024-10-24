@@ -4,24 +4,26 @@
   process = git-lfs filter-process
   required = true
 
+[push]
+  autoSetupRemote = true
+
 [alias]
   log-5 = log -n5 --oneline
   log-10 = log -n10 --oneline
   log-15 = log -n15 --oneline
   log-20 = log -n20 --oneline
   log-25 = log -n20 --oneline
+	br = branch --sort=-committerdate --format=\"%(refname:short) %(color:yellow bold)%(objectname:short) %(color:green)%(subject)%(color:reset) %(committerdate:relative)\"
 
 [grep]
   color = always
   lineNumber = true
 
 [user]
-	name = Hieu
-	email = hyhieu@gmail.com
+  name = Hieu
+  email = hyhieu@gmail.com
 
-[push]
-  autoSetupRemote = true
-
-[branch]
-	sort = -committerdate
+[diff]
+  ignoreSpaceAtEol = true
+  ignoreSpaceChange = true
 
