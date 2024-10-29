@@ -87,7 +87,7 @@ What is a random variable, then? If you start telling me to *define* a probabili
 
 A random variable and its entropy must be rigorously defined on a *measurable space.* Both
 definitions are very deep and abstract, but it is that depth and abstraction that build a rigorous
-foundation for anything that follows.
+foundation for everything that follows.
 
 <details markdown="1">
 <summary>If you are curious, click for an brief adventure into measure theory.</summary>
@@ -98,7 +98,7 @@ foundation for anything that follows.
 **Sample space.** Any set $\Omega$ can be a *sample space.*
 
 **$\sigma$-algebra.** A $\sigma$-algebra on $\Omega$ is a collection $\Sigma$ of subsets of $\Omega$
-which has two properties:
+which has the following properties:
 
   1. *Contains the empty set:* $\emptyset \in \Sigma$.
 
@@ -140,6 +140,22 @@ measurable space $(\Omega, \Sigma)$ and $X: (\Omega_1, \Sigma_1) \to (\Omega_2, 
 random variable, then we say that an event $B \in B(\mathbb{R})$ *has probability* $P(X^{-1}(B))$.
 Note that all the axioms and definitions guarantee that $X^{-1}(B) \in \Sigma$, so $P(X^{-1}(B))$ is
 well-defined.
+
+**Absolute continuity.** Let $\mu$, $\nu$ be two measures on a measurable space $(\Omega, \Sigma)$.
+We say $\nu$ is *absolutely continuous* with respect to $\mu$ if for all $A \in \Sigma$,
+$\mu(A) = 0$ implies $\nu(A) = 0$. Absolute continuity is denoted by $\nu \ll \mu$.
+
+**Radon-Nikodym theorem.** Let $\mu$, $\nu$ be two measures on a measurable space
+$(\Omega, \Sigma)$ such that $\nu \ll \mu$. Then there
+exists a unique function (up to zero measure sets) $f: \Omega \to [0, +\infty)$ such that for all
+set $A \in \Sigma$, we have:
+
+$$
+\nu(A) = \int_{A} f d\mu
+$$
+
+The function $f$ is called the *Radon-Nikodym derivative* of $\nu$ with respect to $\mu$, and is
+typically denoted by $\frac{d \nu}{d \mu}$.
 
 </details>
 <br>
