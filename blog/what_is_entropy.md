@@ -137,7 +137,7 @@ $$
 
 **Probability of an event.** Putting all these together. Let $P$ be a probability measure on a
 measurable space $(\Omega, \Sigma)$ and $X: (\Omega_1, \Sigma_1) \to (\Omega_2, \Sigma_2)$ is a
-random variable, then we say that an event $B \in B(\mathbb{R})$ *has probability* $P(X^{-1}(B))$.
+random variable, then we say that an event $B \in \Sigma_2$ *has probability* $P(X^{-1}(B))$.
 Note that all the axioms and definitions guarantee that $X^{-1}(B) \in \Sigma$, so $P(X^{-1}(B))$ is
 well-defined.
 
@@ -172,17 +172,17 @@ $$
 </div>
 
 That's it. The most general definition of entropy. The base interface for all definitions of entropy
-to inherit from. But if you are familiar with object-oriente programming, you will know that the
-most based interfaces are typically useless, in the sense that they only carry a few guarantees,
-without any actual implementations per se.
+to inherit from. But if you are familiar with object-oriented programming, you will know that the
+most based interfaces are not very useful. They usually only carry a few guarantees, without any
+actual implementations per se.
 
 Also, I did not forget: the definition above does *not* mention anything about random variables.
 Let's continue our story by introducing random variables.
 
 Recall that if $(\Omega_1, \Sigma_1)$ and $(\Omega_2, \Sigma_2)$ are two measruable spaces, then
 any continuous funciton $X: \Omega_1 \to \Omega_2$ is called a random variable. If we equip
-$(\Omega_1, \Sigma_1)$ with a probability measure $P$, then the *push-forward* measure $P_X$ is
-a measure on $(\Omega_2, \Sigma_2)$:
+$(\Omega_1, \Sigma_1)$ with a probability measure $P$, then the *push-forward* measure $P_X$, as
+defined below, is a measure on $(\Omega_2, \Sigma_2)$:
 
 $$
 P_X(A) := P \Big( X^{-1}(A) \Big) , \forall A \in \Sigma_2
@@ -190,3 +190,14 @@ $$
 
 Note that all the axioms in measure theory play beautifully to guarantee that the definition is
 well-defined.
+
+Now, if $\lambda$ is measure on $(\Omega_2, \Sigma_2)$ such that $P_X \ll \lambda$, then we define
+the entropy of $X$ with respect to $\lambda$ to be:
+
+$$
+H(X | \lambda) := - \int_{\Omega_2}
+   \frac{d P_X}{d \lambda}
+   \ln{\left( \frac{d P_X}{d \lambda} \right)}
+   d \lambda
+$$
+
