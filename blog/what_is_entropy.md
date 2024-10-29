@@ -166,7 +166,7 @@ i.e., $\nu \ll \mu$. Then, the Radon-Nikodym derivative $\frac{d\nu}{d\mu}$ exis
 context, we can define the entropy of $\nu$ with respect to $\mu$ to be:
 
 $$
-H(\nu | \mu) := - \int_{\Omega} \ln{\left( \frac{d \nu}{d \mu} \right)} d\mu
+H(\nu | \mu) := - \int_{\Omega} \frac{d \nu}{d \mu} \ln{\left( \frac{d \nu}{d \mu} \right)} d\mu
 $$
 
 </div>
