@@ -158,14 +158,16 @@ The function $f$ is called the *Radon-Nikodym derivative* of $\nu$ with respect 
 typically denoted by $\frac{d \nu}{d \mu}$.
 
 </details>
-<br>
 
-Let $(\Omega_1, \Sigma_1, P)$ be a probability space, and $(\Omega_2, \Sigma_2)$ be any measurable
-space. Also, let $X: \Omega_1 \to \Omega_2$ be a random variable. Finally, let $\lambda$ be another
-measure on $(\Omega_1, \Sigma_1)$ such that $P$ is absolutely continuous with respect to $\lambda$,
-i.e., $\lambda \ll P$. Then, the Radon-Nikodym derivative $\frac{dP}{d\lambda}$ exists. Within this
-context, we can define the entropy of $X$ with respect to $\lambda$ to be:
+<div class="statement" markdown="1">
+
+Let $(\Omega, \Sigma, P)$ be a probability space, and let $\lambda$ be another
+measure on $(\Omega, \Sigma)$ such that $P$ is absolutely continuous with respect to $\lambda$,
+i.e., $\lambda \ll P$. Then, the Radon-Nikodym derivative $\frac{d\lambda}{dP}$ exists. Within this
+context, we can define the entropy of $\lambda$ with respect to $P$ to be:
 
 $$
-H(X) := - \int_{\Omega_1} \frac{dP}{d\lambda} \cdot \ln{\left( \frac{dP}{d\lambda} \right)} d \lambda
+H(\lambda | P) := - \int_{\Omega} \ln{\left( \frac{d \lambda}{dP} \right)} dP
 $$
+
+</div>
