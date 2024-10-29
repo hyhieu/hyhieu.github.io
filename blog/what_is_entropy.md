@@ -81,54 +81,75 @@ And the final interpretation is independent of the choice of $a$! So, when you h
 *"this event has an entropy of 10 bits"*, you can operate with your favorite choice of $a$, as I
 do with mine, but we understand that we both means $p = 1/1024$.
 
-## Entropy of a distribution
-What is a distribution, then? If you start telling me to *define* a probability distribution by
+## Entropy of a random variable
+What is a random variable, then? If you start telling me to *define* a probability distribution by
 *imagining* that I am drawing a card from a deck, I will give you a middle finger.
 
-A probability distribution is rigorously defined on a *measure space.* Let's go through some simple
-definitions.
+A random variable and its entropy must be rigorously defined on a *measurable space.* Both
+definitions are very deep and abstract, but it is that depth and abstraction that build a rigorous
+foundation for anything that follows.
 
 <details markdown="1">
-<summary>Click for an adventure into measure theory.</summary>
+<summary>If you are curious, click for an brief adventure into measure theory.</summary>
 
 
 ### Measure theory
 
 **Sample space.** Any set $\Omega$ can be a *sample space.*
 
-**$\sigma$-algebra.** A $\sigma$-algebra on $\Omega$ is a collection $\mathcal{F}$ of subsets of $\Omega$
+**$\sigma$-algebra.** A $\sigma$-algebra on $\Omega$ is a collection $\Sigma$ of subsets of $\Omega$
 which has two properties:
 
-  1. *Contains the empty set:* $\emptyset \in \mathcal{F}$.
+  1. *Contains the empty set:* $\emptyset \in \Sigma$.
 
-  2. *Close under complement:* if $A \subseteq \Omega$ and $A \in \mathcal{F}$ then
-     $\Omega - A \in \mathcal{F}$.
+  2. *Close under complement:* if $A \subseteq \Omega$ and $A \in \Sigma$ then
+     $\Omega - A \in \Sigma$.
 
-  3. *Close under countable union:* if $B \subseteq \mathbb{N}$ and $A_i \in \mathcal{F}$ for all
-     $i \in B$ then $\bigcup_{i \in B} A_i \in \mathcal{F}$.
+  3. *Close under countable union:* if $B \subseteq \mathbb{N}$ and $A_i \in \Sigma$ for all
+     $i \in B$ then $\bigcup_{i \in B} A_i \in \Sigma$.
 
 **Borel sets.** The Borel $\sigma$-algebra $B(\mathbb{R})$ is the smallest $\sigma$-algebra that
 *contains all
 open intervals in $\mathbb{R}$.
 
-**Measure.** A measure on $(\Omega, \mathcal{F})$ is a map $\mu: \mathcal{F} \to [0, +\infty)$ that
+**Measure.** A measure on $(\Omega, \Sigma)$ is a map $\mu: \Sigma \to [0, +\infty)$ that
 has two properties:
 
   1. $\mu(\emptyset) = 0$.
 
-  2. *Additive under countable addition:* if $B \subseteq \mathbb{N}$ and $A_i \in \mathcal{F}$
+  2. *Additive under countable addition:* if $B \subseteq \mathbb{N}$ and $A_i \in \Sigma$
      for all $i \in B$ then: $\mu\big( \bigcup_{i \in B} A_i \big) = \sum_{i \in B} \mu(A_i)$.
 
-**Probability measure.** A probability measure on $(\Omega, \mathcal{F})$ is a measure $P$ where
-$P(\Omega) = 1$. Note that along with other axioms of a measure, this enforces $P: \mathcal{F} \to
+**Probability measure.** A probability measure on $(\Omega, \Sigma)$ is a measure $P$ where
+$P(\Omega) = 1$. Note that along with other axioms of a measure, this enforces $P: \Sigma \to
 [0, 1]$.
 
-**Measureable function.** A function $f: \Omega \to \mathbb{R}$ is *measurable* with respect to
-a $\sigma$-algebra $\mathcal{F}$ if for each Borel subset $B \in B(\mathbb{R})$, the pre-image of
-$B$ via $f$ is in $\mathcal{F}$. That is:
+**Measureable function.** A function $f: (\Omega_1, \Sigma_1) \to (\Omega_2, \Sigma_2)$
+is *measurable* if for each subset $B \in \Sigma_2$, the pre-image of $B$ via $f$ is in $\Sigma_1$.
+That is:
 
 $$
-f^{-1}(B) := \{x \in \Omega : f(x) \in B \} \in \mathcal{F}
+f^{-1}(B) := \{x \in \Omega_1 : f(x) \in B \} \in \Sigma_1
 $$
+
+**Random variable.** Every measurable function $f: (\Omega_1, \Sigma_1) \to (\Omega_2, \Sigma_2)$
+*is called* a random variable. Also, every subset $B \in \Sigma_2$ is called an *event*.
+
+**Probability of an event.** Putting all these together. Let $P$ be a probability measure on a
+measurable space $(\Omega, \Sigma)$ and $X: (\Omega_1, \Sigma_1) \to (\Omega_2, \Sigma_2)$ is a
+random variable, then we say that an event $B \in B(\mathbb{R})$ *has probability* $P(X^{-1}(B))$.
+Note that all the axioms and definitions guarantee that $X^{-1}(B) \in \Sigma$, so $P(X^{-1}(B))$ is
+well-defined.
 
 </details>
+<br>
+
+Let $(\Omega_1, \Sigma_1, P)$ be a probability space, and $(\Omega_2, \Sigma_2)$ be any measurable
+space. Also, let $X: \Omega_1 \to \Omega_2$ be a random variable. Finally, let $\lambda$ be another
+measure on $(\Omega_1, \Sigma_1)$ such that $P$ is absolutely continuous with respect to $\lambda$,
+i.e., $\lambda \ll P$. Then, the Radon-Nikodym derivative $\frac{dP}{d\lambda}$ exists. Within this
+context, we can define the entropy of $X$ with respect to $\lambda$ to be:
+
+$$
+H(X) := - \int_{\Omega_1} \frac{dP}{d\lambda} \cdot \ln{\left( \frac{dP}{d\lambda} \right)} d \lambda
+$$
