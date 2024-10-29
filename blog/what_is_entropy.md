@@ -161,12 +161,32 @@ typically denoted by $\frac{d \nu}{d \mu}$.
 
 <div class="statement" markdown="1">
 
-Let $(\Omega, \Sigma)$ be a measurable space with two measures $\mu, \nu$ such that
-i.e., $\nu \ll \mu$. Then, the Radon-Nikodym derivative $\frac{d\nu}{d\mu}$ exists. Within this
-context, we can define the entropy of $\nu$ with respect to $\mu$ to be:
+Let $(\Omega, \Sigma)$ be a measurable space with two measures $\mu, \nu$ such that $\nu \ll \mu$.
+Then, the Radon-Nikodym derivative $\frac{d\nu}{d\mu}$ exists. Within this context, we can define
+the entropy of $\nu$ with respect to $\mu$ to be:
 
 $$
 H(\nu | \mu) := - \int_{\Omega} \frac{d \nu}{d \mu} \ln{\left( \frac{d \nu}{d \mu} \right)} d\mu
 $$
 
 </div>
+
+That's it. The most general definition of entropy. The base interface for all definitions of entropy
+to inherit from. But if you are familiar with object-oriente programming, you will know that the
+most based interfaces are typically useless, in the sense that they only carry a few guarantees,
+without any actual implementations per se.
+
+Also, I did not forget: the definition above does *not* mention anything about random variables.
+Let's continue our story by introducing random variables.
+
+Recall that if $(\Omega_1, \Sigma_1)$ and $(\Omega_2, \Sigma_2)$ are two measruable spaces, then
+any continuous funciton $X: \Omega_1 \to \Omega_2$ is called a random variable. If we equip
+$(\Omega_1, \Sigma_1)$ with a probability measure $P$, then the *push-forward* measure $P_X$ is
+a measure on $(\Omega_2, \Sigma_2)$:
+
+$$
+P_X(A) := P \Big( X^{-1}(A) \Big) , \forall A \in \Sigma_2
+$$
+
+Note that all the axioms in measure theory play beautifully to guarantee that the definition is
+well-defined.
