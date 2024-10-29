@@ -161,13 +161,12 @@ typically denoted by $\frac{d \nu}{d \mu}$.
 
 <div class="statement" markdown="1">
 
-Let $(\Omega, \Sigma, P)$ be a probability space, and let $\lambda$ be another
-measure on $(\Omega, \Sigma)$ such that $P$ is absolutely continuous with respect to $\lambda$,
-i.e., $\lambda \ll P$. Then, the Radon-Nikodym derivative $\frac{d\lambda}{dP}$ exists. Within this
-context, we can define the entropy of $\lambda$ with respect to $P$ to be:
+Let $(\Omega, \Sigma)$ be a measurable space with two measures $\mu, \nu$ such that
+i.e., $\nu \ll \mu$. Then, the Radon-Nikodym derivative $\frac{d\nu}{d\mu}$ exists. Within this
+context, we can define the entropy of $\nu$ with respect to $\mu$ to be:
 
 $$
-H(\lambda | P) := - \int_{\Omega} \ln{\left( \frac{d \lambda}{dP} \right)} dP
+H(\nu | \mu) := - \int_{\Omega} \ln{\left( \frac{d \nu}{d \mu} \right)} d\mu
 $$
 
 </div>
