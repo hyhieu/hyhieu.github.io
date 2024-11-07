@@ -191,6 +191,8 @@ $$
 Note that all the axioms in measure theory play beautifully to guarantee that the definition is
 well-defined.
 
+<div class="statement" markdown="1">
+
 Now, if $\lambda$ is measure on $(\Omega_2, \Sigma_2)$ such that $P_X \ll \lambda$, then we define
 the entropy of $X$ with respect to $\lambda$ to be:
 
@@ -201,3 +203,4 @@ H(X | \lambda) := - \int_{\Omega_2}
    d \lambda
 $$
 
+</div>
