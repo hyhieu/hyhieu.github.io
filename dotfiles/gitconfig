@@ -1,0 +1,43 @@
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
+[push]
+  autoSetupRemote = true
+
+[alias]
+  log-5 = log -n5 --pretty=format:'%C(auto)%h - %C(green)%<(20,trunc)%an%C(auto)%<(40,trunc)%s'
+  log-10 = log -n10 --oneline --pretty=format:'%C(auto)%h - %C(green)%<(20,trunc)%an%C(auto)%<(40,trunc)%s'
+  log-15 = log -n15 --oneline --pretty=format:'%C(auto)%h - %C(green)%<(20,trunc)%an%C(auto)%<(40,trunc)%s'
+  log-20 = log -n20 --oneline --pretty=format:'%C(auto)%h - %C(green)%<(20,trunc)%an%C(auto)%<(40,trunc)%s'
+  log-25 = log -n20 --oneline --pretty=format:'%C(auto)%h - %C(green)%<(20,trunc)%an%C(auto)%<(40,trunc)%s'
+  br = for-each-ref --sort=-committerdate refs/heads/ --format='\
+%(HEAD) \
+%(if)%(HEAD)%(then)%(color:green)%(end)\
+%(align:left,30)%(refname:short)%(end)\
+%(color:reset)\
+%(color:yellow)%(objectname:short)%(color:reset) \
+%(color:magenta)%(align:left,25)%(authorname)%(end)%(color:reset)\
+%(if)%(upstream)%(then)\
+[%(color:blue)%(upstream:short)%(color:reset) \
+%(if)%(upstream:track,nobracket)%(then): %(color:red)%(upstream:track,nobracket)%(color:reset)%(end)]\
+%(else)\
+[no upstream]\
+%(end) \
+%(subject)'
+
+
+[grep]
+  color = always
+  lineNumber = true
+
+[user]
+  name = Hieu
+  email = hyhieu@gmail.com
+
+[diff]
+  ignoreSpaceAtEol = true
+  ignoreSpaceChange = true
+
