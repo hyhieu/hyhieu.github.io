@@ -1,0 +1,58 @@
+##### # Hieu's PS-1 config for ZSH
+##### #
+##### # Requirements: git, tmux
+
+# Enable prompt substitution for dynamic evaluation
+setopt PROMPT_SUBST
+
+# Function to display Conda environment
+parse_conda() {
+  if [[ -n "$CONDA_PREFIX" ]]; then
+    local conda_env_name=$(basename "$CONDA_PREFIX")
+    echo " [🐍 $conda_env_name]"
+  else
+    echo ""
+  fi
+}
+
+# Function to get current Git branch
+parse_git_branch() {
+  local branch=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+  if [[ -n "$branch" ]]; then
+    echo " [🐙 $branch]"
+  else
+    echo ""
+  fi
+}
+
+# Function to list tmux sessions
+tmux_sessions() {
+  local tmux_out=$(tmux ls 2>/dev/null | awk -F: '{print $1}' | paste -sd, -)
+  if [[ -n "$tmux_out" ]]; then
+    echo "[💻 tmux: $tmux_out] "
+  else
+    echo ""
+  fi
+}
+
+# Construct the prompt
+PS1='%B%F{cyan}%n%f %F{magenta}%m%f %F{blue}%~%f%F{red}$(parse_git_branch)%f%F{green}$(parse_conda)%f%B%F{white}$%f '
+
+# History settings
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+HISTSIZE=1000000
+HISTFILESIZE=1000000
+HISTFILE=${HOME}/.all_history  
+
+# Ensure history is saved and reloaded for each prompt
+precmd() {
+    fc -A                    # Append history to file
+    fc -R                    # Reload history from file
+}
+
+# Color and alias settings
+export CLICOLOR=1
+alias ls="ls -laG"           # Use -G for color on macOS
+alias diff="git diff --no-index --color"
