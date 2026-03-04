@@ -813,6 +813,10 @@
         headerRow.appendChild(corner);
 
         const dayHeaders = [];
+        const weekdayFmt = new Intl.DateTimeFormat("en-US", {
+          timeZone: timezone,
+          weekday: "short"
+        });
         for (let dayOffset = 0; dayOffset < DAYS_TO_SHOW; dayOffset += 1) {
           const parts = addDaysToDateParts(weekStart.year, weekStart.month, weekStart.day, dayOffset);
           const startOfDayUtc = zonedDateTimeToUtc(parts.year, parts.month, parts.day, 0, 0, timezone);
@@ -824,7 +828,13 @@
             day: "2-digit"
           });
           header.textContent = dayFmt.format(startOfDayUtc);
-          dayHeaders.push(parts);
+          const weekday = weekdayFmt.format(startOfDayUtc);
+          dayHeaders.push({
+            year: parts.year,
+            month: parts.month,
+            day: parts.day,
+            isWeekend: weekday === "Sat" || weekday === "Sun"
+          });
           headerRow.appendChild(header);
         }
         grid.appendChild(headerRow);
@@ -847,6 +857,7 @@
             const endMs = slotEnd.getTime();
             const vnParts = getDatePartsInTimeZone(slotStart, "Asia/Ho_Chi_Minh");
             const isRestTimeInVn = vnParts.hour < 6 || vnParts.hour >= 18;
+            const isWeekend = Boolean(day.isWeekend);
 
             const cell = document.createElement("td");
             const button = document.createElement("button");
@@ -861,7 +872,7 @@
               button.disabled = true;
             } else {
               button.classList.add("free");
-              if (isRestTimeInVn) {
+              if (isRestTimeInVn || isWeekend) {
                 button.classList.add("rest");
               }
               button.addEventListener("click", (event) => {
