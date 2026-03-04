@@ -71,7 +71,7 @@
       .booking-grid th.time-col {
         left: 0;
         z-index: 3;
-        width: 76px;
+        width: 130px;
       }
 
       .booking-grid td.time-col {
@@ -83,7 +83,7 @@
         padding-right: 6px;
         font-size: 10px;
         color: var(--muted);
-        width: 76px;
+        width: 130px;
       }
 
       .slot {
@@ -284,6 +284,13 @@
 
       function pad(number) {
         return String(number).padStart(2, "0");
+      }
+
+      function formatHourMinute(totalMinutes) {
+        const normalized = ((totalMinutes % (24 * 60)) + 24 * 60) % (24 * 60);
+        const hour = Math.floor(normalized / 60);
+        const minute = normalized % 60;
+        return `${hour}:${pad(minute)}`;
       }
 
       function parseDateInput(yyyyMmDd) {
@@ -844,7 +851,7 @@
           const row = document.createElement("tr");
           const timeCell = document.createElement("td");
           timeCell.className = "time-col";
-          timeCell.textContent = `${pad(Math.floor(minute / 60))}:${pad(minute % 60)}`;
+          timeCell.textContent = `${formatHourMinute(minute)} - ${formatHourMinute(minute + SLOT_MINUTES)}`;
           row.appendChild(timeCell);
 
           for (let dayIndex = 0; dayIndex < DAYS_TO_SHOW; dayIndex += 1) {
